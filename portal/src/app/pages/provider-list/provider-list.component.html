@@ -1,0 +1,81 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Current providers</mat-card-title>
+    <mat-card-subtitle>Used to access cloud and storage providers</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- div style="float:right;"-->
+<table mat-table [dataSource]=dataSource matSort class="mat-elevation-z8">
+
+  <!-- Checked Column -->
+  <ng-container matColumnDef="checked">
+      <th mat-header-cell *matHeaderCellDef>Check</th>
+      <mat-cell *matCellDef="let element">
+        <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header
+      width="50px">
+      ID
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header width="75px"> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Key Column -->
+  <ng-container matColumnDef="key">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Key
+    </th>
+    <td mat-cell *matCellDef="let element"
+      style="white-space: normal; word-wrap: break-word; max-width: 150px;margin-right: 5px;">
+
+      {{element.key}}
+
+    </td>
+  </ng-container>
+
+  <!-- Region Column -->
+  <ng-container matColumnDef="region">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header width="75px">
+      Region
+    </th>
+    <td mat-cell *matCellDef="let element" style="margin-left:5px;"> {{element.region}} </td>
+  </ng-container>
+
+  <!-- Endpoint Column -->
+  <ng-container matColumnDef="endpoint">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Endpoint
+    </th>
+    <td mat-cell *matCellDef="let element" style="margin-left: 5px;"> {{element.endpoint}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Actions
+    </th>
+  <mat-cell *matCellDef="let row" >
+      <mat-icon aria-hidden="false" aria-label="edit selected items" color="primary">edit</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="delete selected items" color="warn">delete</mat-icon>
+  </mat-cell>
+</ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button
+     (click)="openProvider()"
+     color="primary">New</button>
+  </mat-card-actions>
+</mat-card>

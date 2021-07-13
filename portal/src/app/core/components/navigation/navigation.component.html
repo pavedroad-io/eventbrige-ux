@@ -1,0 +1,60 @@
+<app-navigation-bar>
+</app-navigation-bar>
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #navigationSidenav class="sidenav"
+			fixedInViewport
+			mode="side"
+      role="navigation"
+      mode="over"
+      opened="true"
+			fixedTopGap="64"
+			autoFocus="false">
+
+    <mat-nav-list>
+
+			<h2 mat-list-item>
+        <!--mat-icon>pageview</mat-icon-->
+        Dashboard
+      </h2>
+			<h2 mat-list-item>
+        Sources
+      </h2>
+
+      <mat-list>
+       <ng-container 
+         *ngFor="let item of eventSourceMenueItems">
+         <mat-list-item>
+            <span>{{ item.title }}</span>
+           </mat-list-item>
+       </ng-container>
+      </mat-list>
+
+			<h2 mat-list-item>
+        Monitoring
+      </h2>
+
+			<h2 mat-list-item>
+        Configure
+      </h2>
+
+      <mat-list style="margin-top:0px;">
+       <ng-container 
+         *ngFor="let item of configureMenuItems">
+         <mat-list-item on-click="openComponent(item.route)">
+            <span>{{ item.title }}</span>
+           </mat-list-item>
+       </ng-container>
+      </mat-list>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content style="margin-top: 64px;">
+    <!-- Add Content Here -->
+		<router-outlet></router-outlet>
+
+ 	</mat-sidenav-content>
+
+</mat-sidenav-container>
+

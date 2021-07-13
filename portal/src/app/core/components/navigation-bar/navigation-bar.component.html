@@ -1,0 +1,41 @@
+<mat-toolbar color="primary" class="navigation-bar">
+
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="toggleSideNav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <span class="toolbar-title"> {{ APP_TOOLBAR_TITLE }} </span>
+
+		<span class="toolbar-right-align">
+
+          <button mat-icon-button>
+            <mat-icon>settings</mat-icon>
+          </button>
+
+          <button mat-icon-button>
+            <mat-icon>help_outline</mat-icon>
+          </button>
+
+          <button mat-icon-button [matMenuTriggerFor]="auth">
+            <mat-icon>person_outline</mat-icon>
+          </button>
+          <mat-menu #auth="matMenu">
+
+              <user-profile>
+              </user-profile>
+
+            <mat-divider></mat-divider>
+            <mat-divider></mat-divider>
+
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>Sign out</span>
+            </button>
+
+          </mat-menu>
+		</span>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>

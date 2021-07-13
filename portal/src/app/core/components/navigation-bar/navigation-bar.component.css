@@ -1,0 +1,21 @@
+.toolbar-title {
+  margin: 0;
+	padding: 0;
+}
+
+.navigation-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 988;
+}
+
+.toolbar-right-align {
+	text-align: right;
+	flex: 1 1 auto;
+}
+
+.mat-drawer-backdrop.mat-drawer-shown {
+    visibility: hidden !important;
+}

@@ -1,0 +1,16 @@
+<p>
+<button (click)="auth.loginWithRedirect()">Log in</button>
+
+<button (click)="auth.logout({ returnTo: 'http://127.0.0.1:4200' })">
+        Log out
+</button>
+</p>
+
+<ul *ngIf="auth.user$ | async as user">
+      <li>{{ user.name }}</li>
+      <li>{{ user.email }}</li>
+      <li>{{ user.created_at }}</li>
+      <li>{{ user.updated_at }}</li>
+      <li>{{ user.last_ip }}</li>
+      <li>{{ user.last_login }}</li>
+</ul>

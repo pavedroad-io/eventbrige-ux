@@ -5,17 +5,6 @@ import { catchError, map, tap, retry } from 'rxjs/operators';
 
 import { Customers } from '../schemas/customers';
 
-/*
-export interface ICustomerResponse {
-	id: string;
-  created: string;
-  updated: string;
-	name: string;
-  key: string;
-
-}
-*/
-
 @Injectable({providedIn: 'root'})
 export class CustomerService {
 	private url: string = 'http://localhost:8081/api/v1/namespace/pavedroad/customers';

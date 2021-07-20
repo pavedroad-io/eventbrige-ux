@@ -1,0 +1,82 @@
+<div class="container">
+  <div [hidden]="submitted">
+  <h1 *ngIf="isAddMode">Add log source</h1>
+  <h1 *ngIf="!isAddMode">Edit log source</h1>
+  <h2>Customer {{customer.name}}</h2>
+
+
+  <form #logitemForm="ngForm" (ngSubmit)="onSubmit(logitemForm)">
+    <div class="form-group">
+      <label for="name">Bucket</label>
+      <input type="text" class="form-control" id="name" required name="name"
+       [(ngModel)]="logitem.name" #name="ngModel" placeholder="your bucket name">
+      <mat-hint>Use the S3 bucket your logs are stored in as the event source</mat-hint>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert" >
+        Bucket is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Provider</label>
+      <mat-select [(value)]="providerSelected" [formControl]="providerControl" required name="selected">
+        <mat-option *ngFor="let p of customer.providers" [value]="p">
+           {{p.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="providerControl.hasError('required')">
+          Please choose an provider</mat-error>
+    </div>
+
+    <!-- div class="form-group" -->
+    <div>
+    <mat-form-field>
+      <label for="name">Log format</label>
+      <mat-select [(value)]="formatSelected" name="formatselected"
+        [(ngModel)]="logitem.logFormat" #formatselected="ngModel">
+        <mat-option value="s3" selected>S3</mat-option>
+        <mat-option value="w3c">W3C</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    
+     <div>
+    <mat-slide-toggle id="bucket" name="bucket" [(ngModel)]="logitem.pruneAfterProcessing">
+      Prune after processing?
+    </mat-slide-toggle>
+    </div>
+
+    <div class="form-group">
+      <h2>Filter log lines to event on</h2>
+      <h3>Using S3 operation field</h3>
+
+      <label for="api">API type</label>
+      <input type="text" class="form-control" id="apitype" name="apitype"
+       [(ngModel)]="logitem.filterevents.matchedAPI"
+       (ngModelChange)="logitem.filterevents.matchedAPI = $event.toUpperCase()"
+       #apitype="ngModel" placeholder="REST,SOAP">
+       <mat-hint>A command separated list of API method Rest or Soap</mat-hint>
+
+      <label for="httpmethods">HTTP Methods</label>
+      <input type="text" class="form-control" id="httpmethods" name="httpmethods"
+       [(ngModel)]="logitem.filterevents.matchedHTTPMethods"
+       (ngModelChange)="logitem.filterevents.matchedHTTPMethods = $event.toUpperCase()"
+       #httpmethods="ngModel" placeholder="GET,POST,PUT etc">
+      <mat-hint>A command separated list of HTTP methods</mat-hint>
+
+      <label for="resourcetype">Resource types</label>
+      <input type="text" class="form-control" id="resourcetype" name="resourcetype"
+       [(ngModel)]="logitem.filterevents.matchedResouceTypes"
+       (ngModelChange)="logitem.filterevents.matchedResouceTypes = $event.toUpperCase()"
+       #resourcetype="ngModel" placeholder="OBJECT, etd">
+      <mat-hint>A command separated object types</mat-hint>
+
+    </div>
+
+    <button [disabled]="logitemForm.form.invalid"
+      type="submit" class="btn btn-primary">
+      {{buttonMode}}
+    </button>
+
+    </form>
+  </div>
+</div>

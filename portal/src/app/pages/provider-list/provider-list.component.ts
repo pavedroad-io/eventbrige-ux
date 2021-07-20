@@ -6,16 +6,19 @@ import { MatSort} from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationEnd, Router } from '@angular/router';
 
+const sleep = (milliseconds) => {
+ return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
 
 @Component({
   selector: 'app-provider-list',
   templateUrl: './provider-list.component.html',
   styleUrls: ['./provider-list.component.css']
 })
-export class ProviderListComponent implements OnInit {
 
-  customers: Customers[] = [];
-  customer: Customers;
+export class ProviderListComponent implements OnInit {
+  customer = new Customers();
 
   dataSource;
 
@@ -28,39 +31,52 @@ export class ProviderListComponent implements OnInit {
     'endpoint',
     'actions'];
 
-  constructor(private cs: CustomerService,
+  constructor(private customerds: CustomerService,
              private router: Router) {
   }
 
   ngOnInit(): void {
-    this.dataSource = new(MatTableDataSource)
-    this.getCustomer();
-    this.getCustomers();
-  }
-
-  getCustomers(): void {
-    this.cs.getCustomers()
-    .subscribe(customers => {
-      this.customers = customers;
-      this.dataSource = new MatTableDataSource(this.customer.providers);
-    });
-  }
-
-  getCustomer(): void {
-    console.log("Customer: ", this.customer);
-    this.cs.getCustomer("e8888f86-e8d0-48e2-a9d8-0e456c8abe27")
-    .subscribe(data => {
+    this.customerds.IsReady();
+    /*
+    this.customerds.share.subscribe((data: any) => {
       this.customer = data;
+      console.log("subscribe: ", this.customer);
+      this.dataSource = new MatTableDataSource(this.customer.providers);
+      this.dataSource.sort = this.sort;
+      });
+     */
+    sleep(500).then(() => {
+      this.customerds.share.subscribe((data: any) => {
+      this.customer = data;
+      this.dataSource = new MatTableDataSource(this.customer.providers);
+      this.dataSource.sort = this.sort;
+      });
     });
+
   }
 
   @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-
   public openProvider() {
     this.router.navigate(['provider']);
+  }
+
+  public editProvider(event) {
+//    console.log(event);
+  }
+
+  public deleteProvider(event) {
+    // Add alert box
+    this.customer.providers.forEach((item, index)=>{
+      if (item.name ==event.name)
+        this.customer.providers.splice(index,1);
+    });
+    this.customerds.UpdateCustomer(this.customer);
+//    console.log(event);
+//    console.log(this.customer.providers);
+
+  }
+
+  ngAfterViewInit() {
   }
 }

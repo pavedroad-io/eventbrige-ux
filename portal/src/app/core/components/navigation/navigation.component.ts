@@ -12,11 +12,15 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class NavigationComponent {
 	eventSourceMenueItems = [
-		{title: "S3 Buckets", icon: "cloud_circle", route: ""},
-		{title: "Azure events", icon: "bolt", route: ""},
-		{title: "Slack", icon: "chat", route: ""},
+		{title: "S3 Buckets", icon: "cloud_circle", route: "loglist", disabled: false},
+		{title: "Azure events", icon: "bolt", route: "", disabled: true},
+		{title: "Slack", icon: "chat", route: "", disabled: true},
 	];
 
+	tirggerSourceMenuItems = [
+		{title: "AWS Lambda", icon: "cloud_circle", route: "lambdalist", disabled: false},
+		{title: "GitHub actions", icon: "bolt", route: "", disabled: true},
+	];
 	dashboardsMenuItems = [
 		{title: "Activity", icon: "build", route: ""},
 		{title: "Providers", icon: "build", route: ""},

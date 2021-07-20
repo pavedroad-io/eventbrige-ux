@@ -1,22 +1,27 @@
-<app-navigation-bar>
-</app-navigation-bar>
+<app-navigation-bar></app-navigation-bar>
 <mat-sidenav-container class="sidenav-container">
-
   <mat-sidenav #navigationSidenav class="sidenav"
+			fixedInViewport
+			mode="side"
+      role="navigation"
+			fixedTopGap="64"
+			autoFocus="false">
+
+  <!-- mat-sidenav #navigationSidenav class="sidenav"
 			fixedInViewport
 			mode="side"
       role="navigation"
       mode="over"
       opened="true"
 			fixedTopGap="64"
-			autoFocus="false">
+			autoFocus="false" -->
 
-    <mat-nav-list>
+    <mat-nav-list style="margin-left: 5px;">
 
 			<h2 mat-list-item>
-        <!--mat-icon>pageview</mat-icon-->
         Dashboard
       </h2>
+
 			<h2 mat-list-item>
         Sources
       </h2>
@@ -24,11 +29,25 @@
       <mat-list>
        <ng-container 
          *ngFor="let item of eventSourceMenueItems">
-         <mat-list-item>
+         <mat-list-item disabled={{item.disabled}} on-click="openComponent(item.route)">
             <span>{{ item.title }}</span>
            </mat-list-item>
        </ng-container>
       </mat-list>
+
+			<h2 mat-list-item>
+        Triggers
+      </h2>
+
+      <mat-list>
+       <ng-container 
+         *ngFor="let item of tirggerSourceMenuItems">
+         <mat-list-item disabled={{item.disabled}} on-click="openComponent(item.route)">
+            <span>{{ item.title }}</span>
+           </mat-list-item>
+       </ng-container>
+      </mat-list>
+
 
 			<h2 mat-list-item>
         Monitoring

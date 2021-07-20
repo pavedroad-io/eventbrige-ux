@@ -1,1 +1,28 @@
-<p>scheduler-config works!</p>
+<div class="container">
+  <div [hidden]="submitted">
+
+
+    <form #configForm="ngForm" (ngSubmit)="onSubmit(configForm)">
+      <div class="form-group">
+
+        <label for="poll">Poll interval</label>
+        <input type="number" class="form-control" id="poll"
+               required name="poll"
+               [(ngModel)]="pollInterval" #name="ngModel">
+      </div>
+
+      <div class="form-group">
+        <label for="numberOfWorkers">Number of workers</label>
+        <input type="number" class="form-control" id="numberOfWorkers"
+               required name="numberOfWorkers"
+               [(ngModel)]="numberOfWorkers" #name="ngModel">
+      </div>
+
+      <button [disabled]="configForm.form.invalid"
+        type="submit" class="btn btn-primary">
+        Update
+      </button>
+    </form>
+  </div>
+</div>
+

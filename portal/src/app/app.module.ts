@@ -32,6 +32,12 @@ import { SchedulerConfigComponent } from './pages/scheduler-config/scheduler-con
 // Services
 import { CustomerService } from './services/customers.service';
 import { ProviderComponent } from './pages/provider/provider.component';
+import { S3loglistComponent } from './pages/sources/s3loglist/s3loglist.component';
+import { LambdaComponent } from './pages/triggers/lambda/lambda.component';
+import { WorkerpoolComponent } from './pages/config/workerpool/workerpool.component';
+import { WebhookComponent } from './pages/config/webhook/webhook.component';
+import { S3logitemComponent } from './pages/sources/s3logitem/s3logitem.component';
+import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.component';
 
 
 @NgModule({
@@ -40,7 +46,13 @@ import { ProviderComponent } from './pages/provider/provider.component';
     LoginComponent,
     ProviderListComponent,
     SchedulerConfigComponent,
-    ProviderComponent
+    ProviderComponent,
+    S3loglistComponent,
+    LambdaComponent,
+    WorkerpoolComponent,
+    WebhookComponent,
+    S3logitemComponent,
+    LambdaListComponent
   ],
   imports: [
     AppRoutingModule,

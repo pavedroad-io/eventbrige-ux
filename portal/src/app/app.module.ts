@@ -18,6 +18,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+
+
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Http support
@@ -38,6 +43,10 @@ import { WorkerpoolComponent } from './pages/config/workerpool/workerpool.compon
 import { WebhookComponent } from './pages/config/webhook/webhook.component';
 import { S3logitemComponent } from './pages/sources/s3logitem/s3logitem.component';
 import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.component';
+import { NewComponent } from './pages/customer/new/new.component';
+import { PrivacyComponent } from './pages/legal/privacy/privacy.component';
+import { TermsComponent } from './pages/legal/terms/terms.component';
+import { SignupComponent } from './pages/customer/signup/signup.component';
 
 
 @NgModule({
@@ -52,7 +61,11 @@ import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.co
     WorkerpoolComponent,
     WebhookComponent,
     S3logitemComponent,
-    LambdaListComponent
+    LambdaListComponent,
+    NewComponent,
+    PrivacyComponent,
+    TermsComponent,
+    SignupComponent
   ],
   imports: [
     AppRoutingModule,
@@ -71,12 +84,14 @@ import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.co
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule
 
   ],
-  providers: [],
+  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

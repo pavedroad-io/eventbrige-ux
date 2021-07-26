@@ -12,6 +12,10 @@ import { S3logitemComponent } from './pages/sources/s3logitem/s3logitem.componen
 
 import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.component';
 import { LambdaComponent } from './pages/triggers/lambda/lambda.component';
+import { SignupComponent } from './pages/customer/signup/signup.component';
+
+
+
 const routes: Routes = [
   {
   path: '',
@@ -76,6 +80,12 @@ const routes: Routes = [
   {
   path: 'schedulerConfig',
   component: SchedulerConfigComponent,
+  pathMatch: 'full',
+  canActivate: [AuthGuard]
+  },
+  {
+  path: 'signup',
+  component: SignupComponent,
   pathMatch: 'full',
   canActivate: [AuthGuard]
   },

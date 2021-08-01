@@ -18,8 +18,9 @@
                [(ngModel)]="numberOfWorkers" #name="ngModel">
       </div>
 
-      <button [disabled]="configForm.form.invalid"
-        type="submit" class="btn btn-primary">
+      <button mat-raised-button color="primary"
+        [disabled]="configForm.form.invalid"
+        type="submit">
         Update
       </button>
     </form>

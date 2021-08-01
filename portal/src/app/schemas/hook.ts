@@ -3,8 +3,8 @@ export class Hook {
   host: string;
   port: string;
   constructor(){
-    this.name = "";
-    this.host = "";
-    this.port = "";
+    this.name = "eventbridge";
+    this.host = "localhost";
+    this.port = "12002";
   }
 }

@@ -75,8 +75,9 @@
 
       </div>
 
-      <button [disabled]="providerForm.form.invalid"
-        type="submit" class="btn btn-primary">
+      <button mat-raised-button color="primary"
+        [disabled]="providerForm.form.invalid"
+        type="submit">
         {{buttonMode}}
       </button>
     </form>

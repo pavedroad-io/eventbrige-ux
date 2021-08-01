@@ -25,17 +25,20 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 // Http support
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+// Import the HTTP interceptor from the Auth0 Angular SDK
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+
+// Charting modules
+import { ChartsModule } from 'ng2-charts';
 
 // PR modules
 import { CoreModule } from './core/core.module';
 import { ProviderListComponent } from './pages/provider-list/provider-list.component';
 import { SchedulerConfigComponent } from './pages/scheduler-config/scheduler-config.component';
-//import { DashboardComponent } from './dashboard/dashboard.component';
-
-// Services
-import { CustomerService } from './services/customers.service';
 import { ProviderComponent } from './pages/provider/provider.component';
 import { S3loglistComponent } from './pages/sources/s3loglist/s3loglist.component';
 import { LambdaComponent } from './pages/triggers/lambda/lambda.component';
@@ -43,11 +46,21 @@ import { WorkerpoolComponent } from './pages/config/workerpool/workerpool.compon
 import { WebhookComponent } from './pages/config/webhook/webhook.component';
 import { S3logitemComponent } from './pages/sources/s3logitem/s3logitem.component';
 import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.component';
-import { NewComponent } from './pages/customer/new/new.component';
 import { PrivacyComponent } from './pages/legal/privacy/privacy.component';
 import { TermsComponent } from './pages/legal/terms/terms.component';
 import { SignupComponent } from './pages/customer/signup/signup.component';
+import { UsermgtComponent } from './pages/users/usermgt/usermgt.component';
 
+// Services
+import { CustomerService } from './services/customers.service';
+import { OrganizationService } from './services/organization.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NewserviceComponent } from './pages/services/newservice/newservice.component';
+import { SourceBreakdownComponent } from './charts/source-breakdown/source-breakdown.component';
+import { SourcesComponent } from './charts/sources/sources.component';
+import { EventsGenerateComponent } from './charts/events-generate/events-generate.component';
+import { TriggersGeneratedComponent } from './charts/triggers-generated/triggers-generated.component';
+import { ResourcesConsummedComponent } from './charts/resources-consummed/resources-consummed.component';
 
 @NgModule({
   declarations: [
@@ -62,21 +75,50 @@ import { SignupComponent } from './pages/customer/signup/signup.component';
     WebhookComponent,
     S3logitemComponent,
     LambdaListComponent,
-    NewComponent,
     PrivacyComponent,
     TermsComponent,
-    SignupComponent
+    SignupComponent,
+    UsermgtComponent,
+    DashboardComponent,
+    NewserviceComponent,
+    SourceBreakdownComponent,
+    SourcesComponent,
+    EventsGenerateComponent,
+    TriggersGeneratedComponent,
+    ResourcesConsummedComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
- //   DashboardComponent,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
       domain: 'pavedroad.us.auth0.com',
-      clientId: 'mRgGOTIpgCKY8TRxcnvsRGxknKxut3RL'
+      clientId: 'mRgGOTIpgCKY8TRxcnvsRGxknKxut3RL',
+
+      // Request this audience at user authentication time
+      audience: 'https://pavedroad.us.auth0.com/api/v2/',
+
+      // Request this scope at user authentication time
+      scope: 'read:current_user',
+
+      // Specify configuration for the interceptor
+      httpInterceptor: {
+        allowedList: [
+        {
+          // Match any request that starts 'https://pavedroad.us.auth0.com/api/v2/' (note the asterisk)
+          uri: 'https://pavedroad.us.auth0.com/api/v2/*',
+          tokenOptions: {
+            // The attached token should target this audience
+            audience: 'https://pavedroad.us.auth0.com/api/v2/',
+
+            // The attached token should have these scopes
+            scope: 'read:current_user'
+          }
+        }]
+      }
     }),
+    ChartsModule,
     CoreModule,
     HttpClientModule,
     MatGridListModule,
@@ -91,7 +133,8 @@ import { SignupComponent } from './pages/customer/signup/signup.component';
     ReactiveFormsModule
 
   ],
-  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}],
+  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill', floatLabel: true, hideRequiredMarker: true}},
+   { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

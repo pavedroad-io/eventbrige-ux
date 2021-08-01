@@ -28,28 +28,28 @@
     </div>
 
     <div class="form-group">
-      <label for="name">Provider</label>
-      <mat-select [(value)]="providerSelected" [formControl]="lambdaControl" required name="selected">
-        <mat-option *ngFor="let p of customer.providers" [value]="p">
+      <label for="provider">Provider</label>
+      <mat-select matNativeControl [(ngModel)]="providerSelected" required name="provider">
+        <mat-option value="" selected></mat-option>
+        <mat-option *ngFor="let p of customer.providers" [value]="p.name">
            {{p.name}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="lambdaControl.hasError('required')">
-          Please choose an provider</mat-error>
     </div>
 
     <div class="form-group">
-      <label for="region">AWS region</label>
+      <label for="region">CSP region</label>
       <input type="text" class="form-control" id="region" required name="region"
-       [(ngModel)]="lambdaitem.region" #name="ngModel" placeholder="AWS region your function is deployed in">
-      <mat-hint>A valid AWS region</mat-hint>
+       [(ngModel)]="lambdaitem.region" #name="ngModel" placeholder="CSP region your function is deployed in">
+      <mat-hint>A valid CSP region</mat-hint>
       <div *ngIf="name.invalid" class="alert" >
         Region is required
       </div>
     </div>
 
-    <button [disabled]="lambdaForm.form.invalid"
-      type="submit" class="btn btn-primary">
+    <button mat-raised-button color="primary"
+      [disabled]="lambdaForm.form.invalid"
+      type="submit">
       {{buttonMode}}
     </button>
 

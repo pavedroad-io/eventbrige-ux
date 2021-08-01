@@ -1,0 +1,130 @@
+import { AfterViewInit, Component, OnInit, ViewChild, NgModule } from '@angular/core';
+import { NgForm, FormBuilder, FormGroup, FormControl, Validators, FormArray, FormGroupDirective } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSort} from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
+import { from, Observable } from 'rxjs';
+
+import { Organization } from '../../../schemas/organization';
+import { User } from '../../../schemas/users';
+
+
+@Component({
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
+})
+export class SignupComponent implements OnInit {
+  companyFG: any;
+  userFG: any;
+  users: FormArray;
+  user = new User();
+  dataSource: any;
+  info: Organization = new Organization();
+  titleAlert: string = 'This field is required';
+  post: any = '';
+
+  public displayedColumns: string[] = [
+    'email',
+    'name',
+    'phone',
+    'profile',
+    'role'];
+
+
+
+  constructor(private fb: FormBuilder) {
+     this.companyFG = this.fb.group({
+       id: [' ', Validators.required],
+       name: [' ', Validators.required],
+       address: [' ', Validators.required],
+       city: [' ', Validators.required],
+       state: [' ', Validators.required],
+       zip: [' ', Validators.required],
+       users: this.fb.array([ ])
+     });
+
+     this.userFG = this.fb.group({
+       email: [' ', Validators.required],
+       name: [' ', Validators.required],
+       phone: [' ', Validators.required],
+       profile: [' ', Validators.required],
+       role: [' ', Validators.required]
+     });
+
+
+     this.info.users.push(new User());
+                              
+     //this.dataSource = new MatTableDataSource(this.users.value);
+     this.dataSource = new MatTableDataSource(this.info.users);
+     this.dataSource.sort = this.sort;
+  }
+
+  createUser(): FormGroup {
+    return this.fb.group({
+      name: [' '],
+      email: [' '],
+      phone: [' '],
+      profile: [' '],
+      role: [' ']
+    })
+  }
+
+  newUser(c: User): FormGroup {
+    return this.fb.group({
+      name: [c.name],
+      email: [c.email],
+      phone: [c.phone],
+      profile: [c.profile],
+      role: [c.role]
+    })
+  }
+
+  addUser(f: FormGroupDirective): void {
+    // get the values from the form group
+    var values = this.userFG.value;
+
+    // Create new form array element with values from the form
+    var tmp = this.newUser(values);
+
+    // Get the form arrays users
+    this.users = this.companyFG.get('users') as FormArray;
+
+    // Append to the form array
+    this.users.push(tmp);
+
+    console.log("tmp users: ", tmp);
+
+    // Update our internal company users glass
+    this.info.users = this.users.value;
+
+    // Update our data source for the table
+    this.dataSource = new MatTableDataSource(this.info.users);
+
+
+    // reset the form group
+    var nc = this.createUser().value;
+    // This is such a hack, need to remove ng-invalid calls and
+    // mark as unsubmitted.
+    this.userFG.reset(nc);
+  }
+
+  ngOnInit(): void {
+  }
+  
+  @ViewChild(MatSort) sort: MatSort;
+
+
+  /*
+  get name() {
+    return this.formGroup.get('name') as FormControl
+  }
+ */
+
+  onSubmit(form: NgForm){
+    this.info = this.companyFG.value;
+    console.log("Submitted", this.info);
+  }
+
+}

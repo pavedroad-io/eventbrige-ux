@@ -6,8 +6,21 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { from, Observable } from 'rxjs';
 
-import { Company } from '../../../schemas/company';
-import { Contact } from '../../../schemas/contact';
+import { Customers } from '../../../schemas/customers';
+import { Organization } from '../../../schemas/organization';
+import { User } from '../../../schemas/users';
+import { SaaSService } from '../../../schemas/saas_service';
+import { Billing } from '../../../schemas/billing';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
+
+import { CustomerService } from  '../../../services/customers.service';
+import { OrganizationService } from  '../../../services/organization.service';
+
+
+
+const sleep = (milliseconds) => {
+ return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
 
 
 @Component({
@@ -15,116 +28,113 @@ import { Contact } from '../../../schemas/contact';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
+
 export class SignupComponent implements OnInit {
-  companyFG: any;
-  contactFG: any;
-  contacts: FormArray;
-  contact: Contact = new Contact();
+  org: Organization = new Organization();
+  svc: SaaSService
+
+  eventbridgeConfig: Customers;
   dataSource: any;
-  info: Company = new Company();
+
+  companyFG: any;
   titleAlert: string = 'This field is required';
-  post: any = '';
+  formtitle: string = "Update organization";
+
+  addMode: boolean = true;
+  submitted = false;
+  id: string;
 
   public displayedColumns: string[] = [
-    'email',
     'name',
-    'phone',
-    'profile',
-    'role'];
+    'plan',
+    'created',
+    'configKey',
+    'active'];
 
+  constructor(private fb: FormBuilder,
+             public customerds:CustomerService,
+             public organizationds:OrganizationService,
+             private route: ActivatedRoute,
+             private router: Router) {
 
-
-  constructor(private fb: FormBuilder) {
      this.companyFG = this.fb.group({
-       id: [' ', Validators.required],
+       organizationuuid: [' ', Validators.required],
        name: [' ', Validators.required],
        address: [' ', Validators.required],
        city: [' ', Validators.required],
        state: [' ', Validators.required],
        zip: [' ', Validators.required],
-       contacts: this.fb.array([ ])
+       services: this.fb.array([ ]),
+       members: this.fb.array([ ])
      });
-
-     this.contactFG = this.fb.group({
-       email: [' ', Validators.required],
-       name: [' ', Validators.required],
-       phone: [' ', Validators.required],
-       profile: [' ', Validators.required],
-       role: [' ', Validators.required]
-     });
-
-
-     this.info.contacts.push(new Contact());
-                              
-     //this.dataSource = new MatTableDataSource(this.contacts.value);
-     this.dataSource = new MatTableDataSource(this.info.contacts);
-     this.dataSource.sort = this.sort;
-  }
-
-  createContact(): FormGroup {
-    return this.fb.group({
-      name: [' '],
-      email: [' '],
-      phone: [' '],
-      profile: [' '],
-      role: [' ']
-    })
-  }
-
-  newContact(c: Contact): FormGroup {
-    return this.fb.group({
-      name: [c.name],
-      email: [c.email],
-      phone: [c.phone],
-      profile: [c.profile],
-      role: [c.role]
-    })
-  }
-
-  addContact(f: FormGroupDirective): void {
-    // get the values from the form group
-    var values = this.contactFG.value;
-
-    // Create new form array element with values from the form
-    var tmp = this.newContact(values);
-
-    // Get the form arrays contacts
-    this.contacts = this.companyFG.get('contacts') as FormArray;
-
-    // Append to the form array
-    this.contacts.push(tmp);
-
-    console.log("tmp contact: ", tmp);
-
-    // Update our internal company contacts glass
-    this.info.contacts = this.contacts.value;
-
-    // Update our data source for the table
-    this.dataSource = new MatTableDataSource(this.info.contacts);
-
-
-    // reset the form group
-    var nc = this.createContact().value;
-    // This is such a hack, need to remove ng-invalid calls and
-    // mark as unsubmitted.
-    this.contactFG.reset(nc);
+     
   }
 
   ngOnInit(): void {
+
+    this.id = this.route.snapshot.params['id'];
+    if (!this.id) {
+    //  this.buttonMode = "Add";
+      this.addMode = true;
+      this.formtitle = "Welcome please enter your company information";
+    }
+    else {
+      this.addMode = false;
+      this.formtitle = "Updating your organization";
+     // this.buttonMode = "Update";
+    }
+
+    sleep(250).then (() => {
+      this.customerds.share.subscribe((data: any) => {
+        this.eventbridgeConfig = data;
+      });
+
+     let t = new Date();
+     let eb: SaaSService = {name:"Event orchestrator", plan:"basic", configKey:this.eventbridgeConfig.customersuuid, active: true, updated: t, created: t};
+     this.svc=eb;
+     this.org.services.push(eb);
+
+     let as = <FormArray>this.companyFG.get('services');
+     let ns = new FormControl('eb');
+     ns.setValue(this.svc);
+     as.push(ns)
+
+     this.dataSource = new MatTableDataSource(this.org.services);
+     this.dataSource.sort = this.sort;
+    });
+
   }
   
   @ViewChild(MatSort) sort: MatSort;
 
 
-  /*
-  get name() {
-    return this.formGroup.get('name') as FormControl
-  }
- */
-
   onSubmit(form: NgForm){
-    this.info = this.companyFG.value;
-    console.log("Submitted", this.info);
+    if ( this.addMode ) {
+      this.org = this.companyFG.value;
+      this.organizationds.createOrganization(this.org).subscribe(
+            res => {
+        console.log("New org is: ", res);
+        this.org = res;});
+    } else {
+
+    }
+    this.submitted = true;
+    /*
+    if ( this.isAddMode ) {
+      this.customer.providers.push(this.provider);
+    } else {
+      console.log(this.providerIndex);
+      this.customer.providers[this.providerIndex].name = this.provider.name;
+      this.customer.providers[this.providerIndex].key = this.provider.key;
+      this.customer.providers[this.providerIndex].credentials = this.provider.credentials;
+      this.customer.providers[this.providerIndex].region = this.provider.region;
+      this.customer.providers[this.providerIndex].endpoint = this.provider.endpoint;
+    }
+    this.customerds.Save(this.customer);
+    this.provider = new Provider();
+    form.resetForm();
+    this.router.navigate(['providerList']);
+   */
   }
 
 }

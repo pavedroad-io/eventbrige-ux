@@ -1,25 +1,29 @@
-import { Contact } from './contact';
+import { User } from './users';
 import { Billing } from './billing';
+import { SaaSService } from './saas_service';
 
-export class Company {
-  id: string
+export class Organization {
+  organizationuuid: string
   name: string
   address: string
   city: string
   state: string
   zip: string
+  services: Array<SaaSService>
 
   created: Date
   updated: Date
 
+
   billingdetails: Billing
-  contacts: Array<Contact>
+  members: Array<User>
 
 
   constructor(){
-    this.contacts = new Array(0);
+    this.members = new Array(0);
+    this.services = new Array(0);
     this.billingdetails = new (Billing);
-    this.id = "";
+    this.organizationuuid = "";
     this.name = "";
     this.address = "";
     this.city = "";

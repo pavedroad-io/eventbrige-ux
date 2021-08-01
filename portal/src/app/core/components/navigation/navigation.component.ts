@@ -35,6 +35,7 @@ export class NavigationComponent {
 
 	configureMenuItems = [
 		{title: "Providers", icon: "apps", route: "providerList"},
+		{title: "Users", icon: "apps", route: "usermgt"},
 		{title: "Schedules", icon: "apps", route: "schedulerConfig"},
 	];
 

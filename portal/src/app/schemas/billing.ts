@@ -1,12 +1,12 @@
-import { Contact } from './contact';
+import { User } from './users';
 
 export class Billing {
   billingPlan: string
 
-  billingContacts: Array<Contact> 
+  billingUsers: Array<User> 
 
   constructor(){
-    this.billingContacts = new Array(0);
+    this.billingUsers = new Array(0);
     billingPlan: "";
     create: new Date();
     updated: new Date();

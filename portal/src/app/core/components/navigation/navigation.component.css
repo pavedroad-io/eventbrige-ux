@@ -27,3 +27,7 @@
   color: mat-color(map-get($theme, accent), darker) !important;
   //margin: 0 $toolbar-title-padding 0 $toolbar-title-padding;
 }
+
+.fivepix {
+    margin: 0 0 5px !important;
+}

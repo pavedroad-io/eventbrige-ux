@@ -18,9 +18,19 @@
 
     <mat-nav-list style="margin-left: 5px;">
 
-			<h2 mat-list-item>
-        Dashboard
-      </h2>
+      <h2 mat-list-item  class="fivepix;" on-click="openComponent('dashboard')">Dashboard</h2>
+
+      <h2 mat-list-item style="margin-bottom: 5px;" class="fivepix;">Create</h2>
+
+      <mat-list>
+       <ng-container 
+         *ngFor="let item of createMenuItems">
+         <mat-list-item on-click="openComponent(item.route)" *ngIf=!item.disabled>
+            <span>{{ item.title }}</span>
+           </mat-list-item>
+       </ng-container>
+      </mat-list>
+
 
 			<h2 mat-list-item>
         Sources
@@ -29,7 +39,7 @@
       <mat-list>
        <ng-container 
          *ngFor="let item of eventSourceMenueItems">
-         <mat-list-item disabled={{item.disabled}} on-click="openComponent(item.route)">
+         <mat-list-item *ngIf=!item.disabled on-click="openComponent(item.route)">
             <span>{{ item.title }}</span>
            </mat-list-item>
        </ng-container>
@@ -42,25 +52,21 @@
       <mat-list>
        <ng-container 
          *ngFor="let item of tirggerSourceMenuItems">
-         <mat-list-item disabled={{item.disabled}} on-click="openComponent(item.route)">
+         <mat-list-item *ngIf=!item.disabled  on-click="openComponent(item.route)">
             <span>{{ item.title }}</span>
            </mat-list-item>
        </ng-container>
       </mat-list>
 
 
-			<h2 mat-list-item>
-        Monitoring
-      </h2>
-
-			<h2 mat-list-item>
+      <h2 mat-list-item>
         Configure
       </h2>
 
       <mat-list style="margin-top:0px;">
        <ng-container 
          *ngFor="let item of configureMenuItems">
-         <mat-list-item on-click="openComponent(item.route)">
+         <mat-list-item *ngIf=!item.disabled on-click="openComponent(item.route)">
             <span>{{ item.title }}</span>
            </mat-list-item>
        </ng-container>

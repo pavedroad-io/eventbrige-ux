@@ -1,4 +1,4 @@
-import { Company } from './company';
+import { Organization } from './organization';
 import { Provider } from './provider';
 import { Configuration } from './configuration';
 import { Log } from './log';

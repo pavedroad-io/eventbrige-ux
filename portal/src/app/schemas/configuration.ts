@@ -19,12 +19,12 @@ export class Configuration {
     this.dependencies = new (Dependencies);
     this.triggers = new (Triggers);
 
-    this.name = "";
-    this.environment = "";
-    this.version = "";
-    this.kubectx = "";
-    this.manifests = "";
-    this.templates = "";
+    this.name = "PavedRoad generated";
+    this.environment = "dev";
+    this.version = "1.0.0";
+    this.kubectx = "microk8s";
+    this.manifests = "./manifest";
+    this.templates = "./tpl";
   }
   
 }

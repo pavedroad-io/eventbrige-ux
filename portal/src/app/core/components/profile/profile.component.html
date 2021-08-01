@@ -1,19 +1,28 @@
 <div *ngIf="auth.user$ | async as user">
-  <div class="row align-items-center profile-header">
-    <div class="col-md-2 mb-3">
-      <img
-        [src]="user.picture"
-        alt="User's profile picture"
-        class="rounded-circle img-fluid profile-picture"
-      />
+  <mat-card>
+    <mat-card-header>
+      <img mat-card-avatar src={{user.picture}} alt={{user.nickname}}>
+      <mat-card-title>{{ user.name}}</mat-card-title>
+      <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+    </mat-card-header>
+  <mat-card-content>
+    <div>
+      <h2>Organization ID</h2>
+      <span *ngIf="fullProfile.app_metadata != undefined">
+        {{fullProfile.app_metadata.pr_customer_id}}
+      </span>
     </div>
-    <div class="col-md text-center text-md-left">
-      <h2>{{ user.name }}</h2>
-      <p class="lead text-muted">{{ user.email }}</p>
+    <div>
+      <h2>Orchestrator ID</h2>
+      <span *ngIf="fullProfile.app_metadata != undefined">
+        {{fullProfile.app_metadata.eventbridge_customer_id}}
+      </span>
     </div>
-  </div>
-
-  <div class="row" *ngIf="profileJson">
-    <pre class="col-12 text-light bg-dark p-4">{{ profileJson }}</pre>
-  </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <h2>Follow</h2>
+    <button mat-raised-button color=primary>GitHub</button>
+    <button mat-raised-button color=primary>Linkedin</button>
+  </mat-card-actions>
+  </mat-card>
 </div>

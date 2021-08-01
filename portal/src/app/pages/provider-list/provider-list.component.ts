@@ -47,9 +47,9 @@ export class ProviderListComponent implements OnInit {
      */
     sleep(500).then(() => {
       this.customerds.share.subscribe((data: any) => {
-      this.customer = data;
-      this.dataSource = new MatTableDataSource(this.customer.providers);
-      this.dataSource.sort = this.sort;
+        this.customer = data;
+        this.dataSource = new MatTableDataSource(this.customer.providers);
+        this.dataSource.sort = this.sort;
       });
     });
 

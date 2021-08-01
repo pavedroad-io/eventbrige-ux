@@ -17,14 +17,13 @@
     </div>
 
     <div class="form-group">
-      <label for="name">Provider</label>
-      <mat-select [(value)]="providerSelected" [formControl]="providerControl" required name="selected">
-        <mat-option *ngFor="let p of customer.providers" [value]="p">
+      <label for="provider">Provider</label>
+      <mat-select matNativeControl [(ngModel)]="providerSelected" required name="provider">
+        <mat-option value="" selected></mat-option>
+        <mat-option *ngFor="let p of customer.providers" [value]="p.name">
            {{p.name}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="providerControl.hasError('required')">
-          Please choose an provider</mat-error>
     </div>
 
     <!-- div class="form-group" -->

@@ -8,12 +8,14 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { Routes, RouterModule } from '@angular/router';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { AuthService } from '@auth0/auth0-angular';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 @NgModule({
 	declarations: [
 		NavigationComponent,
 		NavigationBarComponent,
-    ProfileComponent
+    ProfileComponent,
+    DeleteDialogComponent
 	],
   imports: [
 		CommonModule,
@@ -26,7 +28,8 @@ import { AuthService } from '@auth0/auth0-angular';
 		NavigationComponent,
 		RouterModule
 	],
-	providers: []
+	providers: [],
+  entryComponents: [DeleteDialogComponent]
 })
 
 export class CoreModule { }

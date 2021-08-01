@@ -35,7 +35,7 @@ export class ProviderComponent implements OnInit {
       this.customer.providers[this.providerIndex].region = this.provider.region;
       this.customer.providers[this.providerIndex].endpoint = this.provider.endpoint;
     }
-    this.customerds.Save(this.customer);
+    this.customerds.UpdateCustomer(this.customer);
     this.provider = new Provider();
     this.submitted = true;
     form.resetForm();

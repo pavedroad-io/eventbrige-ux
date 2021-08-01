@@ -3,8 +3,8 @@ export class Dependencies {
   eventSourceName: string;
   eventName: string;
   constructor(){
-    this.name = "";
-    this.eventSourceName = "";
-    this.eventName = "";
+    this.name = "eventbridge-dep";
+    this.eventSourceName = "eventbridge";
+    this.eventName = "eventbridge";
   }
 }

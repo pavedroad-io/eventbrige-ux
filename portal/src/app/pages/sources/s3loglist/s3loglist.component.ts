@@ -34,7 +34,6 @@ export class S3loglistComponent implements OnInit {
              private router: Router) {
   }
 
-
   ngOnInit(): void {
     sleep(250).then(() => {
       this.customerds.share.subscribe((data: any) => {
@@ -50,5 +49,14 @@ export class S3loglistComponent implements OnInit {
    public openS3LogItem() {
     this.router.navigate(['logitem']);
   }
+
+   public deleteLogItem(event) {
+      // Add alert box
+      this.customer.logs.forEach((item, index)=>{
+        if (item.name ==event.name)
+          this.customer.logs.splice(index,1);
+      });
+      this.customerds.UpdateCustomer(this.customer);
+    }
 
 }

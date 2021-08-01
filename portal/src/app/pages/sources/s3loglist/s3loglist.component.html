@@ -71,16 +71,15 @@
       Actions
     </th>
   <mat-cell *matCellDef="let element" >
-    <a [routerLink]="['/provider', element.name]">
-      <mat-icon aria-hidden="false" aria-label="edit selected items" 
-       (click)="editProvider(element)" color="primary">
+    <a [routerLink]="['/logitem', element.name]">
+      <mat-icon aria-hidden="false" aria-label="edit selected items" color="primary">
         edit
-        </mat-icon>
+      </mat-icon>
+    </a>
       <mat-icon aria-hidden="false" aria-label="delete selected items"
-       (click)="deleteProvider(element)" color="warn">
+       (click)="deleteLogItem(element)" color="warn">
       delete
       </mat-icon>
-      </a>
   </mat-cell>
 </ng-container>
 

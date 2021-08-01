@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component, EventEmitter, Output, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 
 import { Customers } from '../schemas/customers';
+import { ProfileComponent } from '../core/components/profile/profile.component';
 
 const sleep = (milliseconds) => {
  return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -21,8 +22,10 @@ const httpOptions = {
 export class CustomerService {
 	private url: string = 'http://localhost:8081/api/v1/namespace/pavedroad/customers';
   private idurl: string = this.url + '/';
+  @ViewChild(ProfileComponent) pf: ProfileComponent;
 
-  id: string = "01db995c-2494-41cd-85ae-4a22409bae33";
+  //id: string = "58ec0482-06e3-4925-b170-87e5ecad896a";
+  id: string = "";
   public customer: Customers;
 
   httpResponse: any;
@@ -40,14 +43,14 @@ export class CustomerService {
     return this.updateCustomer(data);
   }
 
-  getdetails(): Observable<Customers> {
+  getdetails() {
     return this.getCustomer(this.id);
   }
 
 	constructor(private http: HttpClient) { 
     this.customer = new Customers();
-    this.customer.customersuuid =  this.id;
-    this.ServiceInit();
+    this.ctx = new BehaviorSubject<any>(this.customer);
+    this.share = this.ctx.asObservable();
 	}
 
   IsReady(): any {
@@ -57,15 +60,6 @@ export class CustomerService {
       }
     });
   }
-
-  ServiceInit(): void {
-    this.getCustomer(this.customer.customersuuid).subscribe((data: any) => {
-      this.customer = data;
-      this.ctx = new BehaviorSubject<any>(this.customer);
-      this.share = this.ctx.asObservable();
-    });
-  }
-
 
  private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) { // A client-side or network error.
@@ -85,14 +79,25 @@ export class CustomerService {
 		 return this.http.get<Customers[]>(this.url+"LIST");
   }
 
-  getCustomer(id: string): Observable<Customers> {
-		 this.httpResponse = this.http.get<Customers>(this.idurl+id);
-		 return this.httpResponse;
-		 //return this.http.get<Customers>(this.idurl+id);
+  getCustomer(id: string) {
+		 this.http.get<Customers>(this.idurl+id).subscribe(( data: any) => {
+        this.customer=data;
+        this.id = this.customer.customersuuid;
+        this.ctx.next(this.customer);
+        //console.log("Get customer: ", this.customer);
+      }); 
   }
 
   createCustomer(post: Customers) {
-    return this.http.post<Customers>(this.url, JSON.stringify(post)).pipe(catchError(this.handleError));
+    this.http.post<Customers>(this.url, JSON.stringify(post)).pipe(catchError(this.handleError))
+    .subscribe(( data: any) => {
+      this.customer=data;
+      this.id = this.customer.customersuuid;
+      this.ctx.next(this.customer);
+      console.log(this.customer);
+    }); 
+    
+    //return this.http.post<Customers>(this.url, JSON.stringify(post)).pipe(catchError(this.handleError));
   }
 
   updateCustomer(post: Customers) {
@@ -101,7 +106,7 @@ export class CustomerService {
       this.idurl+post.customersuuid,
       JSON.stringify(post),
       httpOptions).subscribe((data: any) => {
-           console.log(data);
+           //console.log("PUT: ", data);
          });
   }
 

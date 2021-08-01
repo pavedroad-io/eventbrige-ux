@@ -45,22 +45,22 @@ export class S3logitemComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if ( this.isAddMode ) {
-      console.log(this.logitem);
-      this.logitem.provider=this.providerSelected.name;
+      this.logitem.provider=this.providerSelected;
       this.customer.logs.push(this.logitem);
-      console.log(this.customer);
+    } else {
+      this.updateLogData();
     }
-    this.customerds.Save(this.customer);
-    this.logitem = new Log();
+    this.customerds.UpdateCustomer(this.customer);
     this.submitted = true;
-//    form.resetForm();
     this.router.navigate(['loglist']);
   }
 
   ngOnInit(): void {
-    this.providerSelected = "aws-west";
+    this.providerSelected = "";
     this.formatSelected = "s3";
     this.id = this.route.snapshot.params['id'];
+    this.customer = new Customers();
+    this.logitem = new Log();
 
     if (!this.id) {
       this.buttonMode = "Add";
@@ -68,19 +68,37 @@ export class S3logitemComponent implements OnInit {
     }
     else {
       this.buttonMode = "Update";
-      // Get the index so we now which element in the
-      // array to update when submitted
-      //this.findProvider(this.id);
+      this.isAddMode = false;
     }
 
 
-    this.customer = new Customers();
-    this.logitem = new Log();
     sleep(250).then(() => {
       this.customerds.share.subscribe((data: any) => {
       this.customer = data;
+      if ( !this.isAddMode ) {
+        this.displayLogData();
+      }
       });
     });
+  }
+
+  updateLogData() {
+    for (var i = 0; i < this.customer.logs.length; i++) {
+        if (this.customer.logs[i].name === this.id) {
+          this.logitem.provider=this.providerSelected;
+          this.customer.logs[i]  = this.logitem;
+          return;
+        }
+     }
+  }
+  displayLogData() {
+    for (var i = 0; i < this.customer.logs.length; i++) {
+        if (this.customer.logs[i].name === this.id) {
+          this.logitem = this.customer.logs[i];
+          this.providerSelected = this.customer.logs[i].provider;
+          return;
+        }
+     }
   }
 
 }

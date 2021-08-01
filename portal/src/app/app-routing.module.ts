@@ -13,6 +13,8 @@ import { S3logitemComponent } from './pages/sources/s3logitem/s3logitem.componen
 import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.component';
 import { LambdaComponent } from './pages/triggers/lambda/lambda.component';
 import { SignupComponent } from './pages/customer/signup/signup.component';
+import { UsermgtComponent } from './pages/users/usermgt/usermgt.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -20,6 +22,12 @@ const routes: Routes = [
   {
   path: '',
   component: AppComponent,
+  pathMatch: 'full',
+  canActivate: [AuthGuard]
+  },
+  {
+  path: 'dashboard',
+  component: DashboardComponent,
   pathMatch: 'full',
   canActivate: [AuthGuard]
   },
@@ -78,13 +86,25 @@ const routes: Routes = [
   canActivate: [AuthGuard]
   },
   {
+  path: 'usermgt/:id',
+  component: UsermgtComponent,
+  pathMatch: 'full',
+  canActivate: [AuthGuard]
+  },
+  {
   path: 'schedulerConfig',
   component: SchedulerConfigComponent,
   pathMatch: 'full',
   canActivate: [AuthGuard]
   },
   {
-  path: 'signup',
+  path: 'organization/:id',
+  component: SignupComponent,
+  pathMatch: 'full',
+  canActivate: [AuthGuard]
+  },
+  {
+  path: 'organization',
   component: SignupComponent,
   pathMatch: 'full',
   canActivate: [AuthGuard]

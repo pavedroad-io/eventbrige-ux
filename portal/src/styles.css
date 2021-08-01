@@ -1,4 +1,4 @@
-@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+/* @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');*/
 
 /* Global Styles */
 * {
@@ -44,6 +44,7 @@ button {
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
+
 button:hover {
   background-color: black;
   color: white;
@@ -72,8 +73,13 @@ nav a:hover {
 }
 nav a.active {
   background-color: black;
-  color: white;
 }
+
+.mat-focus-indicator, .mat-menu-item {
+    background-color: transparent!important;
+/*  color: blue;*/
+}
+
 hr {
   margin: 1.5rem 0;
 }
@@ -86,6 +92,11 @@ input[type="text"] {
 .ng-valid[required], .ng-valid.required  {
   border-left: 5px solid #42A948; /* green */
 }
+
+.ng-untouched.ng-pristine.ng-invalid:not(form) {
+   border-left: none; 
+}
+
 
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */

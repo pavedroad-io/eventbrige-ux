@@ -19,7 +19,6 @@ import { User } from '../../../schemas/users';
   templateUrl: './usermgt.component.html',
   styleUrls: ['./usermgt.component.css']
 })
-
 export class UsermgtComponent implements OnInit {
   userFG: FormGroup;
   user = new User();

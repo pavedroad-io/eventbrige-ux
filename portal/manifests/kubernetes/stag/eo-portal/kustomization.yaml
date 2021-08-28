@@ -1,0 +1,12 @@
+
+resources:
+  - eo-portal-deployment.yaml
+  - eo-portal-service.yaml
+
+commonLabels:
+  pavedroad.service: eo-portal
+
+commonAnnotations:
+  pavedroad.roadctl.version: v1beta
+  pavedroad.roadctl.web: www.pavedroad.io
+  pavedroad.roadctl.support: support@pavedroad.io

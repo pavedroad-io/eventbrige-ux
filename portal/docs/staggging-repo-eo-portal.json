@@ -1,0 +1,13 @@
+{
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:us-west-1:400276217548:repository/io.pavedroad.stagging/eo-portal",
+        "registryId": "400276217548",
+        "repositoryName": "io.pavedroad.stagging/eo-portal",
+        "repositoryUri": "400276217548.dkr.ecr.us-west-1.amazonaws.com/io.pavedroad.stagging/eo-portal",
+        "createdAt": 1630175761.0,
+        "imageTagMutability": "MUTABLE",
+        "imageScanningConfiguration": {
+            "scanOnPush": false
+        }
+    }
+}

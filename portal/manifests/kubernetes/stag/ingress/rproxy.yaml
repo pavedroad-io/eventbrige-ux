@@ -1,0 +1,24 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eo-portal-reverse-proxy
+  namespace: ingress-nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - hosts:
+    - eo.pavedroad.io
+    secretName: eo-ingress-tls
+  rules:
+  - host: eo.pavedroad.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: eo-portal
+            port:
+              number: 8800

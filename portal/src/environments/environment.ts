@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  BaseURL: "127.0.0.1:8081",
+  BasePath: "/api/v1/namespace/pavedroad/",
+  OrgEndPoint: "organization" ,
+  EBConfigEndPoint: "customers" ,
+  ManifestEndPoint: "EoManifestMgr" 
+
 };
 
 /*

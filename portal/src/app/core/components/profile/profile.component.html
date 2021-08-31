@@ -8,14 +8,14 @@
   <mat-card-content>
     <div>
       <h2>Organization ID</h2>
-      <span *ngIf="fullProfile.app_metadata != undefined">
-        {{fullProfile.app_metadata.pr_customer_id}}
+      <span *ngIf="fullProfile.app_metadata">
+        {{fullProfile.app_metadata.customer_id}}
       </span>
     </div>
     <div>
       <h2>Orchestrator ID</h2>
-      <span *ngIf="fullProfile.app_metadata != undefined">
-        {{fullProfile.app_metadata.eventbridge_customer_id}}
+      <span *ngIf="fullProfile.app_metadata">
+        {{fullProfile.app_metadata.eventbrid_config_id}}
       </span>
     </div>
   </mat-card-content>

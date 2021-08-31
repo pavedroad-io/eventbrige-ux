@@ -5,11 +5,10 @@ metadata:
   name: eo-portal
 spec:
   ports:
-  - name: "8800"
-    port: 8800
-  - name: "80"
-    port: 80
-    targetPort: 80
+    - protocol: TCP
+      name: "listing-8800-forward-80"
+      port: 8800
+      targetPort: 80
   selector:
     pavedroad.service: eo-portal
   type: NodePort

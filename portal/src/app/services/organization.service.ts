@@ -1,12 +1,14 @@
 
 import { environment} from '../../environments/environment';
-import { Injectable } from '@angular/core';
+import { Injectable,ViewChild, ViewChildren } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 
 import { Customers } from '../schemas/customers';
 import { Organization } from '../schemas/organization';
+
+import { ProfileService } from './profile.service';
 
 const sleep = (milliseconds) => {
  return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -21,8 +23,9 @@ const httpOptions = {
 
 @Injectable({providedIn: 'root'})
 export class OrganizationService {
-	private url: string = environment.OrgBaseURL+environment.BasePath+environment.OrgEndPoint;
+  private url: string = environment.OrgBaseURL+environment.BasePath+environment.OrgEndPoint;
   private idurl: string = this.url + '/';
+  private profile
 
   id: string = "";
   public organization: Organization;
@@ -49,18 +52,12 @@ export class OrganizationService {
     });
   }
 
-	constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient,
+              private profileSvc: ProfileService) { 
     this.organization = new Organization();
     this.organization.organizationuuid =  this.id;
     this.ServiceInit();
-	}
-
-  IsReady(): any {
-    sleep(80).then(() => {
-      if ( this.share !== undefined ) {
-        return true;
-      }
-    });
+    this.ProfileInit();
   }
 
   ServiceInit(): void {
@@ -70,6 +67,14 @@ export class OrganizationService {
       });
     this.ctx = new BehaviorSubject<any>(this.organization);
     this.share = this.ctx.asObservable();
+  }
+
+  ProfileInit(): void {
+   // debugger;
+   sleep(100).then (() => {this.profileSvc.share.subscribe((data: any) => {
+        this.profile = data;
+     });
+   });
   }
 
 
@@ -99,6 +104,7 @@ export class OrganizationService {
 
 
   createOrganization(post: Organization): Observable<any> {
+    this.url=this.url+"?user_idp_tokens="+this.profile.sub
     return this.http.post<Organization>(this.url, JSON.stringify(post));
   }
 

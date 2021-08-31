@@ -54,6 +54,7 @@ import { UsermgtComponent } from './pages/users/usermgt/usermgt.component';
 // Services
 import { CustomerService } from './services/customers.service';
 import { OrganizationService } from './services/organization.service';
+import { ProfileService } from './services/profile.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewserviceComponent } from './pages/services/newservice/newservice.component';
 import { SourceBreakdownComponent } from './charts/source-breakdown/source-breakdown.component';

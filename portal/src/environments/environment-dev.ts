@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  Environment: "default",
+  Environment: "dev",
   CustBaseURL: "http://localhost:8081",
   OrgBaseURL: "http://localhost:8082",
   BasePath: "/api/v1/namespace/pavedroad/",

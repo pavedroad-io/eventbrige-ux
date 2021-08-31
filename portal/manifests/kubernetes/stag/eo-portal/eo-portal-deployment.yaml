@@ -19,6 +19,6 @@ spec:
       - image: 400276217548.dkr.ecr.us-west-1.amazonaws.com/io.pavedroad.stagging/eo-portal
         name: eo-portal
         ports:
-        - containerPort: 8800
+        - containerPort: 80
         resources: {}
       restartPolicy: Always

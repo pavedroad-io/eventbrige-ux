@@ -3,6 +3,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { concatMap, tap, pluck } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { CustomerService } from '../../../services/customers.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'user-profile',
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
     this.auth.user$.subscribe((profile) => {
       this.profile= profile;
       this.http.get(
-        encodeURI(`https://pavedroad.us.auth0.com/api/v2/users/`+profile.sub)).subscribe(
+        encodeURI(environment.Audience+"users/"+profile.sub)).subscribe(
       (data) => {
         this.fullProfile = data;
         this.cs.getCustomer(this.fullProfile.app_metadata.eventbridge_customer_id);

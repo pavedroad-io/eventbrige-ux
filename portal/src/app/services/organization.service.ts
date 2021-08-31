@@ -1,3 +1,5 @@
+
+import { environment} from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
@@ -19,7 +21,7 @@ const httpOptions = {
 
 @Injectable({providedIn: 'root'})
 export class OrganizationService {
-	private url: string = 'http://localhost:8082/api/v1/namespace/pavedroad/organization';
+	private url: string = environment.OrgBaseURL+environment.BasePath+environment.OrgEndPoint;
   private idurl: string = this.url + '/';
 
   id: string = "";

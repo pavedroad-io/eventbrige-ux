@@ -93,14 +93,14 @@ import { ResourcesConsummedComponent } from './charts/resources-consummed/resour
     BrowserAnimationsModule,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
-      domain: 'pavedroad.us.auth0.com',
-      clientId: 'mRgGOTIpgCKY8TRxcnvsRGxknKxut3RL',
+      domain: environment.Domain,
+      clientId: environment.ClientID,
 
       // Request this audience at user authentication time
-      audience: 'https://pavedroad.us.auth0.com/api/v2/',
+      audience: environment.Audience,
 
       // Request this scope at user authentication time
-      scope: 'read:current_user',
+      scope: environment.Scope,
 
       // Specify configuration for the interceptor
       httpInterceptor: {
@@ -110,10 +110,10 @@ import { ResourcesConsummedComponent } from './charts/resources-consummed/resour
           uri: 'https://pavedroad.us.auth0.com/api/v2/*',
           tokenOptions: {
             // The attached token should target this audience
-            audience: 'https://pavedroad.us.auth0.com/api/v2/',
+            audience: environment.Audience,
 
             // The attached token should have these scopes
-            scope: 'read:current_user'
+            scope: environment.Scope
           }
         }]
       }

@@ -4,11 +4,19 @@
 
 export const environment = {
   production: false,
-  BaseURL: "127.0.0.1:8081",
+  CustBaseURL: "http://localhost:8081",
+  OrgBaseURL: "http://localhost:8082",
   BasePath: "/api/v1/namespace/pavedroad/",
   OrgEndPoint: "organization" ,
   EBConfigEndPoint: "customers" ,
-  ManifestEndPoint: "EoManifestMgr" 
+  ManifestEndPoint: "EoManifestMgr",
+
+
+  // Auth0
+  Domain: "pavedroad.us.auth0.com",
+  Audience: "https://pavedroad.us.auth0.com/api/v2/",
+  ClientID: "mRgGOTIpgCKY8TRxcnvsRGxknKxut3RL",
+  Scope: "read:current_user"
 
 };
 

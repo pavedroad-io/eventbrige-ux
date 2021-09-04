@@ -108,7 +108,7 @@ import { ResourcesConsummedComponent } from './charts/resources-consummed/resour
         allowedList: [
         {
           // Match any request that starts 'https://pavedroad.us.auth0.com/api/v2/' (note the asterisk)
-          uri: 'https://pavedroad.us.auth0.com/api/v2/*',
+          uri: environment.Audience+'*',
           tokenOptions: {
             // The attached token should target this audience
             audience: environment.Audience,

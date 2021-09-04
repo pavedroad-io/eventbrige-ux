@@ -15,6 +15,7 @@ import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 
 import { CustomerService } from  '../../../services/customers.service';
 import { OrganizationService } from  '../../../services/organization.service';
+import { ProfileService } from  '../../../services/profile.service';
 
 
 
@@ -54,6 +55,7 @@ export class SignupComponent implements OnInit {
   constructor(private fb: FormBuilder,
              public customerds:CustomerService,
              public organizationds:OrganizationService,
+             public profileds:ProfileService,
              private route: ActivatedRoute,
              private router: Router) {
 
@@ -111,27 +113,22 @@ export class SignupComponent implements OnInit {
   addEventBridge() {
     // We don't know the configKey until the POST is complete
     this.customerds.createCustomer(this.eventbridgeConfig);
-        let t = new Date();
-        this.svc = {
-          name:"Event orchestrator", 
-          plan:"basic", 
-          configKey: '', 
-          active: true, 
-          updated: t, 
-          created: t};
+    let t = new Date();
+    this.svc = {
+      name:"Event orchestrator", 
+      plan:"basic", 
+      configKey: '', 
+      active: true, 
+      updated: t, 
+      created: t};
 
-        this.org.services.push(this.svc);
-        var as = <FormArray>this.companyFG.get('services');
-        as.reset(this.org.services);
+    this.org.services.push(this.svc);
   }
 
   updateEventBridgeConfigKey() {
     let i = this.findSaaSService("Event orchestrator");
     if ( i != -1 ) {
       this.org.services[i].configKey = this.eventbridgeConfig.customersuuid;
-    } else {
-      this.addEventBridge();
-      this.org.services[0].configKey = this.eventbridgeConfig.customersuuid;
     }
   }
 
@@ -152,10 +149,17 @@ export class SignupComponent implements OnInit {
 
   onSubmit(form: NgForm){
     if ( this.addMode ) {
-      this.org = this.companyFG.value;
+      console.log(this.companyFG.value);
+      this.org.name = this.companyFG.get('name').value;
+      this.org.address = this.companyFG.get('address').value;
+      this.org.city = this.companyFG.get('city').value;
+      this.org.state = this.companyFG.get('state').value;
+      this.org.zip = this.companyFG.get('zip').value;
       this.organizationds.createOrganization(this.org).subscribe(
             res => {
         this.org = res;});
+      
+      this.profileds.ProfileLoad();
     } else {
       this.org = this.companyFG.value;
       if ( this.org.services.length === 0 ){
@@ -163,8 +167,8 @@ export class SignupComponent implements OnInit {
       }
       this.organizationds.UpdateOrganization(this.org);
       this.companyFG.reset();
-      this.router.navigate(['']);
     }
+    this.router.navigate(['']);
     this.submitted = true;
   }
 

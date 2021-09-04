@@ -29,7 +29,6 @@ export class ProfileService {
     this.ProfileLoad();
   }
 
-
   ProfileLoad(): void {
     this.auth.user$.subscribe((profile) => {
       this.profile=profile;
@@ -41,6 +40,8 @@ export class ProfileService {
 	      // This is a new client get the org information so it can be saved
               console.log("New client detected")
               this.newClient = true
+	    } else {
+              this.newClient = false
 	    }
             this.ctx.next(this.profile);
         });

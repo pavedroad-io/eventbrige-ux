@@ -31,8 +31,8 @@ export class NavigationBarComponent implements OnInit {
 
   gotoOrg() {
     let fullProfile = this.pf.getProfile();
-    if (fullProfile.pr_customer_id != undefined || fullProfile.pr_customer_id === "") {
-       let r = 'organization/'+fullProfile.pr_customer_id;
+    if (fullProfile.customer_id != undefined || fullProfile.customer_id === "") {
+       let r = 'organization/'+fullProfile.customer_id;
        this.router.navigate([r]);
     } 
     else
@@ -41,8 +41,8 @@ export class NavigationBarComponent implements OnInit {
 
   gotoUsers() {
     let fullProfile = this.pf.getProfile();
-    if (fullProfile.pr_customer_id != undefined || fullProfile.pr_customer_id === "") {
-       let r = 'usermgt/'+fullProfile.pr_customer_id;
+    if (fullProfile.customer_id != undefined || fullProfile.customer_id === "") {
+       let r = 'usermgt/'+fullProfile.customer_id;
        this.router.navigate([r]);
     } 
   }

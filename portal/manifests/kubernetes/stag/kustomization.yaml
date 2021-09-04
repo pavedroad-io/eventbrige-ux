@@ -8,11 +8,8 @@ bases:
   - eo-portal
   - ingress
 
-resources:
-  - namespace.yaml
-
 commonLabels:
-  pavedroad.env: stagging
+  pavedroad.env: staging
 
 commonAnnotations:
   pavedroad.kustomize.base: eventbridge-ux/manifests/kubernetes/stag

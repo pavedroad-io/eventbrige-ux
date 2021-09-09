@@ -1,3 +1,4 @@
+import { environment} from '../../environments/environment';
 import { Injectable, Component, EventEmitter, Output, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
@@ -20,7 +21,8 @@ const httpOptions = {
 
 @Injectable({providedIn: 'root'})
 export class CustomerService {
-	private url: string = 'http://localhost:8081/api/v1/namespace/pavedroad/customers';
+  private url: string = environment.OrgBaseURL+environment.BasePath+"customers";
+//private url: string = 'http://localhost:8081/api/v1/namespace/pavedroad/customers';
   private idurl: string = this.url + '/';
   @ViewChild(ProfileComponent) pf: ProfileComponent;
 

@@ -4,10 +4,10 @@ export class Lambda {
   provider: string;
   region: string;
 
-  constructor(){
-    this.name = "";
-    this.functionName = "";
-    this.provider = "";
-    this.region = "";
+  constructor() {
+    this.name = '';
+    this.functionName = '';
+    this.provider = '';
+    this.region = '';
   }
 }

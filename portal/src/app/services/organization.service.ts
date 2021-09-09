@@ -1,7 +1,10 @@
-
-import { environment} from '../../environments/environment';
-import { Injectable,ViewChild, ViewChildren } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Injectable, ViewChild, ViewChildren } from '@angular/core';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 
@@ -11,29 +14,29 @@ import { Organization } from '../schemas/organization';
 import { ProfileService } from './profile.service';
 
 const sleep = (milliseconds) => {
- return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 
 const httpOptions = {
   observe: 'response',
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
   }),
 };
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class OrganizationService {
-  private url: string = environment.OrgBaseURL+environment.BasePath+environment.OrgEndPoint;
+  private url: string =
+    environment.OrgBaseURL + environment.BasePath + environment.OrgEndPoint;
   private idurl: string = this.url + '/';
-  private profile
+  private profile;
 
-  id: string = "";
+  id: string = '';
   public organization: Organization;
 
   httpResponse: any;
   public ctx;
   public share;
-
 
   UpdateOrganization(data) {
     this.organization = data;
@@ -45,82 +48,90 @@ export class OrganizationService {
     return this.UpdateOrganization(data);
   }
 
-  loadOrg(id: string){
+  loadOrg(id: string) {
     this.getOrganization(id).subscribe((data: any) => {
       this.organization = data;
       this.ctx.next(data);
     });
   }
 
-  constructor(private http: HttpClient,
-              private profileSvc: ProfileService) { 
+  constructor(private http: HttpClient, private profileSvc: ProfileService) {
     this.organization = new Organization();
-    this.organization.organizationuuid =  this.id;
+    this.organization.organizationuuid = this.id;
     this.ServiceInit();
     this.ProfileInit();
   }
 
   ServiceInit(): void {
-    if (this.id != "")
-      this.getOrganization(this.organization.organizationuuid).subscribe((data: any) => {
-        this.organization = data;
-      });
+    if (this.id != '')
+      this.getOrganization(this.organization.organizationuuid).subscribe(
+        (data: any) => {
+          this.organization = data;
+        }
+      );
     this.ctx = new BehaviorSubject<any>(this.organization);
     this.share = this.ctx.asObservable();
   }
 
   ProfileInit(): void {
-   // debugger;
-   sleep(100).then (() => {this.profileSvc.share.subscribe((data: any) => {
+    // debugger;
+    sleep(1000).then(() => {
+      this.profileSvc.share.subscribe((data: any) => {
         this.profile = data;
-     });
-   });
+	console.log("ProfileInit: ", this.profile);
+      });
+    });
   }
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // Backend response errors
+      console.error(
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+      );
+    }
 
- private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) { // A client-side or network error.
-     console.error('An error occurred:', error.error.message);
-		} else { // Backend response errors
-     console.error(
-       `Backend returned code ${error.status}, ` +
-       `body was: ${error.error}`);
-   }
-
-  // return an observable with a user-facing error message
-  return throwError(
-    'Something bad happened; please try again later.');
-  };
+    // return an observable with a user-facing error message
+    return throwError('Something bad happened; please try again later.');
+  }
 
   getOrganizations(): Observable<Organization[]> {
-		 return this.http.get<Organization[]>(this.url+"LIST");
+    return this.http.get<Organization[]>(this.url + 'LIST');
   }
 
   getOrganization(id: string): Observable<Organization> {
-		 this.httpResponse = this.http.get<Organization>(this.idurl+id);
-		 return this.httpResponse;
-		 //return this.http.get<Organization>(this.idurl+id);
+    this.httpResponse = this.http.get<Organization>(this.idurl + id);
+    return this.httpResponse;
+    //return this.http.get<Organization>(this.idurl+id);
   }
 
-
   createOrganization(post: Organization): Observable<any> {
-    this.url=this.url+"?user_idp_tokens="+this.profile.sub
+    this.url = this.url + '?user_idp_tokens=' + this.profile.user_id;
     return this.http.post<Organization>(this.url, JSON.stringify(post));
   }
 
   updateOrganization(post: Organization) {
-    this.httpResponse = this.http.put<Organization>(
-      this.idurl+post.organizationuuid,
-      JSON.stringify(post),{
-        headers: new HttpHeaders({'Content-Type': 'application/json'}),
-        observe: 'response'}).subscribe((data: any) => {
-           //console.log(data.body);
-         });
-		return this.httpResponse;
+    this.httpResponse = this.http
+      .put<Organization>(
+        this.idurl + post.organizationuuid,
+        JSON.stringify(post),
+        {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+          observe: 'response',
+        }
+      )
+      .subscribe((data: any) => {
+        //console.log(data.body);
+      });
+    return this.httpResponse;
   }
 
   deleteOrganization(post: Organization) {
-    return this.http.delete<Organization>(this.idurl+post.organizationuuid)
+    return this.http
+      .delete<Organization>(this.idurl + post.organizationuuid)
       .pipe(catchError(this.handleError));
   }
 }

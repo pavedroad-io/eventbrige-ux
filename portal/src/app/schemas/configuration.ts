@@ -13,18 +13,17 @@ export class Configuration {
   kubectx: string;
   manifests: string;
   templates: string;
-  
-  constructor(){
-    this.hook = new (Hook);
-    this.dependencies = new (Dependencies);
-    this.triggers = new (Triggers);
 
-    this.name = "PavedRoad generated";
-    this.environment = "dev";
-    this.version = "1.0.0";
-    this.kubectx = "microk8s";
-    this.manifests = "./manifest";
-    this.templates = "./tpl";
+  constructor() {
+    this.hook = new Hook();
+    this.dependencies = new Dependencies();
+    this.triggers = new Triggers();
+
+    this.name = 'PavedRoad generated';
+    this.environment = 'dev';
+    this.version = '1.0.0';
+    this.kubectx = 'microk8s';
+    this.manifests = './manifest';
+    this.templates = './tpl';
   }
-  
 }

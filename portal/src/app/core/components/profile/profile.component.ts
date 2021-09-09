@@ -9,36 +9,40 @@ import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'user-profile',
   templateUrl: './profile.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-
 export class ProfileComponent implements OnInit {
   profile: any = {};
   fullProfile: any = {};
   userdata: any = {};
   appdata: any = {};
 
-  constructor(public auth: AuthService, private http: HttpClient, private cs: CustomerService, private router: Router) {}
+  constructor(
+    public auth: AuthService,
+    private http: HttpClient,
+    private cs: CustomerService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.auth.user$.subscribe((profile) => {
-      this.profile=profile;
-      this.http.get(
-        encodeURI(environment.Audience+"users/"+profile.sub)).subscribe(
-      (data) => {
-        this.fullProfile = data;
-	if (this.fullProfile.appdata == undefined) {
-	  // This is a new client get the org information so it can be saved
-	  console.log("New client take them to org page")
-          this.router.navigate(["organization"]); 
-	} else
-          this.cs.getCustomer(this.fullProfile.app_metadata.customer_id);
-      });
-    
+      this.profile = profile;
+      this.http
+        .get(encodeURI(environment.Audience + 'users/' + profile.sub))
+        .subscribe((data) => {
+          this.fullProfile = data;
+          if (this.fullProfile.app_metadata == undefined) {
+            // This is a new client get the org information so it can be saved
+            this.router.navigate(['organization']);
+          } else {
+            this.cs.getCustomer(
+              this.fullProfile.app_metadata.eventbrid_config_id
+            );
+            this.router.navigate(['']);
+          }
+        });
     });
   }
 
@@ -46,7 +50,7 @@ export class ProfileComponent implements OnInit {
     if (this.fullProfile != undefined) {
       return this.fullProfile.app_metadata;
     } else {
-      return ""
+      return '';
     }
   }
 }

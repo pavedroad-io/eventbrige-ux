@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
   Environment: "prod",
-  CustBaseURL: "http://api.pavedroad.io",
-  OrgBaseURL: "http://api.pavedroad.io",
+  CustBaseURL: "https://api.pavedroad.io",
   BaseURL: "api.pavedroad.io",
+  OrgBaseURL: "https://api.pavedroad.io",
   BasePath: "/api/v1/namespace/pavedroad/",
   OrgEndPoint: "organization",
-  EBConfigEndPoint: "customers" ,
+  CustomerEndPoint: "customers" ,
   ManifestEndPoint: "EoManifestMgr",
 
   // Auth0

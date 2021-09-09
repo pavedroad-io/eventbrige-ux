@@ -11,25 +11,15 @@ import { AuthService } from '@auth0/auth0-angular';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 @NgModule({
-	declarations: [
-		NavigationComponent,
-		NavigationBarComponent,
+  declarations: [
+    NavigationComponent,
+    NavigationBarComponent,
     ProfileComponent,
-    DeleteDialogComponent
-	],
-  imports: [
-		CommonModule,
-		MaterialModule,
-		LayoutModule,
-		RouterModule,
-	],
-	exports: [
-		MaterialModule,
-		NavigationComponent,
-		RouterModule
-	],
-	providers: [],
-  entryComponents: [DeleteDialogComponent]
+    DeleteDialogComponent,
+  ],
+  imports: [CommonModule, MaterialModule, LayoutModule, RouterModule],
+  exports: [MaterialModule, NavigationComponent, RouterModule],
+  providers: [],
+  entryComponents: [DeleteDialogComponent],
 })
-
-export class CoreModule { }
+export class CoreModule {}

@@ -7,12 +7,12 @@ export class Log {
   provider: string;
   pruneAfterProcessing: boolean;
 
-  constructor(){
-    this.filterevents = new (FilterEvents);
+  constructor() {
+    this.filterevents = new FilterEvents();
 
-    this.name = "";
-    this.logFormat = "";
-    this.provider = "";
+    this.name = '';
+    this.logFormat = '';
+    this.provider = '';
     this.pruneAfterProcessing = false;
   }
 }

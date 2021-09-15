@@ -5,7 +5,7 @@ import { Label } from 'ng2-charts';
 @Component({
   selector: 'app-triggers-generated',
   templateUrl: './triggers-generated.component.html',
-  styleUrls: ['./triggers-generated.component.css']
+  styleUrls: ['./triggers-generated.component.scss']
 })
 export class TriggersGeneratedComponent implements OnInit {
 

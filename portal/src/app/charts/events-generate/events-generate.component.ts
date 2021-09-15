@@ -5,7 +5,7 @@ import { Color, Label } from 'ng2-charts';
 @Component({
   selector: 'app-events-generate',
   templateUrl: './events-generate.component.html',
-  styleUrls: ['./events-generate.component.css']
+  styleUrls: ['./events-generate.component.scss']
 })
 export class EventsGenerateComponent implements OnInit {
 

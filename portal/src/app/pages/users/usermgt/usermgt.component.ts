@@ -34,7 +34,7 @@ import { User } from '../../../schemas/users';
 @Component({
   selector: 'app-usermgt',
   templateUrl: './usermgt.component.html',
-  styleUrls: ['./usermgt.component.css'],
+  styleUrls: ['./usermgt.component.scss'],
 })
 export class UsermgtComponent implements OnInit {
   userFG: FormGroup;

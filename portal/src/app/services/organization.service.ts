@@ -78,7 +78,7 @@ export class OrganizationService {
     sleep(1000).then(() => {
       this.profileSvc.share.subscribe((data: any) => {
         this.profile = data;
-	console.log("ProfileInit: ", this.profile);
+	//console.log("ProfileInit: ", this.profile);
       });
     });
   }

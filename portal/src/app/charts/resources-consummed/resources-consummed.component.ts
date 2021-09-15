@@ -5,7 +5,7 @@ import { Label } from 'ng2-charts';
 @Component({
   selector: 'app-resources-consummed',
   templateUrl: './resources-consummed.component.html',
-  styleUrls: ['./resources-consummed.component.css']
+  styleUrls: ['./resources-consummed.component.scss']
 })
 export class ResourcesConsummedComponent implements OnInit {
 

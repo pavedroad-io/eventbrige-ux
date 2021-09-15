@@ -21,7 +21,7 @@ const sleep = (milliseconds) => {
 @Component({
   selector: 'app-lambda-list',
   templateUrl: './lambda-list.component.html',
-  styleUrls: ['./lambda-list.component.css'],
+  styleUrls: ['./lambda-list.component.scss'],
 })
 export class LambdaListComponent implements OnInit {
   customer = new Customers();

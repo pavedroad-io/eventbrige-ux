@@ -4,7 +4,7 @@
 
   <form [formGroup]="companyFG" (ngSubmit)="onSubmit(companyFG.value)" novalidate>
 
-  <mat-card style="border: 1px solid #1565C0!important;">
+  <mat-card>
     <mat-card-title>
       Company information
     </mat-card-title>
@@ -36,7 +36,7 @@
       </div>
 
       <div> 
-      <mat-form-field style="width: 50%;">
+      <mat-form-field>
           <mat-label for="city">City</mat-label>
           <input matInput formControlName="city" id="city"/>
       </mat-form-field>
@@ -70,7 +70,7 @@
     <p></p>
   </div>
 
-  <mat-card style="border: 1px solid #1565C0!important; width=100%;">
+  <mat-card>
     <mat-card-title>
       Active services
     </mat-card-title>

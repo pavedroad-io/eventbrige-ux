@@ -7,7 +7,7 @@ import { CustomerService } from '../../services/customers.service';
 @Component({
   selector: 'app-scheduler-config',
   templateUrl: './scheduler-config.component.html',
-  styleUrls: ['./scheduler-config.component.css'],
+  styleUrls: ['./scheduler-config.component.scss'],
 })
 export class SchedulerConfigComponent implements OnInit {
   submitted = false;

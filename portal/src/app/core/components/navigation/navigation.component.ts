@@ -3,14 +3,22 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
-import { NavigationEnd, Router } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  ActivatedRoute,
+  ParamMap,
+} from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css'],
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent {
+  // Query params
+  //pid: any;  // Partner ID
+
   eventSourceMenueItems = [
     {
       title: 'S3 Buckets',
@@ -18,8 +26,8 @@ export class NavigationComponent {
       route: 'loglist',
       disabled: false,
     },
-    { title: 'Azure events', icon: 'bolt', route: '', disabled: true },
-    { title: 'Slack', icon: 'chat', route: '', disabled: true },
+    { title: 'Azure events', icon: 'bolt', route: '', disabled: false },
+    { title: 'Slack', icon: 'chat', route: '', disabled: false },
   ];
 
   tirggerSourceMenuItems = [
@@ -29,7 +37,7 @@ export class NavigationComponent {
       route: 'lambdalist',
       disabled: false,
     },
-    { title: 'GitHub actions', icon: 'bolt', route: '', disabled: true },
+    { title: 'GitHub actions', icon: 'bolt', route: '', disabled: false },
   ];
 
   dashboardsMenuItems = [
@@ -70,13 +78,41 @@ export class NavigationComponent {
     },
   ];
 
-  public APP_TOOLBAR_TITLE = 'Components';
+  deployMenuItems = [
+    {
+      title: 'Deploy changes',
+      icon: 'cloud_upload',
+      route: '/deploy',
+      disabled: false,
+    },
+    {
+      title: 'Deployment status',
+      icon: 'monitor_heart',
+      route: '/deploystatus',
+      disabled: false,
+    },
+    {
+      title: 'Delete deployment',
+      icon: 'cloud_off',
+      route: '/deletedeployment',
+      disabled: false,
+    },
+  ];
+
   // Use the name of the variable created in the template
   // Rename this right and left side nav
   @ViewChild('navigationSidenav', { static: true })
   public sidenav: MatSidenav;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    const pid = this.route.snapshot.queryParamMap.get('pid');
+    if (pid == 'wasabi') {
+      console.log(pid);
+      this.router.navigate(['startwasabi']);
+    }
+  }
 
   toggle() {
     this.sidenav.toggle();

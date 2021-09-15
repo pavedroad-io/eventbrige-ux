@@ -1,13 +1,15 @@
 <app-navigation-bar></app-navigation-bar>
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #navigationSidenav class="sidenav"
-			fixedInViewport
-			mode="side"
-      role="navigation"
-			fixedTopGap="64"
-			autoFocus="false">
-
-  <!-- mat-sidenav #navigationSidenav class="sidenav"
+  <mat-sidenav
+    #navigationSidenav
+    class="sidenav"
+    fixedInViewport
+    mode="side"
+    role="navigation"
+    fixedTopGap="64"
+    autoFocus="false"
+  >
+    <!-- mat-sidenav #navigationSidenav class="sidenav"
 			fixedInViewport
 			mode="side"
       role="navigation"
@@ -16,65 +18,77 @@
 			fixedTopGap="64"
 			autoFocus="false" -->
 
-    <mat-nav-list style="margin-left: 5px;">
-
-      <mat-list style="padding: 0px;">
-        <mat-list-item on-click="openComponent('newservice')" style="color:green;justify-content: flex-start;padding: 0;">
-          <mat-icon aria-hidden="false" aria-label="Create a resoruce" style="color:green">add</mat-icon>
+    <mat-nav-list style="margin-left: 5px">
+      <mat-list style="padding: 0px">
+        <mat-list-item
+          on-click="openComponent('newservice')"
+          style="justify-content: flex-start; padding: 0"
+        >
+          <mat-icon aria-hidden="false" aria-label="Create a resoruce"
+            >add</mat-icon
+          >
           Create a resource
         </mat-list-item>
       </mat-list>
 
-      <h2 mat-list-item  class="fivepix;" on-click="openComponent('dashboard')">Dashboard</h2>
-
-			<h2 mat-list-item>
-        Sources
+      <h2 mat-list-item class="fivepix;" on-click="openComponent('dashboard')">
+        Dashboard
       </h2>
+
+      <h2 mat-list-item>Sources</h2>
 
       <mat-list>
-       <ng-container 
-         *ngFor="let item of eventSourceMenueItems">
-         <mat-list-item *ngIf=!item.disabled on-click="openComponent(item.route)">
+        <ng-container *ngFor="let item of eventSourceMenueItems">
+          <mat-list-item
+            *ngIf="!item.disabled"
+            on-click="openComponent(item.route)"
+          >
             <span>{{ item.title }}</span>
-           </mat-list-item>
-       </ng-container>
+          </mat-list-item>
+        </ng-container>
       </mat-list>
 
-			<h2 mat-list-item>
-        Triggers
-      </h2>
+      <h2 mat-list-item>Triggers</h2>
 
       <mat-list>
-       <ng-container 
-         *ngFor="let item of tirggerSourceMenuItems">
-         <mat-list-item *ngIf=!item.disabled  on-click="openComponent(item.route)">
+        <ng-container *ngFor="let item of tirggerSourceMenuItems">
+          <mat-list-item
+            *ngIf="!item.disabled"
+            on-click="openComponent(item.route)"
+          >
             <span>{{ item.title }}</span>
-           </mat-list-item>
-       </ng-container>
+          </mat-list-item>
+        </ng-container>
       </mat-list>
 
+      <h2 mat-list-item>Configure</h2>
 
-      <h2 mat-list-item>
-        Configure
-      </h2>
-
-      <mat-list style="margin-top:0px;">
-       <ng-container 
-         *ngFor="let item of configureMenuItems">
-         <mat-list-item *ngIf=!item.disabled on-click="openComponent(item.route)">
+      <mat-list style="margin-top: 0px">
+        <ng-container *ngFor="let item of configureMenuItems">
+          <mat-list-item
+            *ngIf="!item.disabled"
+            on-click="openComponent(item.route)"
+          >
             <span>{{ item.title }}</span>
-           </mat-list-item>
-       </ng-container>
+          </mat-list-item>
+        </ng-container>
       </mat-list>
+
+      <h2 mat-list-item>Deployment</h2>
+
+      <mat-list style="margin-top: 0px">
+        <ng-container *ngFor="let item of deployMenuItems">
+          <mat-list-item
+            *ngIf="!item.disabled"
+            on-click="openComponent(item.route)"
+          >
+            <span>{{ item.title }}</span>
+          </mat-list-item>
+        </ng-container>
+      </mat-list>
+
 
     </mat-nav-list>
   </mat-sidenav>
-
-  <mat-sidenav-content style="margin-top: 64px;">
-    <!-- Add Content Here -->
-		<router-outlet></router-outlet>
-
- 	</mat-sidenav-content>
-
+  <router-outlet></router-outlet>
 </mat-sidenav-container>
-

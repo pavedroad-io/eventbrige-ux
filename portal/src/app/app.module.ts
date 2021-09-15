@@ -62,6 +62,10 @@ import { SourcesComponent } from './charts/sources/sources.component';
 import { EventsGenerateComponent } from './charts/events-generate/events-generate.component';
 import { TriggersGeneratedComponent } from './charts/triggers-generated/triggers-generated.component';
 import { ResourcesConsummedComponent } from './charts/resources-consummed/resources-consummed.component';
+import { DeplomentComponent } from './pages/deploy/deploment/deploment.component';
+import { DeploymentStatusComponent } from './pages/deploy/status/status.component';
+import { DeleteDeploymentComponent } from './pages/deploy/delete/delete.component';
+import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettingstarted.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +90,11 @@ import { ResourcesConsummedComponent } from './charts/resources-consummed/resour
     SourcesComponent,
     EventsGenerateComponent,
     TriggersGeneratedComponent,
-    ResourcesConsummedComponent
+    ResourcesConsummedComponent,
+    DeplomentComponent,
+    DeploymentStatusComponent,
+    DeleteDeploymentComponent,
+    GettingstartedComponent
   ],
   imports: [
     AppRoutingModule,

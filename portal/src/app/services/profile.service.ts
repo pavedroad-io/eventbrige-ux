@@ -39,7 +39,6 @@ export class ProfileService {
   ProfileLoad(): void {
     this.auth.user$.subscribe((profile) => {
       this.profile = profile;
-      console.log(this.profile);
       this.http
         .get(encodeURI(environment.Audience + 'users/' + profile.sub))
         .subscribe((data) => {

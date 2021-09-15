@@ -12,7 +12,7 @@ const sleep = (milliseconds) => {
 @Component({
   selector: 'app-provider',
   templateUrl: './provider.component.html',
-  styleUrls: ['./provider.component.css'],
+  styleUrls: ['./provider.component.scss'],
 })
 export class ProviderComponent implements OnInit {
   submitted = false;

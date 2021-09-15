@@ -18,7 +18,7 @@ const sleep = (milliseconds) => {
 @Component({
   selector: 'app-s3logitem',
   templateUrl: './s3logitem.component.html',
-  styleUrls: ['./s3logitem.component.css'],
+  styleUrls: ['./s3logitem.component.scss'],
 })
 export class S3logitemComponent implements OnInit {
   logitem: Log; // A log line

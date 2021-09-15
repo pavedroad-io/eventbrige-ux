@@ -5,7 +5,7 @@ import { Label } from 'ng2-charts';
 @Component({
   selector: 'app-source-breakdown',
   templateUrl: './source-breakdown.component.html',
-  styleUrls: ['./source-breakdown.component.css']
+  styleUrls: ['./source-breakdown.component.scss']
 })
 export class SourceBreakdownComponent implements OnInit {
 

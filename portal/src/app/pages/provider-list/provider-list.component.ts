@@ -13,7 +13,7 @@ const sleep = (milliseconds) => {
 @Component({
   selector: 'app-provider-list',
   templateUrl: './provider-list.component.html',
-  styleUrls: ['./provider-list.component.css'],
+  styleUrls: ['./provider-list.component.scss'],
 })
 export class ProviderListComponent implements OnInit {
   customer = new Customers();

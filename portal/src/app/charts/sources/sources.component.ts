@@ -5,7 +5,7 @@ import { Label, SingleDataSet } from 'ng2-charts';
 @Component({
   selector: 'app-sources',
   templateUrl: './sources.component.html',
-  styleUrls: ['./sources.component.css']
+  styleUrls: ['./sources.component.scss']
 })
 export class SourcesComponent implements OnInit {
 

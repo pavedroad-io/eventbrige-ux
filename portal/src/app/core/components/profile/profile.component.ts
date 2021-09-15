@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
             this.cs.getCustomer(
               this.fullProfile.app_metadata.eventbrid_config_id
             );
-            this.router.navigate(['']);
+//            this.router.navigate(['']);
           }
         });
     });

@@ -39,7 +39,7 @@ const sleep = (milliseconds) => {
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
   org: Organization = new Organization();
@@ -194,7 +194,7 @@ export class SignupComponent implements OnInit {
       this.organizationds.UpdateOrganization(this.org);
       this.companyFG.reset();
     }
-    this.router.navigate(['']);
+    this.router.navigate(['home']);
     this.submitted = true;
   }
 }

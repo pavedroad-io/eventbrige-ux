@@ -11,7 +11,7 @@ import { TriggersGeneratedComponent } from '../charts/triggers-generated/trigger
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */

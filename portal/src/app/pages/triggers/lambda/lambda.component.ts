@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormsModule, Validators, FormControl } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 
 // Classes
@@ -16,7 +16,7 @@ const sleep = (milliseconds) => {
 @Component({
   selector: 'app-lambda',
   templateUrl: './lambda.component.html',
-  styleUrls: ['./lambda.component.css'],
+  styleUrls: ['./lambda.component.scss'],
 })
 export class LambdaComponent implements OnInit {
   lambdaitem: Lambda; // A lamda configuratione
@@ -31,7 +31,7 @@ export class LambdaComponent implements OnInit {
   buttonMode: string;
   isAddMode: boolean;
 
-  lambdaControl = new FormControl('', Validators.required);
+  //lambdaControl = new FormControl('', Validators.required);
 
   constructor(
     public customerds: CustomerService,

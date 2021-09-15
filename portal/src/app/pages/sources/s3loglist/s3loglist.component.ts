@@ -13,7 +13,7 @@ const sleep = (milliseconds) => {
 @Component({
   selector: 'app-s3log-list',
   templateUrl: './s3loglist.component.html',
-  styleUrls: ['./s3loglist.component.css'],
+  styleUrls: ['./s3loglist.component.scss'],
 })
 export class S3loglistComponent implements OnInit {
   customer = new Customers();

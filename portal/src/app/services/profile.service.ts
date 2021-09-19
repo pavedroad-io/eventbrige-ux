@@ -50,6 +50,7 @@ export class ProfileService {
           } else {
             this.newClient = false;
           }
+	  // this.share?
           this.ctx.next(this.fullProfile);
         });
     });

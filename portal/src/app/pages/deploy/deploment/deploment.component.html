@@ -7,29 +7,21 @@
       <mat-list>
         <mat-list-item>
           <mat-progress-spinner
-            mode="determinate"
-            [value]="manifestProgress"
+            mode="indeterminate"
+	    *ngIf="activeSpinner"
             diameter="25"
-          ></mat-progress-spinner>
+          >
+	  </mat-progress-spinner>
           <span style="margin-left: 10px">Generating manifests</span>
         </mat-list-item>
 
         <mat-list-item>
           <mat-progress-spinner
-            mode="determinate"
-            [value]="deploymentProgress"
+            mode="indeterminate"
+	    *ngIf="activeSpinner"
             diameter="25"
           ></mat-progress-spinner>
           <span style="margin-left: 10px">Deploying manifests</span>
-        </mat-list-item>
-
-        <mat-list-item>
-          <mat-progress-spinner
-            mode="determinate"
-            [value]="schedulerProgress"
-            diameter="25"
-          ></mat-progress-spinner>
-          <span style="margin-left: 10px">Updating scheduler</span>
         </mat-list-item>
       </mat-list>
     </mat-card-content>

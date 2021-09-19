@@ -1,1 +1,31 @@
-<p>status works!</p>
+<div class="container padded-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Current deployment</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="panelOpenState">
+          <mat-expansion-panel-header>
+            <mat-panel-title> Acitve configuration</mat-panel-title>
+            <mat-panel-description>
+              <mat-progress-spinner
+                mode="indeterminate"
+                *ngIf="activeSpinner"
+                diameter="25"
+              >
+              </mat-progress-spinner>
+              <span style="margin-left: 10px">{{cardstatus}}</span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
+            <pre>
+		  {{activeConfig}}
+	    </pre
+            >
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+</div>

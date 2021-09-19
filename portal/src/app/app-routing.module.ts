@@ -138,7 +138,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'deletedeployment1',
+    path: 'deletedeployment',
     component: DeleteDeploymentComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],

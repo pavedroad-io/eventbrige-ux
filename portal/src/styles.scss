@@ -23,11 +23,11 @@ $rally-yellow: #ffcf44;
 $rally-purple: #b15dff;
 $rally-blue: #72deff;
 
-$rally-rust: #EF6C00;
-$rally-rose: #E20046;
+$rally-rust: #ef6c00;
+$rally-rose: #e20046;
 $rally-zinc: #808080;
-$rally-silver: #E6E6E6;
-$rally-white: #FFFFFF;
+$rally-silver: #e6e6e6;
+$rally-white: #ffffff;
 $rally-gunmetal: #383f42;
 
 $rally-green-palette: (
@@ -127,5 +127,28 @@ body {
   margin-bottom: 15px;
   font-family: "Montserrat", sans-serif;
   font-size: 24px;
+}
 
+.pr-green-snackbar {
+  background: $rally-green;
+}
+
+.pr-rose-snackbar {
+  background: $rally-rose;
+}
+
+.pr-rust-snackbar {
+  background: $rally-rust;
+}
+
+.pr-zinc-snackbar {
+  background: $rally-zinc;
+}
+
+.pr-yellow-snackbar {
+  background: $rally-yellow;
+}
+
+a {
+  color: $rally-yellow;
 }

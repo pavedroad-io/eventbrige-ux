@@ -61,14 +61,12 @@ export class DeplomentComponent implements OnInit {
   loadStatus() {
     this.deploymentSvc.getDeployment().subscribe((data: string) => {
       this.status = data;
-      console.log('Load StatusData: ', data);
-      if (data.includes('Profile not loaded')) {
+      console.log("Data: ", data);
+      if ( data.includes('Profile not loaded') ) {
         console.log('DATA', data);
         sleep(1000).then(() => {
-          this.loadStatus();
-        });
-      } else {
-        this.generateManifests();
+		this.loadStatus();
+	});
       }
     });
   }

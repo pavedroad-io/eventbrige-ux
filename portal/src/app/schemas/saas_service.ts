@@ -15,6 +15,5 @@ export class SaaSService{
     created: new Date();
     updated: new Date();
   }
-
 }
 

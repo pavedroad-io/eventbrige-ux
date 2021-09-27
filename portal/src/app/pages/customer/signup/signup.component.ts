@@ -41,6 +41,7 @@ const sleep = (milliseconds) => {
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
+
 export class SignupComponent implements OnInit {
   org: Organization = new Organization();
   svc: SaaSService = new SaaSService();

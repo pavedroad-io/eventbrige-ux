@@ -89,8 +89,8 @@
             class="form-control"
             id="apitype"
             name="apitype"
-            [(ngModel)]="logitem.filterevents.matchedAPI"
-            (ngModelChange)="logitem.filterevents.matchedAPI = $event.toUpperCase()"
+            [(ngModel)]="api"
+            (ngModelChange)="api = $event.toUpperCase()"
             #apitype="ngModel"
             placeholder="REST,SOAP"
           />
@@ -110,8 +110,8 @@
             class="form-control"
             id="httpmethods"
             name="httpmethods"
-            [(ngModel)]="logitem.filterevents.matchedHTTPMethods"
-            (ngModelChange)="logitem.filterevents.matchedHTTPMethods = $event.toUpperCase()"
+            [(ngModel)]="methods"
+            (ngModelChange)="methods = $event.toUpperCase()"
             #httpmethods="ngModel"
             placeholder="GET,POST,PUT etc"
           />
@@ -128,8 +128,8 @@
             class="form-control"
             id="resourcetype"
             name="resourcetype"
-            [(ngModel)]="logitem.filterevents.matchedResouceTypes"
-            (ngModelChange)="logitem.filterevents.matchedResouceTypes = $event.toUpperCase()"
+            [(ngModel)]="types"
+            (ngModelChange)="types = $event.toUpperCase()"
             #resourcetype="ngModel"
             placeholder="OBJECT, etd"
           />

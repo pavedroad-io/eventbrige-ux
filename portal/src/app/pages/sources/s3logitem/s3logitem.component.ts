@@ -27,6 +27,9 @@ export class S3logitemComponent implements OnInit {
   providerSelected: any;
   formatSelected: string;
   submitted: boolean = false;
+  methods: string = '';
+  types: string = '';
+  api: string = '';
 
   // Query parameter when in edit mode
   id: string;
@@ -45,6 +48,9 @@ export class S3logitemComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.isAddMode) {
       this.logitem.provider = this.providerSelected;
+      this.logitem.filterevents.matchedHTTPMethods = this.methods.split(',');
+      this.logitem.filterevents.matchedAPI = this.api.split(',');
+      this.logitem.filterevents.matchedResouceTypes = this.types.split(',');
       this.customer.logs.push(this.logitem);
     } else {
       this.updateLogData();
@@ -93,6 +99,9 @@ export class S3logitemComponent implements OnInit {
       if (this.customer.logs[i].name === this.id) {
         this.logitem = this.customer.logs[i];
         this.providerSelected = this.customer.logs[i].provider;
+        this.methods = this.logitem.filterevents.matchedHTTPMethods.join(',');
+        this.api = this.logitem.filterevents.matchedAPI.join(',');
+        this.types = this.logitem.filterevents.matchedResouceTypes.join(',');
         return;
       }
     }

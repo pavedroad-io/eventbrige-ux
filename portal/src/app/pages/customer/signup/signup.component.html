@@ -4,15 +4,15 @@
 
   <form [formGroup]="companyFG" (ngSubmit)="onSubmit(companyFG.value)" novalidate>
 
-  <mat-card style="border: 1px solid #1565C0!important;">
+  <mat-card>
     <mat-card-title>
       Company information
     </mat-card-title>
     <mat-card-content>
 
-        <mat-form-field appearance="outline" floatLabel="always" class="ng-valie">
+        <mat-form-field floatLabel="always" class="ng-valid">
           <mat-label for="name">Name</mat-label>
-          <input matInput formControlName="name" id="name"/>
+          <input matInput formControlName="name" id="name" maxlength="255"/>
           <mat-error *ngIf="companyFG.controls['name'].valid && (companyFG.controls['address'].dirty || companyFG.controls['address'].touched)" class="alert alert-danger">
             Name is required.
           </mat-error>
@@ -28,7 +28,7 @@
       <div> 
         <mat-form-field>
           <mat-label for="address">Address</mat-label>
-          <input matInput formControlName="address" id="address"/>
+          <input matInput formControlName="address" id="address" size=50/>
           <mat-error *ngIf="companyFG.controls['address'].invalid && (companyFG.controls['address'].dirty || companyFG.controls['address'].touched)" class="alert alert-danger">
             Address is required.
           </mat-error>
@@ -70,7 +70,7 @@
     <p></p>
   </div>
 
-  <mat-card style="border: 1px solid #1565C0!important; width=100%;">
+  <mat-card>
     <mat-card-title>
       Active services
     </mat-card-title>

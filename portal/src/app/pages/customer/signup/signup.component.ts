@@ -1,7 +1,22 @@
-import { AfterViewInit, Component, OnInit, ViewChild, NgModule } from '@angular/core';
-import { NgForm, FormBuilder, FormGroup, FormControl, Validators, FormArray, FormGroupDirective } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewChild,
+  NgModule,
+} from '@angular/core';
+import {
+  NgForm,
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+  FormArray,
+  FormGroupDirective,
+} from '@angular/forms';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
-import { MatSort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { from, Observable } from 'rxjs';
@@ -11,34 +26,33 @@ import { Organization } from '../../../schemas/organization';
 import { User } from '../../../schemas/users';
 import { SaaSService } from '../../../schemas/saas_service';
 import { Billing } from '../../../schemas/billing';
-import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
+import { Auth0User } from '../../../schemas/auth0user';
 
-import { CustomerService } from  '../../../services/customers.service';
-import { OrganizationService } from  '../../../services/organization.service';
-
-
+import { CustomerService } from '../../../services/customers.service';
+import { OrganizationService } from '../../../services/organization.service';
+import { ProfileService } from '../../../services/profile.service';
 
 const sleep = (milliseconds) => {
- return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
-
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.scss'],
 })
 
 export class SignupComponent implements OnInit {
   org: Organization = new Organization();
-  svc: SaaSService
+  svc: SaaSService = new SaaSService();
+  fullProfile: Auth0User = new Auth0User();
 
-  eventbridgeConfig: Customers;
+  eventbridgeConfig: Customers = new Customers();
   dataSource: any;
 
   companyFG: any;
   titleAlert: string = 'This field is required';
-  formtitle: string = "Update organization";
+  formtitle: string = 'Update organization';
 
   addMode: boolean = true;
   submitted = false;
@@ -49,92 +63,139 @@ export class SignupComponent implements OnInit {
     'plan',
     'created',
     'configKey',
-    'active'];
+    'active',
+  ];
 
-  constructor(private fb: FormBuilder,
-             public customerds:CustomerService,
-             public organizationds:OrganizationService,
-             private route: ActivatedRoute,
-             private router: Router) {
-
-     this.companyFG = this.fb.group({
-       organizationuuid: [' ', Validators.required],
-       name: [' ', Validators.required],
-       address: [' ', Validators.required],
-       city: [' ', Validators.required],
-       state: [' ', Validators.required],
-       zip: [' ', Validators.required],
-       services: this.fb.array([ ]),
-       members: this.fb.array([ ])
-     });
-     
+  constructor(
+    private fb: FormBuilder,
+    public customerds: CustomerService,
+    public organizationds: OrganizationService,
+    public profileds: ProfileService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.companyFG = this.fb.group({
+      organizationuuid: [' ', Validators.required],
+      name: [' ', Validators.required],
+      address: [' ', Validators.required],
+      city: [' ', Validators.required],
+      state: [' ', Validators.required],
+      zip: [' ', Validators.required],
+      services: this.fb.array([]),
+      members: this.fb.array([]),
+    });
   }
 
   ngOnInit(): void {
+    sleep(1000).then(() => {
+      this.customerds.share.subscribe((data: any) => {
+        this.eventbridgeConfig = data;
+        this.updateEventBridgeConfigKey();
+      });
+    });
+    sleep(1000).then(() => {
+      this.profileds.share.subscribe((data: any) => {
+        this.fullProfile = data;
+      });
+    });
 
     this.id = this.route.snapshot.params['id'];
     if (!this.id) {
-    //  this.buttonMode = "Add";
+      //  this.buttonMode = "Add";
       this.addMode = true;
-      this.formtitle = "Welcome please enter your company information";
-    }
-    else {
+      this.formtitle = 'Welcome please enter your company information';
+      this.addEventBridge();
+    } else {
+      // this.buttonMode = "Update";
       this.addMode = false;
-      this.formtitle = "Updating your organization";
-     // this.buttonMode = "Update";
+      this.formtitle = 'Updating your organization';
+
+      sleep(250).then(() => {
+        this.organizationds.share.subscribe((data: any) => {
+          this.org = data;
+          this.companyFG.reset(this.org);
+          this.dataSource = new MatTableDataSource(this.org.services);
+          this.dataSource.sort = this.sort;
+        });
+      });
+      this.organizationds.loadOrg(this.id);
     }
 
-    sleep(250).then (() => {
-      this.customerds.share.subscribe((data: any) => {
-        this.eventbridgeConfig = data;
-      });
-
-     let t = new Date();
-     let eb: SaaSService = {name:"Event orchestrator", plan:"basic", configKey:this.eventbridgeConfig.customersuuid, active: true, updated: t, created: t};
-     this.svc=eb;
-     this.org.services.push(eb);
-
-     let as = <FormArray>this.companyFG.get('services');
-     let ns = new FormControl('eb');
-     ns.setValue(this.svc);
-     as.push(ns)
-
-     this.dataSource = new MatTableDataSource(this.org.services);
-     this.dataSource.sort = this.sort;
-    });
-
+    this.dataSource = new MatTableDataSource(this.org.services);
+    this.dataSource.sort = this.sort;
   }
-  
+
   @ViewChild(MatSort) sort: MatSort;
 
+  addEventBridge() {
+    // We don't know the configKey until the POST is complete
+    this.customerds.createCustomer(this.eventbridgeConfig);
+    let t = new Date();
+    this.svc = {
+      name: 'Event orchestrator',
+      plan: 'basic',
+      configKey: '',
+      active: true,
+      updated: t,
+      created: t,
+    };
 
-  onSubmit(form: NgForm){
-    if ( this.addMode ) {
-      this.org = this.companyFG.value;
-      this.organizationds.createOrganization(this.org).subscribe(
-            res => {
-        console.log("New org is: ", res);
-        this.org = res;});
-    } else {
-
-    }
-    this.submitted = true;
-    /*
-    if ( this.isAddMode ) {
-      this.customer.providers.push(this.provider);
-    } else {
-      console.log(this.providerIndex);
-      this.customer.providers[this.providerIndex].name = this.provider.name;
-      this.customer.providers[this.providerIndex].key = this.provider.key;
-      this.customer.providers[this.providerIndex].credentials = this.provider.credentials;
-      this.customer.providers[this.providerIndex].region = this.provider.region;
-      this.customer.providers[this.providerIndex].endpoint = this.provider.endpoint;
-    }
-    this.customerds.Save(this.customer);
-    this.provider = new Provider();
-    form.resetForm();
-    this.router.navigate(['providerList']);
-   */
+    this.org.services.push(this.svc);
   }
 
+  updateEventBridgeConfigKey() {
+    let i = this.findSaaSService('Event orchestrator');
+    if (i != -1) {
+      this.org.services[i].configKey = this.eventbridgeConfig.customersuuid;
+    }
+  }
+
+  findSaaSService(name: string) {
+    for (var i = 0; i < this.org.services.length; i++) {
+      if (this.org.services[i].name === name) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  updateEventBridge() {
+    this.org.name = this.companyFG.get('name').value;
+    this.eventbridgeConfig.name = this.org.name;
+    this.customerds.UpdateCustomer(this.eventbridgeConfig);
+  }
+
+  onSubmit(form: NgForm) {
+    if (this.addMode) {
+      this.org.name = this.companyFG.get('name').value;
+      this.org.address = this.companyFG.get('address').value;
+      this.org.city = this.companyFG.get('city').value;
+      this.org.state = this.companyFG.get('state').value;
+      this.org.zip = this.companyFG.get('zip').value;
+      this.organizationds.createOrganization(this.org).subscribe((res) => {
+        this.org = res;
+      });
+
+      // this will get set by auth0 in ~1 second but we need it right
+      // away for configurations to load
+      debugger;
+      this.fullProfile.app_metadata.customer_id =
+        this.org.organizationuuid;
+      this.fullProfile.app_metadata.eventbrid_config_id =
+        this.svc.configKey;
+      this.profileds.ctx.next(this.fullProfile);
+
+      // Force AUTH0 reload
+      this.profileds.ProfileLoad();
+    } else {
+      this.org = this.companyFG.value;
+      if (this.org.services.length === 0) {
+        this.addEventBridge();
+      }
+      this.organizationds.UpdateOrganization(this.org);
+      this.companyFG.reset();
+    }
+    this.router.navigate(['home']);
+    this.submitted = true;
+  }
 }

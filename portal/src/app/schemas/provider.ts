@@ -5,11 +5,11 @@ export class Provider {
   region: string;
   endpoint: string;
 
-  constructor(){
-    this.name = ""
-    this.credentials = ""
-    this.key = ""
-    this.region = ""
-    this.endpoint = ""
+  constructor() {
+    this.name = '';
+    this.credentials = '';
+    this.key = '';
+    this.region = '';
+    this.endpoint = '';
   }
 }

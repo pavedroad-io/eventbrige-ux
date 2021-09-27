@@ -3,66 +3,126 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
-import { NavigationEnd, Router } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  ActivatedRoute,
+  ParamMap,
+} from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent {
-	eventSourceMenueItems = [
-		{title: "S3 Buckets", icon: "cloud_circle", route: "loglist", disabled: false},
-		{title: "Azure events", icon: "bolt", route: "", disabled: true},
-		{title: "Slack", icon: "chat", route: "", disabled: true},
-	];
+  // Query params
+  //pid: any;  // Partner ID
 
-	tirggerSourceMenuItems = [
-		{title: "AWS Lambda", icon: "cloud_circle", route: "lambdalist", disabled: false},
-		{title: "GitHub actions", icon: "bolt", route: "", disabled: true},
-	];
-	dashboardsMenuItems = [
-		{title: "Activity", icon: "build", route: ""},
-		{title: "Providers", icon: "build", route: ""},
-		{title: "Functions", icon: "build", route: ""},
-		{title: "Workflows", icon: "build", route: ""},
-	];
+  eventSourceMenueItems = [
+    {
+      title: 'S3 Buckets',
+      icon: 'cloud_circle',
+      route: 'loglist',
+      disabled: false,
+    },
+    { title: 'Azure events', icon: 'bolt', route: '', disabled: false },
+    { title: 'Slack', icon: 'chat', route: '', disabled: false },
+  ];
 
-	TriggersActionsMenuItems = [
-		{title: "Functions", icon: "flight_takeoff", route: ""},
-		{title: "Workflows", icon: "pageview", route: ""},
-	];
+  tirggerSourceMenuItems = [
+    {
+      title: 'AWS Lambda',
+      icon: 'cloud_circle',
+      route: 'lambdalist',
+      disabled: false,
+    },
+    { title: 'GitHub actions', icon: 'bolt', route: '', disabled: false },
+  ];
 
-	configureMenuItems = [
-		{title: "Providers", icon: "apps", route: "providerList"},
-		{title: "Users", icon: "apps", route: "usermgt"},
-		{title: "Schedules", icon: "apps", route: "schedulerConfig"},
-	];
+  dashboardsMenuItems = [
+    { title: 'Activity', icon: 'build', route: '', disabled: true },
+    { title: 'Providers', icon: 'build', route: '', disabled: true },
+    { title: 'Functions', icon: 'build', route: '', disabled: true },
+    { title: 'Workflows', icon: 'build', route: '', disabled: true },
+  ];
 
-	public APP_TOOLBAR_TITLE = "Components";
-	// Use the name of the variable created in the template
-	// Rename this right and left side nav
-	@ViewChild('navigationSidenav', {static: true})
-	public sidenav: MatSidenav;
+  TriggersActionsMenuItems = [
+    { title: 'Functions', icon: 'flight_takeoff', route: '', disabled: true },
+    { title: 'Workflows', icon: 'pageview', route: '', disabled: true },
+  ];
 
-  constructor(private router: Router) {}
+  configureMenuItems = [
+    {
+      title: 'Providers',
+      icon: 'apps',
+      route: 'providerList',
+      disabled: false,
+    },
+    {
+      title: 'Schedules',
+      icon: 'apps',
+      route: 'schedulerConfig',
+      disabled: false,
+    },
+  ];
 
-	toggle() {
-		this.sidenav.toggle();
-	}
+  createMenuItems = [
+    { title: 'Functions', icon: 'apps', route: '/', disabled: false },
+    { title: 'Workflows', icon: 'apps', route: 'workflowList', disabled: true },
+    {
+      title: 'Microservices',
+      icon: 'apps',
+      route: 'microserviceList',
+      disabled: true,
+    },
+  ];
 
-	public openNewServiceWizard() {
-		this.toggle();
-		this.router.navigate(['wizard']);
-	}
+  deployMenuItems = [
+    {
+      title: 'Deploy changes',
+      icon: 'cloud_upload',
+      route: '/deploy',
+      disabled: false,
+    },
+    {
+      title: 'Deployment status',
+      icon: 'monitor_heart',
+      route: '/deploystatus',
+      disabled: false,
+    },
+    {
+      title: 'Delete deployment',
+      icon: 'cloud_off',
+      route: '/deletedeployment',
+      disabled: false,
+    },
+  ];
 
-	public openComponent(route: string) {
+  // Use the name of the variable created in the template
+  // Rename this right and left side nav
+  @ViewChild('navigationSidenav', { static: true })
+  public sidenav: MatSidenav;
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    const pid = this.route.snapshot.queryParamMap.get('pid');
+    if (pid == 'wasabi') {
+      console.log(pid);
+      this.router.navigate(['startwasabi']);
+    }
+  }
+
+  toggle() {
+    this.sidenav.toggle();
+  }
+
+  public openComponent(route: string) {
     // Close side nav
-		this.toggle();
+    // this.toggle();
 
     // Route to new view
-		this.router.navigate([route]);
-	}
-
-
+    this.router.navigate([route]);
+  }
 }

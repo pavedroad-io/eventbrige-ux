@@ -1,0 +1,28 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+build:
+  insecureRegistries:
+    - localhost:32000
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - image: localhost:32000/pavedroad-io/eo-portal
+    context: .
+    docker:
+      dockerfile: manifests/Dockerfile
+deploy:
+  kustomize:
+    paths:
+    - "manifests/kubernetes/dev"
+profiles:
+  - name: staging
+    build:
+      artifacts:
+      - image: 400276217548.dkr.ecr.us-west-1.amazonaws.com/io.pavedroad.stagging/eo-portal
+        context: .
+        docker:
+          dockerfile: manifests/Dockerfile
+    deploy:
+      kustomize:
+        paths:
+        - "manifests/kubernetes/stag"

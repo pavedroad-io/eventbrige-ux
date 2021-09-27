@@ -32,11 +32,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
+// Charting modules
+import { ChartsModule } from 'ng2-charts';
+
 // PR modules
 import { CoreModule } from './core/core.module';
 import { ProviderListComponent } from './pages/provider-list/provider-list.component';
 import { SchedulerConfigComponent } from './pages/scheduler-config/scheduler-config.component';
-//import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProviderComponent } from './pages/provider/provider.component';
 import { S3loglistComponent } from './pages/sources/s3loglist/s3loglist.component';
 import { LambdaComponent } from './pages/triggers/lambda/lambda.component';
@@ -52,6 +54,18 @@ import { UsermgtComponent } from './pages/users/usermgt/usermgt.component';
 // Services
 import { CustomerService } from './services/customers.service';
 import { OrganizationService } from './services/organization.service';
+import { ProfileService } from './services/profile.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NewserviceComponent } from './pages/services/newservice/newservice.component';
+import { SourceBreakdownComponent } from './charts/source-breakdown/source-breakdown.component';
+import { SourcesComponent } from './charts/sources/sources.component';
+import { EventsGenerateComponent } from './charts/events-generate/events-generate.component';
+import { TriggersGeneratedComponent } from './charts/triggers-generated/triggers-generated.component';
+import { ResourcesConsummedComponent } from './charts/resources-consummed/resources-consummed.component';
+import { DeplomentComponent } from './pages/deploy/deploment/deploment.component';
+import { DeploymentStatusComponent } from './pages/deploy/status/status.component';
+import { DeleteDeploymentComponent } from './pages/deploy/delete/delete.component';
+import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettingstarted.component';
 
 @NgModule({
   declarations: [
@@ -69,40 +83,51 @@ import { OrganizationService } from './services/organization.service';
     PrivacyComponent,
     TermsComponent,
     SignupComponent,
-    UsermgtComponent
+    UsermgtComponent,
+    DashboardComponent,
+    NewserviceComponent,
+    SourceBreakdownComponent,
+    SourcesComponent,
+    EventsGenerateComponent,
+    TriggersGeneratedComponent,
+    ResourcesConsummedComponent,
+    DeplomentComponent,
+    DeploymentStatusComponent,
+    DeleteDeploymentComponent,
+    GettingstartedComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
- //   DashboardComponent,
     // Import the module into the application, with configuration
     AuthModule.forRoot({
-      domain: 'pavedroad.us.auth0.com',
-      clientId: 'mRgGOTIpgCKY8TRxcnvsRGxknKxut3RL',
+      domain: environment.Domain,
+      clientId: environment.ClientID,
 
       // Request this audience at user authentication time
-      audience: 'https://pavedroad.us.auth0.com/api/v2/',
+      audience: environment.Audience,
 
       // Request this scope at user authentication time
-      scope: 'read:current_user',
+      scope: environment.Scope,
 
       // Specify configuration for the interceptor
       httpInterceptor: {
         allowedList: [
         {
           // Match any request that starts 'https://pavedroad.us.auth0.com/api/v2/' (note the asterisk)
-          uri: 'https://pavedroad.us.auth0.com/api/v2/*',
+          uri: environment.Audience+'*',
           tokenOptions: {
             // The attached token should target this audience
-            audience: 'https://pavedroad.us.auth0.com/api/v2/',
+            audience: environment.Audience,
 
             // The attached token should have these scopes
-            scope: 'read:current_user'
+            scope: environment.Scope
           }
         }]
       }
     }),
+    ChartsModule,
     CoreModule,
     HttpClientModule,
     MatGridListModule,
@@ -117,7 +142,7 @@ import { OrganizationService } from './services/organization.service';
     ReactiveFormsModule
 
   ],
-  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
+  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill', floatLabel: true, hideRequiredMarker: true}},
    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

@@ -1,59 +1,99 @@
-<div class="container">
+<div class="container padded-container">
   <div [hidden]="submitted">
-  <h1 *ngIf="isAddMode">Add log source</h1>
-  <h1 *ngIf="!isAddMode">Edit log source</h1>
-  <h2>Customer {{customer.name}}</h2>
+    <h1 *ngIf="isAddMode">Add log source</h1>
+    <h1 *ngIf="!isAddMode">Edit log source</h1>
+    <h2>Customer {{customer.name}}</h2>
 
-
-  <form #lambdaForm="ngForm" (ngSubmit)="onSubmit(lambdaForm)">
-
-    <div class="form-group">
-      <label for="name">Trigger name</label>
-      <input type="text" class="form-control" id="name" required name="name"
-       [(ngModel)]="lambdaitem.name" #name="ngModel" placeholder="Name your trigger">
-      <mat-hint>Human readable name for your trigger</mat-hint>
-      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert" >
-        Name is required
+    <form #lambdaForm="ngForm" (ngSubmit)="onSubmit(lambdaForm)">
+      <div class="form-group">
+        <mat-form-field floatLabel="always" class="ng-valid">
+          <mat-label for="name">Trigger name</mat-label>
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            id="name"
+            required
+            name="name"
+            [(ngModel)]="lambdaitem.name"
+            #name="ngModel"
+            placeholder="Name your trigger"
+          />
+          <mat-hint>Human readable name for your trigger</mat-hint>
+          <div
+            *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="alert"
+          >
+            Name is required
+          </div>
+        </mat-form-field>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="functionName">Function name</label>
-      <input type="text" class="form-control" id="functionName" required name="functionName"
-       [(ngModel)]="lambdaitem.functionName" #name="ngModel" placeholder="your lambda function">
-      <mat-hint>The name of your AWS lambda function</mat-hint>
-      <div *ngIf="name.invalid" class="alert" >
-        A function name is required
+      <div class="form-group">
+        <mat-form-field floatLabel="always" class="ng-valid">
+          <mat-label for="functionName">Function name</mat-label>
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            id="functionName"
+            required
+            name="functionName"
+            [(ngModel)]="lambdaitem.functionName"
+            #name="ngModel"
+            placeholder="your lambda function"
+          />
+          <mat-hint>The name of your AWS lambda function</mat-hint>
+          <div *ngIf="name.invalid" class="alert">
+            A function name is required
+          </div>
+        </mat-form-field>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="name">Provider</label>
-      <mat-select [(value)]="providerSelected" [formControl]="lambdaControl" required name="selected">
-        <mat-option *ngFor="let p of customer.providers" [value]="p">
-           {{p.name}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="lambdaControl.hasError('required')">
-          Please choose an provider</mat-error>
-    </div>
-
-    <div class="form-group">
-      <label for="region">AWS region</label>
-      <input type="text" class="form-control" id="region" required name="region"
-       [(ngModel)]="lambdaitem.region" #name="ngModel" placeholder="AWS region your function is deployed in">
-      <mat-hint>A valid AWS region</mat-hint>
-      <div *ngIf="name.invalid" class="alert" >
-        Region is required
+      <div class="form-group">
+        <mat-form-field floatLabel="always" class="ng-valid">
+          <mat-label for="provider">Provider</mat-label>
+          <mat-select
+            matNativeControl
+            [(ngModel)]="providerSelected"
+            required
+            name="provider"
+          >
+            <mat-option value="" selected></mat-option>
+            <mat-option *ngFor="let p of customer.providers" [value]="p.name">
+              {{p.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-    </div>
 
-    <button [disabled]="lambdaForm.form.invalid"
-      type="submit" class="btn btn-primary">
-      {{buttonMode}}
-    </button>
+      <div class="form-group">
+        <mat-form-field floatLabel="always" class="ng-valid">
+          <mat-label for="region">CSP region</mat-label>
+          <input
+            matInput
+            type="text"
+            class="form-control"
+            id="region"
+            required
+            name="region"
+            [(ngModel)]="lambdaitem.region"
+            #name="ngModel"
+            placeholder="CSP region your function is deployed in"
+          />
+          <mat-hint>A valid CSP region</mat-hint>
+          <div *ngIf="name.invalid" class="alert">Region is required</div>
+        </mat-form-field>
+      </div>
 
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="lambdaForm.form.invalid"
+        type="submit"
+      >
+        {{buttonMode}}
+      </button>
     </form>
   </div>
 </div>
-

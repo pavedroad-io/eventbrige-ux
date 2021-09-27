@@ -1,0 +1,29 @@
+<div class="container padded-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Starting Event Orchestrator deployment</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <mat-progress-spinner
+            mode="indeterminate"
+	    *ngIf="activeSpinner"
+            diameter="25"
+          >
+	  </mat-progress-spinner>
+          <span style="margin-left: 10px">Generating manifests</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-progress-spinner
+            mode="indeterminate"
+	    *ngIf="activeSpinner"
+            diameter="25"
+          ></mat-progress-spinner>
+          <span style="margin-left: 10px">Deploying manifests</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

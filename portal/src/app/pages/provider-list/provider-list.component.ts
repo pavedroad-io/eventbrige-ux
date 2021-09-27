@@ -1,22 +1,21 @@
-import { CustomerService } from  '../../services/customers.service';
-import { Customers } from  '../../schemas/customers';
+import { CustomerService } from '../../services/customers.service';
+import { Customers } from '../../schemas/customers';
+import { DeleteDialogComponent } from '../../core/components/delete-dialog/delete-dialog.component';
 
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationEnd, Router } from '@angular/router';
 
 const sleep = (milliseconds) => {
- return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
-
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 
 @Component({
   selector: 'app-provider-list',
   templateUrl: './provider-list.component.html',
-  styleUrls: ['./provider-list.component.css']
+  styleUrls: ['./provider-list.component.scss'],
 })
-
 export class ProviderListComponent implements OnInit {
   customer = new Customers();
 
@@ -29,30 +28,20 @@ export class ProviderListComponent implements OnInit {
     'key',
     'region',
     'endpoint',
-    'actions'];
+    'actions',
+  ];
 
-  constructor(private customerds: CustomerService,
-             private router: Router) {
-  }
+  constructor(private customerds: CustomerService, private router: Router) {}
 
   ngOnInit(): void {
     this.customerds.IsReady();
-    /*
-    this.customerds.share.subscribe((data: any) => {
-      this.customer = data;
-      console.log("subscribe: ", this.customer);
-      this.dataSource = new MatTableDataSource(this.customer.providers);
-      this.dataSource.sort = this.sort;
-      });
-     */
     sleep(500).then(() => {
       this.customerds.share.subscribe((data: any) => {
-      this.customer = data;
-      this.dataSource = new MatTableDataSource(this.customer.providers);
-      this.dataSource.sort = this.sort;
+        this.customer = data;
+        this.dataSource = new MatTableDataSource(this.customer.providers);
+        this.dataSource.sort = this.sort;
       });
     });
-
   }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -62,21 +51,16 @@ export class ProviderListComponent implements OnInit {
   }
 
   public editProvider(event) {
-//    console.log(event);
+    //    console.log(event);
   }
 
   public deleteProvider(event) {
     // Add alert box
-    this.customer.providers.forEach((item, index)=>{
-      if (item.name ==event.name)
-        this.customer.providers.splice(index,1);
+    this.customer.providers.forEach((item, index) => {
+      if (item.name == event.name) this.customer.providers.splice(index, 1);
     });
     this.customerds.UpdateCustomer(this.customer);
-//    console.log(event);
-//    console.log(this.customer.providers);
-
   }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() {}
 }

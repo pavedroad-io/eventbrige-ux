@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 
-import { CustomerService } from  '../../services/customers.service';
+import { CustomerService } from '../../services/customers.service';
 
 @Component({
   selector: 'app-scheduler-config',
   templateUrl: './scheduler-config.component.html',
-  styleUrls: ['./scheduler-config.component.css']
+  styleUrls: ['./scheduler-config.component.scss'],
 })
 export class SchedulerConfigComponent implements OnInit {
   submitted = false;
@@ -15,18 +15,17 @@ export class SchedulerConfigComponent implements OnInit {
   numberOfWorkers: number;
 
   onSubmit(form: NgForm) {
-    console.log(this);
-    this.router.navigate(['']);
+    this.router.navigate(['home']);
   }
 
-
-  constructor(public customerds:CustomerService,
-             private route: ActivatedRoute,
-             private router: Router) { }
+  constructor(
+    public customerds: CustomerService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.numberOfWorkers = 10;
     this.pollInterval = 600;
   }
-
 }

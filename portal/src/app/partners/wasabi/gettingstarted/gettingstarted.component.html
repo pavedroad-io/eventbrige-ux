@@ -1,0 +1,203 @@
+<div class="container padded-container">
+  <div style="display: flex; align-items: center">
+    <span class="mat-title">
+      Getting started with Event Orchestrator and 
+    </span>
+    <img
+      src="assets/icons/wasabi-stacked-primary-knockout.png"
+      alt=""
+      style="width: 100px; height: 100px"
+    />
+  </div>
+  <div>Quick start guide for creating your first AWS Lambda function</div>
+  <mat-vertical-stepper>
+    <mat-step label="Integrate Wasabi with any CSP">
+      <div class="bottom-margin">
+        Event orchestrator connects Wasabi to cloud providers using APIs and
+        events. The first step in connecting is creating API credentials. Once
+        that is donee you can define event sources and associate one or more
+        triggers.
+      </div>
+      <div class="bottom-margin">
+        In this guides shows you how to monitor your Wasabi S3 storage and
+        trigger AWS Lambda functions based on new files being created. The
+        sample Python lambda function creates and MD5 checksum that used to
+        ensure the file contents haven't changed.
+      </div>
+      <button mat-raised-button color="primary" matStepperNext>Next</button>
+    </mat-step>
+    <mat-step label="Setup API credentials">
+      <h2>CSP cloud region</h2>
+      <div class="bottom-margin">
+        Please record the region you are generated access keys in.
+      </div>
+      <h2>Wasabi</h2>
+      <div class="bottom-margin">
+        Wasabi access keys are associated with either a user or your root
+        account key. We recommend creating access keys associated with users.
+      </div>
+      <div class="bottom-margin">
+        Navigate to the Access Keys List URL in the Wasabi
+        <a href="https://console.wasabisys.com/#/access_keys">console.</a>, use
+        the "CREATE NEW ACCESS KEY" button to create your keys and save them in
+        a safe place.
+      </div>
+      <h2>AWS</h2>
+      <div class="bottom-margin">
+        AWS recommend creating an IAM user with only the permissions needed for
+        your Lambda functions. For example, create an awslambdatest user
+        account.
+        <ol>
+          <li>
+            First create the user using the "Add users" button on the
+            <a href="https://console.aws.amazon.com/iamv2/home?#/users">
+              IAM>Users
+            </a>
+            page.
+          </li>
+          <li>
+            Next click on the user and use the "Permissions" tabs "Add
+            permissions" button to assing the
+            "arn:aws:iam::aws:policy/AWSLambda_ReadOnlyAccess"
+          </li>
+          <li>
+            Last use the "Security credentials" tabs "Create access key" button
+            to create your new credentials.
+          </li>
+        </ol>
+        <h2>Event Orchestrator</h2>
+        <div class="bottom-margin">
+          Use the
+          <a href="https://eo.pavedroad.io/providerList">Provider management</a>
+          "Add" button to enter your credentials for both providers.
+        </div>
+        <div class="bottom-margin">
+          The region field is informational. However, for Wasabi, the endpoint
+          field is required. Set it to region the bucket was created in, i.e.
+          s3.us-east-1.wasabisys.com. See the
+          <a
+            href="https://wasabi.com/wp-content/themes/wasabi/docs/API_Guide/index.html#t=topics%2Fapidiff-intro.htm"
+          >
+            Wasabi API guide</a
+          >
+          for more information.
+        </div>
+      </div>
+      <button
+        mat-raised-button
+        color="primary"
+        style="margin-right: 10px"
+        matStepperPrevious
+      >
+        Back
+      </button>
+      <button mat-raised-button color="primary" matStepperNext>Next</button>
+    </mat-step>
+    <mat-step label="Create and upload an AWS Lambda function">
+      <div class="bottom-margin">
+        <ol>
+          <li>
+            From the
+            <a href="https://console.aws.amazon.com/lambda/home"
+              >AWS Lambda home page</a
+            >
+            use the "Create function" button to create new Python function. Use
+            the "Author from scratch" option and Python 3.8 in the drop down
+            list.
+          </li>
+          <li>
+            Use the code below for your function. Change the boto client
+            configuration to use your information.
+            <pre>
+endpoint_url = 'https://s3.us-XXXX-X.wasabisys.com',
+aws_access_key_id='XXXXXXXXXXXXXXXXXXXXXXXXXXX',
+aws_secret_access_key='XXXXXXXXXXXXXXXXXXXXXXXXXXX')
+			    </pre
+            >
+          </li>
+          <li>
+            Click on your Function in the list, then Configuration, and then
+            Edit.
+            <div>
+              You must increase the default time out of 3 seconds to a
+              reasonable limited depending on the size of the files in your
+              bucket. Five minutes is a reasonable starting point.
+            </div>
+          </li>
+        </ol>
+      </div>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Code </mat-panel-title>
+            <mat-panel-description>
+              Sample Python MD5 generator
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <pre>
+	{{code}}
+      </pre
+          >
+        </mat-expansion-panel>
+      </mat-accordion>
+      <button
+        mat-raised-button
+        color="primary"
+        style="margin-right: 10px"
+        matStepperPrevious
+      >
+        Back
+      </button>
+      <button mat-raised-button color="primary" matStepperNext>Next</button>
+    </mat-step>
+    <mat-step label="Setup logging for your Wasabi bucket">
+      <div class="bottom-margin">
+        The last two steps are setting up logging, if not already enabled, for
+        your Wasabi bucket and telling Event Orchestrator the names of logging
+        buckets.
+      </div>
+      <ol>
+        <li>
+          Setup Wasabi logging using directions from the following
+          <a
+            href="https://wasabi.com/wp-content/themes/wasabi/docs/User_Guide/topics/Enabling_Disabling_Bucket_Logging.htm"
+          >
+            user guide</a
+          >
+        </li>
+      </ol>
+      <ol>
+        <li>
+          Click the "New" button in the Event Orchestrator
+          <a href="http://eo.pavedroad.io/loglist"> S3 Buckets screen"</a>
+          <div class="bottom-margin"></div>
+        </li>
+        <ul>
+          <li>Bucket: Enter the name of your logging bucket</li>
+          <li>
+            Provider: Select the name you used when creating your Wasabi
+            credentials
+          </li>
+          <li>Logformat: Select S3</li>
+          <li>
+            Prune after processing: Delete logs in
+            <b>Event Orchestrator only</b>
+          </li>
+          <div>
+            The next three fields filter log entries based on the S3 Operations
+            field in your log.
+          </div>
+          <li>API type: Enter REST</li>
+          <li>HTTP Methods: Enter PUT,POST</li>
+          <li>Response Types: OBJECT</li>
+        </ul>
+        <li>Click the "Add" button to save your congiruation</li>
+      </ol>
+      <div class="bottom-margin">
+        Event Orchestrator will now starting processing existing logs and
+        looking for new logs every 5 minutes.
+      </div>
+      <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>

@@ -1,13 +1,13 @@
 import { User } from './users';
 
 export class Billing {
-  billingPlan: string
+  billingPlan: string;
 
-  billingUsers: Array<User> 
+  billingUsers: Array<User>;
 
-  constructor(){
+  constructor() {
     this.billingUsers = new Array(0);
-    billingPlan: "";
+    billingPlan: '';
     create: new Date();
     updated: new Date();
   }

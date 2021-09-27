@@ -1,0 +1,24 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eo-portal
+spec:
+  replicas: 3
+  strategy: {}
+  selector:
+    matchLabels:
+      pavedroad.service: eo-portal
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        pavedroad.service: eo-portal
+    spec:
+      containers:
+      - image: localhost:32000/pavedroad-io/eo-portal
+        name: eo-portal
+        ports:
+        - containerPort: 443
+        resources: {}
+      restartPolicy: Always

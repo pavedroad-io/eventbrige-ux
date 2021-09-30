@@ -16,8 +16,10 @@ import {
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 
+//import { ProfileComponent } from '../core/components/profile/profile.component';
 import { Customers } from '../schemas/customers';
-import { ProfileComponent } from '../core/components/profile/profile.component';
+import { Plogs } from '../schemas/plogs';
+import { ProcessedlogsService } from './processedlogs.service';
 
 const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -34,14 +36,20 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
   private url: string =
-    environment.CustBaseURL + environment.BasePath + 'customers';
-  //private url: string = 'http://localhost:8081/api/v1/namespace/pavedroad/customers';
+    environment.CustBaseURL +
+    environment.BasePath +
+    environment.EBConfigEndPoint;
   private idurl: string = this.url + '/';
-  @ViewChild(ProfileComponent) pf: ProfileComponent;
 
-  //id: string = "58ec0482-06e3-4925-b170-87e5ecad896a";
+  private plogurl: string =
+    environment.PlogBaseURL + environment.BasePath + environment.PlogEndPoint;
+
+//  @ViewChild(ProfileComponent) pf: ProfileComponent;
+
   id: string = '';
+  plogConf: string = '';
   public customer: Customers;
+  public plogs: Plogs;
 
   httpResponse: any;
   public ctx;
@@ -61,8 +69,9 @@ export class CustomerService {
     return this.getCustomer(this.id);
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private plogsds: ProcessedlogsService) {
     this.customer = new Customers();
+    this.plogs = new Plogs();
     this.ctx = new BehaviorSubject<any>(this.customer);
     this.share = this.ctx.asObservable();
   }
@@ -98,6 +107,12 @@ export class CustomerService {
     this.http.get<Customers>(this.idurl + id).subscribe((data: any) => {
       this.customer = data;
       this.id = this.customer.customersuuid;
+      if (this.customer.configuration.plogConfigID == '') {
+        this.http.post<Plogs>(this.plogurl, JSON.stringify(this.plogs)).subscribe((rdata: Plogs) => {
+          this.customer.configuration.plogConfigID = rdata.plogsuuid;
+	  this.UpdateCustomer(this.customer);
+        });
+      }
       this.ctx.next(this.customer);
       //console.log("Get customer: ", this.customer);
     });

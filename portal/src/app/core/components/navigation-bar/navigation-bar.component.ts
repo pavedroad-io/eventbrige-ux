@@ -8,7 +8,8 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NavigationComponent } from '../navigation/navigation.component';
-import { ProfileComponent } from '../profile/profile.component';
+
+import { ProfileService } from '../../../services/profile.service';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -19,14 +20,14 @@ import { AuthService } from '@auth0/auth0-angular';
 export class NavigationBarComponent implements OnInit {
   private returnUrl = '/';
   private rightSidenav: boolean = true;
+  public profile;
   public APP_TOOLBAR_TITLE = 'PavedRoad.io';
-  // Use the profile service
-  @ViewChild(ProfileComponent) pf: ProfileComponent;
 
   constructor(
     private router: Router,
     public rightNav: NavigationComponent,
-    public auth: AuthService
+    public auth: AuthService,
+    private profileSvc: ProfileService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -35,24 +36,30 @@ export class NavigationBarComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.profileSvc.share.subscribe((data: any) => {
+      this.profile = data;
+    });
+  }
+
   gotoOrg() {
-    let fullProfile = this.pf.getProfile();
     if (
-      fullProfile.customer_id != undefined ||
-      fullProfile.customer_id === ''
+      this.profile.app_metadata.customer_id != undefined ||
+      this.profile.app_metadata.customer_id === ''
     ) {
-      let r = 'organization/' + fullProfile.customer_id;
+      let r = 'organization/' + this.profile.app_metadata.customer_id;
       this.router.navigate([r]);
-    } else this.router.navigate(['organization']);
+    } else {
+      this.router.navigate(['organization']);
+    }
   }
 
   gotoUsers() {
-    let fullProfile = this.pf.getProfile();
     if (
-      fullProfile.customer_id != undefined ||
-      fullProfile.customer_id === ''
+      this.profile.app_metadata.customer_id != undefined ||
+      this.profile.app_metadata.customer_id === ''
     ) {
-      let r = 'usermgt/' + fullProfile.customer_id;
+      let r = 'usermgt/' + this.profile.app_metadata.customer_id;
       this.router.navigate([r]);
     }
   }

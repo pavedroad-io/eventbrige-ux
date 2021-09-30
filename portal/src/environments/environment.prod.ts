@@ -5,10 +5,12 @@ export const environment = {
   BaseURL: "api.pavedroad.io",
   OrgBaseURL: "https://api.pavedroad.io",
   ManifestBaseURL: "https://api.pavedroad.io",
+  PlogBaseURL: "https://api.pavedroad.io",
   BasePath: "/api/v1/namespace/pavedroad/",
   OrgEndPoint: "organization",
   CustomerEndPoint: "customers" ,
   ManifestEndPoint: "EoManifestMgr",
+  PlogEndPoint: "plogs",
 
   // Auth0
   Domain: "eventorchestrator.us.auth0.com",

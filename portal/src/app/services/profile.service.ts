@@ -1,16 +1,10 @@
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 import { AuthService } from '@auth0/auth0-angular';
 import { appMetadata } from '../schemas/appMetadata';
-
-
 
 const httpOptions = {
   observe: 'response',

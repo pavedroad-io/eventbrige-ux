@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    sleep(1000).then(() => {
+    sleep(2000).then(() => {
       this.profileSvc.share.subscribe((data: any) => {
         this.profile = data;
         if (this.profile.app_metadata == undefined) {
@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
           this.cs.getCustomer(this.profile.app_metadata.eventbrid_config_id);
 	  // TODO: Route to the last page they used or dashboard
           let r = 'organization/' + this.profile.app_metadata.customer_id;
-          this.router.navigate([r]);
+//          this.router.navigate([r]);
         }
       });
     });

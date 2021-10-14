@@ -49,8 +49,6 @@ export class NavigationBarComponent implements OnInit {
     ) {
       let r = 'organization/' + this.profile.app_metadata.customer_id;
       this.router.navigate([r]);
-    } else {
-      this.router.navigate(['organization']);
     }
   }
 

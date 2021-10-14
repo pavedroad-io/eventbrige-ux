@@ -5,6 +5,11 @@ import { HttpClient } from '@angular/common/http';
 import { CustomerService } from '../../../services/customers.service';
 import { environment } from '../../../../environments/environment';
 import { NavigationEnd, Router } from '@angular/router';
+import { ProfileService } from '../../../services/profile.service';
+
+const sleep = (milliseconds) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 
 @Component({
   selector: 'user-profile',
@@ -21,28 +26,26 @@ export class ProfileComponent implements OnInit {
     public auth: AuthService,
     private http: HttpClient,
     private cs: CustomerService,
-    private router: Router
+    private router: Router,
+    private profileSvc: ProfileService
   ) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.auth.user$.subscribe((profile) => {
-      this.profile = profile;
-      this.http
-        .get(encodeURI(environment.Audience + 'users/' + profile.sub))
-        .subscribe((data) => {
-          this.fullProfile = data;
-          if (this.fullProfile.app_metadata == undefined) {
-            // This is a new client get the org information so it can be saved
-            this.router.navigate(['organization']);
-          } else {
-            this.cs.getCustomer(
-              this.fullProfile.app_metadata.eventbrid_config_id
-            );
-//            this.router.navigate(['']);
-          }
-        });
+    sleep(2000).then(() => {
+      this.profileSvc.share.subscribe((data: any) => {
+        this.profile = data;
+        if (this.profile.app_metadata == undefined) {
+          // This is a new client get the org information so it can be saved
+          this.router.navigate(['organization']);
+        } else {
+          this.cs.getCustomer(this.profile.app_metadata.eventbrid_config_id);
+	  // TODO: Route to the last page they used or dashboard
+          let r = 'organization/' + this.profile.app_metadata.customer_id;
+//          this.router.navigate([r]);
+        }
+      });
     });
   }
 

@@ -13,6 +13,7 @@ export class Configuration {
   kubectx: string;
   manifests: string;
   templates: string;
+  plogConfigID: string;
 
   constructor() {
     this.hook = new Hook();
@@ -25,5 +26,6 @@ export class Configuration {
     this.kubectx = 'microk8s';
     this.manifests = './manifest';
     this.templates = './tpl';
+    this.plogConfigID = "";
   }
 }

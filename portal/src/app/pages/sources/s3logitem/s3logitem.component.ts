@@ -89,6 +89,9 @@ export class S3logitemComponent implements OnInit {
     for (var i = 0; i < this.customer.logs.length; i++) {
       if (this.customer.logs[i].name === this.id) {
         this.logitem.provider = this.providerSelected;
+        this.logitem.filterevents.matchedHTTPMethods = this.methods.split(',');
+        this.logitem.filterevents.matchedAPI = this.api.split(',');
+        this.logitem.filterevents.matchedResouceTypes = this.types.split(',');
         this.customer.logs[i] = this.logitem;
         return;
       }

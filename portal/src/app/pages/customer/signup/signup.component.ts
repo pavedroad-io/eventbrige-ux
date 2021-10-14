@@ -41,7 +41,6 @@ const sleep = (milliseconds) => {
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-
 export class SignupComponent implements OnInit {
   org: Organization = new Organization();
   svc: SaaSService = new SaaSService();
@@ -174,19 +173,16 @@ export class SignupComponent implements OnInit {
       this.org.zip = this.companyFG.get('zip').value;
       this.organizationds.createOrganization(this.org).subscribe((res) => {
         this.org = res;
+
+        // this will get set by auth0 in ~1 second but we need it right
+        // away for configurations to load
+        this.fullProfile.app_metadata.customer_id = this.org.organizationuuid;
+        this.fullProfile.app_metadata.eventbrid_config_id = this.svc.configKey;
+        this.profileds.ctx.next(this.fullProfile);
+
+        // Force AUTH0 reload
+        this.profileds.ProfileLoad();
       });
-
-      // this will get set by auth0 in ~1 second but we need it right
-      // away for configurations to load
-      debugger;
-      this.fullProfile.app_metadata.customer_id =
-        this.org.organizationuuid;
-      this.fullProfile.app_metadata.eventbrid_config_id =
-        this.svc.configKey;
-      this.profileds.ctx.next(this.fullProfile);
-
-      // Force AUTH0 reload
-      this.profileds.ProfileLoad();
     } else {
       this.org = this.companyFG.value;
       if (this.org.services.length === 0) {

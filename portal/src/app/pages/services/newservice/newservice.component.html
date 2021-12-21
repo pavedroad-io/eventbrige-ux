@@ -1,32 +1,41 @@
 <div>
   <mat-form-field class="search-input">
     <mat-icon matPrefix>search</mat-icon>
-    <input matInput type="search" 
-      placeholder="search services and market place">
-   </mat-form-field>
+    <input
+      matInput
+      type="search"
+      placeholder="search services and market place"
+    />
+  </mat-form-field>
 </div>
-<div>
+
+<div >
+  
   <h3>Popular offers</h3>
 </div>
+
 <mat-divider></mat-divider>
-<div>
-<mat-list style="width: 100%;">
-  <ng-container *ngFor="let item of servcieListItems">
-    <!-- mat-list-item *ngIf=!item.disabled on-click="openComponent(item.route)" -->
-    <mat-list-item *ngIf=!item.disabled class="service-card">
-      <mat-card>
-        <mat-card-header>
-          <img mat-card-avatar src="{{item.logo}}" alt="Johns big head">
-          <mat-card-title><a href="#">{{ item.title }}</a></mat-card-title>
-          <mat-card-subtitle>
-            <span><a href="#">Create</a></span> &nbsp;| &nbsp;
-            <span><a href="#">Learn more</a></span>
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
+
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px">
+  <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" 
+       style="padding: 16px;"
+	  *ngFor="let item of servcieListItems">
+   <mat-card class="mat-elevation-z4">
+      <mat-card-header>
+        <img mat-card-avatar src="{{item.logo}}" />
+        <mat-card-title><a href="#">{{ item.title }}</a></mat-card-title>
+        <mat-card-subtitle>
+          <span><a href="#">Create</a></span> &nbsp;| &nbsp;
+          <span><a href="#">Learn more</a></span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+	      <h3>
+          {{ item.description }}
+	      </h3>
       </mat-card-content>
     </mat-card>
-    </mat-list-item>
-  </ng-container>
-</mat-list>
+  </div>
+	</div>
 </div>

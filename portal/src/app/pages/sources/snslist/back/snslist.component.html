@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>SNS</mat-card-title>
+    <mat-card-subtitle>Currently configured sources </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+	  <ng-container *ngFor="let col of columns">
+		  <p>Field: {{ col.field }}</p>
+		  <p>Heading: {{ col.heading }}</p>
+	  </ng-container>
+
+  </mat-card-content>
+</mat-card>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <!-- Checked Column -->
+  <ng-container matColumnDef="checked">
+    <th mat-header-cell *matHeaderCellDef>Check</th>
+    <mat-cell *matCellDef="let element">
+      <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <!-- table dynamic columns -->
+  <ng-container *ngFor="let col of columns" [matColumnDef]="col.field" >
+    <mat-header-cell *cdkHeaderCellDef>{{ col.heading }}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row[col.field] }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+    <mat-cell *matCellDef="let element">
+      <a [routerLink]="['/snssource', element.name]">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="edit selected items"
+          color="primary"
+        >
+          edit
+        </mat-icon>
+      </a>
+      <mat-icon
+        aria-hidden="false"
+        aria-label="delete selected items"
+        (click)="deletesnsItem(element)"
+        color="warn"
+      >
+        delete
+      </mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</table>

@@ -1,6 +1,6 @@
 import { Metadata } from '../k8s/metadata';
 import { K8SSecret } from '../k8s/secret';
-import { KeyValuePair } from '../k8s/kvpair;
+import { KeyValuePair } from '../k8s/kvpair';
 
 
 export class GCPWorkflowSource {
@@ -8,7 +8,7 @@ export class GCPWorkflowSource {
   jsonBody: boolean = true;
   projectID: string = "";
   topic: string = "";
-  subscriptionID: = ";
+  subscriptionID: string = "";
   env: Array<KeyValuePair> = new Array(0);
 
   constructor() {

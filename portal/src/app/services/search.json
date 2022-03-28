@@ -1,0 +1,401 @@
+{
+    "search_metadata": {
+        "id": "6238b302f218013fdb6ae551",
+        "status": "Success",
+        "json_endpoint": "https://serpapi.com/searches/975ab185b2d81d5e/6238b302f218013fdb6ae551.json",
+        "created_at": "2022-03-21 17:16:50 UTC",
+        "processed_at": "2022-03-21 17:16:50 UTC",
+        "google_url": "https://www.google.com/search?q=triggermesh&oq=triggermesh&hl=en&gl=us&sourceid=chrome&ie=UTF-8",
+        "raw_html_file": "https://serpapi.com/searches/975ab185b2d81d5e/6238b302f218013fdb6ae551.html",
+        "total_time_taken": 1.08
+    },
+    "search_parameters": {
+        "engine": "google",
+        "q": "triggermesh",
+        "google_domain": "google.com",
+        "hl": "en",
+        "gl": "us",
+        "device": "desktop"
+    },
+    "search_information": {
+        "organic_results_state": "Results for exact spelling",
+        "query_displayed": "triggermesh",
+        "total_results": 62600,
+        "time_taken_displayed": 0.53
+    },
+    "twitter_results": {
+        "link": "https://twitter.com/triggermesh/status/1505952486061920257?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Etweet",
+        "tweets": [{
+                "link": "https://twitter.com/triggermesh/status/1505952486061920257?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Etweet",
+                "snippet": "Join @sebgoa on March 31 at the DevOps Geneva meetup to learn about modernizing #IBMMQ applications with #Kubernetes #Knative and TriggerMesh www.triggermesh.com/blo…",
+                "published_date": "16 mins ago"
+            },
+            {
+                "link": "https://twitter.com/triggermesh/status/1505922226666844160?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Etweet",
+                "snippet": "Trying to modernize legacy systems of record with legacy, monolithic #ipaas is like trying to clean a table with a dirty cloth. This blog describes an open source, cloud native approach that you can use today. www.triggermesh.com/blo…",
+                "published_date": "2 hours ago"
+            },
+            {
+                "link": "https://twitter.com/triggermesh/status/1505914264493727752?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Etweet",
+                "snippet": "Take your #ipaas 🛑#xml ➡️#json 🛑proprietary ➡️ #opensource 🛑service polling ➡️ #eventdriven with zero interruptions using TriggerMesh 📺demo: www.triggermesh.com/blo… 📖blog: www.triggermesh.com/blo…",
+                "published_date": "3 hours ago"
+            }
+        ]
+    },
+    "inline_videos": [{
+            "position": 1,
+            "title": "OCB: Consuming AWS events the Kubernetes way for event ...",
+            "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc",
+            "thumbnail": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/c197da2c96dd4d3b42447e645681f1b3410a980b7330c7a3acbf95e638944293.jpeg",
+            "channel": "OpenShift",
+            "duration": "1:02:50",
+            "platform": "YouTube",
+            "date": "Dec 14, 2020",
+            "key_moments": [{
+                    "time": "07:28",
+                    "title": "Aws Event Sources",
+                    "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc&t=448",
+                    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Z7nVCosx3BlqVfPX7mOY0AaWgg7Q594aSzip_YsYNQ&s",
+                    "percentage": 12
+                },
+                {
+                    "time": "34:08",
+                    "title": "Install the Aws Sources Operator by Trigger Mesh",
+                    "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc&t=2048",
+                    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT31-i3SPJ6xnwoe2M1EQf5IJdsLz79BfbMj8VX_g0naA&s",
+                    "percentage": 54
+                },
+                {
+                    "time": "36:57",
+                    "title": "Create a Kafka Cluster",
+                    "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc&t=2217",
+                    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC7vcFXh22OCOj2GLZGlyTU3rW-ZuatU1G5GZnj9Jexw&s",
+                    "percentage": 59
+                },
+                {
+                    "time": "37:43",
+                    "title": "Manifest of the Kinesis Source",
+                    "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc&t=2263",
+                    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuj5uwF_RvoxDRpkJ301Vjw3P33o9JuO9VFwoNh99Q3w&s",
+                    "percentage": 60
+                },
+                {
+                    "time": "44:11",
+                    "title": "Demo",
+                    "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc&t=2651",
+                    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHFqZntTN5AootitzUSC4s4WorCQ5t82RjF0lq9VOtXQ&s",
+                    "percentage": 70
+                },
+                {
+                    "time": "45:37",
+                    "title": "Http Sync",
+                    "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc&t=2737",
+                    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2pbmb0H9F1D_9F38jCOoDtY_axkrvv2LbRnlm-fLK8A&s",
+                    "percentage": 73
+                },
+                {
+                    "time": "51:59",
+                    "title": "Nginx Log Generator",
+                    "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc&t=3119",
+                    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1GHmLg5XLiGWRUa-b2XAOHwEkZ_kSFVoTx9RkEfhDBA&s",
+                    "percentage": 83
+                },
+                {
+                    "time": "58:46",
+                    "title": "Strengths of Trigger Mesh",
+                    "link": "https://www.youtube.com/watch?v=U6MwztJ5QVc&t=3526",
+                    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjW95ijV6pBi86fJq7fAAFBCGdnxIS9ZjdUD4SMrqjjg&s",
+                    "percentage": 94
+                }
+            ]
+        },
+        {
+            "position": 2,
+            "title": "Cloud Native Runtimes for VMware Tanzu with TriggerMesh ...",
+            "link": "https://www.youtube.com/watch?v=3rD-O_DyHOs",
+            "thumbnail": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/c197da2c96dd4d3b401b4134a07a4bd622b12577bf0e11cf967303e2b4efd3e7.jpeg",
+            "channel": "VMware Tanzu",
+            "duration": "15:58",
+            "platform": "YouTube",
+            "date": "Jul 22, 2021",
+            "key_moments": [{
+                    "time": "07:16",
+                    "title": "Label Analyzer",
+                    "link": "https://www.youtube.com/watch?v=3rD-O_DyHOs&t=436",
+                    "percentage": 46
+                },
+                {
+                    "time": "12:44",
+                    "title": "Aws S3 Source from Trigger Mesh",
+                    "link": "https://www.youtube.com/watch?v=3rD-O_DyHOs&t=764",
+                    "percentage": 80
+                },
+                {
+                    "time": "14:28",
+                    "title": "Cognitive Eventing",
+                    "link": "https://www.youtube.com/watch?v=3rD-O_DyHOs&t=868",
+                    "percentage": 91
+                }
+            ]
+        },
+        {
+            "position": 3,
+            "title": "Triggermesh - Helping Organizations Embrace Serverless",
+            "link": "https://www.youtube.com/watch?v=audTA-YxKxA",
+            "thumbnail": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/c197da2c96dd4d3b19f39a86a1967af1c0e2964bf559edaf253e6ef39285dc11.jpeg",
+            "channel": "TFiR",
+            "duration": "11:51",
+            "platform": "YouTube",
+            "date": "Jan 29, 2020"
+        }
+    ],
+    "organic_results": [{
+            "position": 1,
+            "title": "TriggerMesh: Cloud-Native, Open Source, Event-Driven ...",
+            "link": "https://triggermesh.com/",
+            "displayed_link": "https://triggermesh.com",
+            "snippet": "TriggerMesh is an open source cloud-native integration platform built on Kubernetes and Knative used to build event-driven infrastructure.",
+            "sitelinks": {
+                "expanded": [{
+                        "title": "About TriggerMesh",
+                        "link": "https://www.triggermesh.com/about",
+                        "snippet": "TriggerMesh is the leading Kubernetes-based integration ..."
+                    },
+                    {
+                        "title": "Product overview",
+                        "link": "https://www.triggermesh.com/product-overview",
+                        "snippet": "Build Event-Driven Applications Cloud Natively · TriggerMesh is ..."
+                    }
+                ]
+            },
+            "about_this_result": {
+                "source": {
+                    "description": "triggermesh.com was first indexed by Google in August 2018",
+                    "icon": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/8701b62a445454f529a9fab62d111bf3e05209519883d24de871570588d81ccd4945cb6c4779f2060cfd9120b66e5778.png"
+                },
+                "keywords": [
+                    "triggermesh"
+                ],
+                "languages": [
+                    "English"
+                ],
+                "regions": [
+                    "the United States"
+                ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://triggermesh.com/&tbm=ilp&ilps=AC47Oe8QAG7tlED1qW92J-Kc92eG2dfPZQ",
+            "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:FC2U_22eznYJ:https://triggermesh.com/+&cd=1&hl=en&ct=clnk&gl=us"
+        },
+        {
+            "position": 2,
+            "title": "TriggerMesh - GitHub",
+            "link": "https://github.com/triggermesh/triggermesh",
+            "displayed_link": "https://github.com › triggermesh › triggermesh",
+            "snippet": "Open source event-driven integration platform powered by Kubernetes and Knative. TriggerMesh allows you to declaratively define event flows between sources ...",
+            "about_this_result": {
+                "source": {
+                    "description": "GitHub, Inc. is a provider of Internet hosting for software development and version control using Git. It offers the distributed version control and source code management functionality of Git, plus its own features.",
+                    "source_info_link": "https://en.wikipedia.org/wiki/GitHub",
+                    "icon": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/8701b62a445454f529a9fab62d111bf3b5cddd1e71192dc8ac08d536b3a108e94b98555ff00df288ba3500767d58bc0a.png"
+                },
+                "keywords": [
+                    "triggermesh"
+                ],
+                "languages": [
+                    "English"
+                ],
+                "regions": [
+                    "the United States"
+                ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://github.com/triggermesh/triggermesh&tbm=ilp&ilps=AC47Oe_ZgzTGmJijTa2XJ42SQUKK37nGUw",
+            "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:lOOrTcEiqTMJ:https://github.com/triggermesh/triggermesh+&cd=4&hl=en&ct=clnk&gl=us",
+            "related_results": [{
+                "position": 1,
+                "title": "TriggerMesh - GitHub",
+                "link": "https://github.com/triggermesh",
+                "displayed_link": "https://github.com › triggermesh",
+                "snippet": "Open source event-driven integration platform powered by Kubernetes and Knative. TriggerMesh allows you to declaratively define event flows between sources and ...",
+                "about_this_result": {
+                    "source": {
+                        "description": "GitHub, Inc. is a provider of Internet hosting for software development and version control using Git. It offers the distributed version control and source code management functionality of Git, plus its own features.",
+                        "source_info_link": "https://en.wikipedia.org/wiki/GitHub",
+                        "icon": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/8701b62a445454f529a9fab62d111bf3fd5782c98077049d52466d23d38efbb4b221f447a9c60e2bf927cd000fcea8546ac6304e972a861d62a713e15e2b8f73ef5445dede4861fb.png"
+                    },
+                    "keywords": [
+                        "triggermesh"
+                    ],
+                    "languages": [
+                        "English"
+                    ],
+                    "regions": [
+                        "the United States"
+                    ]
+                },
+                "about_page_link": "https://www.google.com/search?q=About+https://github.com/triggermesh&tbm=ilp&ilps=AC47Oe_UlsY1V4NWq5nX0UnWJJtzBWokkA",
+                "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:cqPN3UBEi8EJ:https://github.com/triggermesh+&cd=5&hl=en&ct=clnk&gl=us"
+            }]
+        },
+        {
+            "position": 3,
+            "title": "TriggerMesh Platform",
+            "link": "https://cloud.triggermesh.io/",
+            "displayed_link": "https://cloud.triggermesh.io",
+            "snippet": "Cloud native integration platform that provides a cloud native, scalable platform that integrates applications and automation workflows from data center to the ...",
+            "about_this_result": {
+                "source": {
+                    "description": "cloud.triggermesh.io was first indexed by Google in November 2018",
+                    "icon": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/8701b62a445454f529a9fab62d111bf31e1bda95492b8917570482ec70f3b18505522376f7e37e775bfe39f9cf3ba46d.png"
+                },
+                "keywords": [
+                    "triggermesh"
+                ],
+                "languages": [
+                    "English"
+                ],
+                "regions": [
+                    "the United States"
+                ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://cloud.triggermesh.io/&tbm=ilp&ilps=AC47Oe9hCVz3fahLr_4JJMHYd5lYPmyzMg",
+            "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:zSok3Wg0rQQJ:https://cloud.triggermesh.io/+&cd=11&hl=en&ct=clnk&gl=us"
+        },
+        {
+            "position": 4,
+            "title": "TriggerMesh | LinkedIn",
+            "link": "https://www.linkedin.com/company/triggermesh",
+            "displayed_link": "https://www.linkedin.com › company › triggermesh",
+            "snippet": "TriggerMesh simplifies building event-driven applications using data and events from any platform and cloud service. Applying the concepts of ...",
+            "about_this_result": {
+                "source": {
+                    "description": "LinkedIn is an American business and employment-oriented online service that operates via websites and mobile apps. Launched on May 5, 2003, the platform is primarily used for professional networking and career development, and allows job seekers to post their CVs and employers to post jobs.",
+                    "source_info_link": "https://en.wikipedia.org/wiki/LinkedIn",
+                    "icon": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/8701b62a445454f529a9fab62d111bf32937537a9ec7cd7f0d632941a28fad39dd8932722d51c24d3047bbb8956fc66c.png"
+                },
+                "keywords": [
+                    "triggermesh"
+                ],
+                "languages": [
+                    "English"
+                ],
+                "regions": [
+                    "the United States"
+                ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.linkedin.com/company/triggermesh&tbm=ilp&ilps=AC47Oe8EMInEw0L7XMw1lZ0bYjkRwjj6XQ"
+        },
+        {
+            "position": 5,
+            "title": "TriggerMesh open-sources cloud-native integration platform",
+            "link": "https://venturebeat.com/2021/10/12/triggermesh-open-sources-cloud-native-integration-platform/",
+            "displayed_link": "https://venturebeat.com › 2021/10/12 › triggermesh-op...",
+            "date": "Oct 12, 2021",
+            "snippet": "Founded in 2018, TriggerMesh enables Kubernetes users to integrate services and easily move information across their organization, whether they' ...",
+            "about_this_result": {
+                "source": {
+                    "description": "Business Wire is an American company that disseminates full-text press releases from thousands of companies and organizations worldwide to news media, financial markets, disclosure systems, investors, information web sites, databases, bloggers, social networks and other audiences.",
+                    "source_info_link": "https://en.wikipedia.org/wiki/Business_Wire",
+                    "icon": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/8701b62a445454f529a9fab62d111bf302a83fcdcae9385022c15255e39c839b33827dacd70a9718896a1784e28e39e4.png"
+                },
+                "keywords": [
+                    "triggermesh"
+                ],
+                "languages": [
+                    "English"
+                ],
+                "regions": [
+                    "the United States"
+                ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://venturebeat.com/2021/10/12/triggermesh-open-sources-cloud-native-integration-platform/&tbm=ilp&ilps=AC47Oe9U7S7qW72wO148h74UoH2yvMDeyQ",
+            "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:BkLKxrNC4YwJ:https://venturebeat.com/2021/10/12/triggermesh-open-sources-cloud-native-integration-platform/+&cd=16&hl=en&ct=clnk&gl=us"
+        },
+        {
+            "position": 6,
+            "title": "TriggerMesh Cloud Native Integration Platform Released as ...",
+            "link": "https://www.infoq.com/news/2021/10/triggermesh-cloud-native-oss/",
+            "displayed_link": "https://www.infoq.com › news › 2021/10 › triggermesh...",
+            "date": "Oct 18, 2021",
+            "snippet": "What makes TriggerMesh a revolutionary solution is that it is the industry's only open source cloud-native iPaaS (Integration Platform-as-a- ...",
+            "about_this_result": {
+                "source": {
+                    "description": "infoq.com was first indexed by Google more than 10 years ago",
+                    "icon": "https://serpapi.com/searches/6238b302f218013fdb6ae551/images/8701b62a445454f529a9fab62d111bf3631da8502fc8292010cb8cfd305643a0212d370d47b5e6032d9186d2921dcff7.png"
+                },
+                "keywords": [
+                    "triggermesh"
+                ],
+                "languages": [
+                    "English"
+                ],
+                "regions": [
+                    "the United States"
+                ]
+            },
+            "about_page_link": "https://www.google.com/search?q=About+https://www.infoq.com/news/2021/10/triggermesh-cloud-native-oss/&tbm=ilp&ilps=AC47Oe-U6oFYCMRrsVcA9tSWLqyXLArl_w",
+            "cached_page_link": "https://webcache.googleusercontent.com/search?q=cache:JuYmi5mNnX4J:https://www.infoq.com/news/2021/10/triggermesh-cloud-native-oss/+&cd=17&hl=en&ct=clnk&gl=us"
+        }
+    ],
+    "related_searches": [{
+            "query": "triggermesh crunchbase",
+            "link": "https://www.google.com/search?hl=en&gl=us&q=Triggermesh+Crunchbase&sa=X&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ1QJ6BAguEAE"
+        },
+        {
+            "query": "triggermesh github",
+            "link": "https://www.google.com/search?hl=en&gl=us&q=TriggerMesh+GitHub&sa=X&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ1QJ6BAgtEAE"
+        },
+        {
+            "query": "triggermesh pricing",
+            "link": "https://www.google.com/search?hl=en&gl=us&q=TriggerMesh+pricing&sa=X&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ1QJ6BAgsEAE"
+        },
+        {
+            "query": "triggermesh funding",
+            "link": "https://www.google.com/search?hl=en&gl=us&q=TriggerMesh+funding&sa=X&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ1QJ6BAgrEAE"
+        },
+        {
+            "query": "triggermesh use cases",
+            "link": "https://www.google.com/search?hl=en&gl=us&q=TriggerMesh+use+cases&sa=X&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ1QJ6BAgqEAE"
+        },
+        {
+            "query": "triggermesh headquarters'",
+            "link": "https://www.google.com/search?hl=en&gl=us&q=TriggerMesh+headquarters&sa=X&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ1QJ6BAgpEAE"
+        },
+        {
+            "query": "triggermesh blog",
+            "link": "https://www.google.com/search?hl=en&gl=us&q=Triggermesh+blog&sa=X&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ1QJ6BAgoEAE"
+        },
+        {
+            "query": "triggermesh knative",
+            "link": "https://www.google.com/search?hl=en&gl=us&q=TriggerMesh+Knative&sa=X&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ1QJ6BAgnEAE"
+        }
+    ],
+    "pagination": {
+        "current": 1,
+        "next": "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=10&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8NMDegQIARBI",
+        "other_pages": {
+            "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=10&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8tMDegQIARA4",
+            "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=20&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8tMDegQIARA6",
+            "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=30&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8tMDegQIARA8",
+            "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=40&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8tMDegQIARA-",
+            "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=50&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8tMDegQIARBA",
+            "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=60&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8tMDegQIARBC",
+            "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=70&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8tMDegQIARBE",
+            "https://www.google.com/search?q=triggermesh&hl=en&gl=us&ei=ArM4YuP2JIm8tAaJipqgAQ&start=80&sa=N&ved=2ahUKEwjj_-nL2tf2AhUJHs0KHQmFBhQQ8tMDegQIARBG"
+        }
+    },
+    "serpapi_pagination": {
+        "current": 1,
+        "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=10",
+        "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=10",
+        "other_pages": {
+            "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=10",
+            "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=20",
+            "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=30",
+            "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=40",
+            "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=50",
+            "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=60",
+            "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=70",
+            "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&q=triggermesh&start=80"
+        }
+    }
+}

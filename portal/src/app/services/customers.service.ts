@@ -44,8 +44,6 @@ export class CustomerService {
   private plogurl: string =
     environment.PlogBaseURL + environment.BasePath + environment.PlogEndPoint;
 
-//  @ViewChild(ProfileComponent) pf: ProfileComponent;
-
   id: string = '';
   plogConf: string = '';
   public customer: Customers;
@@ -66,6 +64,7 @@ export class CustomerService {
   }
 
   getdetails() {
+    //console.log('getdetails: ', this.id);
     return this.getCustomer(this.id);
   }
 
@@ -104,17 +103,23 @@ export class CustomerService {
   }
 
   getCustomer(id: string) {
+    if (id === '') {
+      console.log('Customer looked failed no id was provide');
+      return;
+    }
     this.http.get<Customers>(this.idurl + id).subscribe((data: any) => {
       this.customer = data;
       this.id = this.customer.customersuuid;
+      //console.log(this.customer);
       if (this.customer.configuration.plogConfigID == '') {
-        this.http.post<Plogs>(this.plogurl, JSON.stringify(this.plogs)).subscribe((rdata: Plogs) => {
-          this.customer.configuration.plogConfigID = rdata.plogsuuid;
-	  this.UpdateCustomer(this.customer);
-        });
+        this.http
+          .post<Plogs>(this.plogurl, JSON.stringify(this.plogs))
+          .subscribe((rdata: Plogs) => {
+            this.customer.configuration.plogConfigID = rdata.plogsuuid;
+            this.UpdateCustomer(this.customer);
+          });
       }
       this.ctx.next(this.customer);
-      //console.log("Get customer: ", this.customer);
     });
   }
 
@@ -122,7 +127,7 @@ export class CustomerService {
     this.http
       .post<Customers>(this.url, JSON.stringify(post))
       .pipe(catchError(this.handleError))
-      .subscribe((data: any) => {
+      .subscribe(data => {
         this.customer = data;
         this.id = this.customer.customersuuid;
         this.ctx.next(this.customer);
@@ -132,6 +137,11 @@ export class CustomerService {
   }
 
   updateCustomer(post: Customers) {
+    if (post.customersuuid == undefined || post.customersuuid == '') {
+      alert('Unable to update eb config ID not found');
+      return;
+    }
+
     this.httpResponse = this.httpResponse = this.http
       .put<Customers>(
         this.idurl + post.customersuuid,

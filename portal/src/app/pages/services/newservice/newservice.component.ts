@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-newservice',
   templateUrl: './newservice.component.html',
@@ -30,7 +30,7 @@ export class NewserviceComponent implements OnInit {
       type: 'source',
       icon: 'build',
       logo: '../../../../assets/icons/cloudio.png',
-      route: '',
+      route: 'snssource',
       description: 'Load events from AWS Simple Notification Service (SNS)',
       disabled: false,
     },
@@ -270,7 +270,14 @@ export class NewserviceComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+      private router: Router, 
+      private route: ActivatedRoute
+  ) {}
+
+  public openComponent(route: string) {
+    this.router.navigate([route]);
+  }
 
   ngOnInit(): void {}
 }

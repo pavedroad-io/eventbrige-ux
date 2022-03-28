@@ -54,11 +54,18 @@ import { PrivacyComponent } from './pages/legal/privacy/privacy.component';
 import { TermsComponent } from './pages/legal/terms/terms.component';
 import { SignupComponent } from './pages/customer/signup/signup.component';
 import { UsermgtComponent } from './pages/users/usermgt/usermgt.component';
+import { HookComponent } from './core/components/events/hook/hook.component';
+import { SecretComponent } from './core/components/k8s/secret/secret.component';
+import { SharedModule } from './shared/shared.module';
+import { MatCustomTableModule } from 'src/app/shared/components/mat-custom-table/mat-custom-table.module';
 
 // Services
 import { CustomerService } from './services/customers.service';
 import { OrganizationService } from './services/organization.service';
 import { ProfileService } from './services/profile.service';
+import { PorttrackerService } from './services/porttracker.service';
+
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewserviceComponent } from './pages/services/newservice/newservice.component';
 import { SourceBreakdownComponent } from './charts/source-breakdown/source-breakdown.component';
@@ -70,11 +77,12 @@ import { DeplomentComponent } from './pages/deploy/deploment/deploment.component
 import { DeploymentStatusComponent } from './pages/deploy/status/status.component';
 import { DeleteDeploymentComponent } from './pages/deploy/delete/delete.component';
 import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettingstarted.component';
-import { SecretComponent } from './pages/k8s/secret/secret.component';
 import { MetadataComponent } from './pages/k8s/metadata/metadata.component';
 import { KvpairComponent } from './pages/k8s/kvpair/kvpair.component';
 import { KvpairListComponent } from './pages/k8s/kvpair-list/kvpair-list.component';
 import { SecretListComponent } from './pages/k8s/secret-list/secret-list.component';
+import { SnsComponent } from './pages/sources/sns/sns.component';
+import { SnslistComponent } from './pages/sources/snslist/snslist.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +101,8 @@ import { SecretListComponent } from './pages/k8s/secret-list/secret-list.compone
     TermsComponent,
     SignupComponent,
     UsermgtComponent,
+    HookComponent,
+    SecretComponent,
     DashboardComponent,
     NewserviceComponent,
     SourceBreakdownComponent,
@@ -104,11 +114,12 @@ import { SecretListComponent } from './pages/k8s/secret-list/secret-list.compone
     DeploymentStatusComponent,
     DeleteDeploymentComponent,
     GettingstartedComponent,
-    SecretComponent,
     MetadataComponent,
     KvpairComponent,
     KvpairListComponent,
-    SecretListComponent
+    SecretListComponent,
+    SnsComponent,
+    SnslistComponent
   ],
   imports: [
     AppRoutingModule,
@@ -155,7 +166,8 @@ import { SecretListComponent } from './pages/k8s/secret-list/secret-list.compone
     MatStepperModule,
     LayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCustomTableModule
 
   ],
   providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill', floatLabel: true, hideRequiredMarker: true}},

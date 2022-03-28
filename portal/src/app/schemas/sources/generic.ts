@@ -1,5 +1,5 @@
 import { Metadata } from '../k8s/metadata';
-import { KeyValuePari } from '../k8s/kvpair';
+import { KeyValuePair } from '../k8s/kvpair';
 
 
 export class GenericSource{

@@ -17,7 +17,6 @@ const sleep = (milliseconds) => {
   styles: [],
 })
 export class ProfileComponent implements OnInit {
-  profile: any = {};
   fullProfile: any = {};
   userdata: any = {};
   appdata: any = {};
@@ -33,19 +32,21 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    sleep(2000).then(() => {
-      this.profileSvc.share.subscribe((data: any) => {
-        this.profile = data;
-        if (this.profile.app_metadata == undefined) {
-          // This is a new client get the org information so it can be saved
-          this.router.navigate(['organization']);
-        } else {
-          this.cs.getCustomer(this.profile.app_metadata.eventbrid_config_id);
-	  // TODO: Route to the last page they used or dashboard
-          let r = 'organization/' + this.profile.app_metadata.customer_id;
-//          this.router.navigate([r]);
-        }
-      });
+    this.profileSvc.share.subscribe((data: any) => {
+
+      this.fullProfile = this.profileSvc.fullProfile;
+      if (this.profileSvc.fullProfile == undefined) {
+        return;
+      }
+
+      console.log('yes fulprofil: ');
+      if (this.profileSvc.fullProfile.app_metadata == undefined) {
+        let r = 'organization/';
+        this.router.navigate([r]);
+      } else {
+        console.log('EB configuration missing or in progress');
+        this.cs.getCustomer(this.profileSvc.fullProfile.app_metadata.eventbrid_config_id);
+      }
     });
   }
 

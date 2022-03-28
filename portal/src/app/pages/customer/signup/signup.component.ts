@@ -43,7 +43,9 @@ const sleep = (milliseconds) => {
 })
 export class SignupComponent implements OnInit {
   org: Organization = new Organization();
-  svc: SaaSService = new SaaSService();
+  eoSvc: SaaSService;
+  wasabiSvc: SaaSService;
+  S3Svc: SaaSService;
   fullProfile: Auth0User = new Auth0User();
 
   eventbridgeConfig: Customers = new Customers();
@@ -74,50 +76,43 @@ export class SignupComponent implements OnInit {
     private router: Router
   ) {
     this.companyFG = this.fb.group({
-      organizationuuid: [' ', Validators.required],
-      name: [' ', Validators.required],
-      address: [' ', Validators.required],
-      city: [' ', Validators.required],
-      state: [' ', Validators.required],
-      zip: [' ', Validators.required],
-      services: this.fb.array([]),
-      members: this.fb.array([]),
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zip: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    sleep(1000).then(() => {
-      this.customerds.share.subscribe((data: any) => {
-        this.eventbridgeConfig = data;
-        this.updateEventBridgeConfigKey();
-      });
+    this.profileds.share.subscribe((data) => {
+      this.fullProfile = data;
     });
-    sleep(1000).then(() => {
-      this.profileds.share.subscribe((data: any) => {
-        this.fullProfile = data;
-      });
+
+    // load eb conf
+    this.customerds.share.subscribe(data => {
+      this.eventbridgeConfig = data;
+      this.updateEventBridgeConfigKey();
     });
 
     this.id = this.route.snapshot.params['id'];
     if (!this.id) {
-      //  this.buttonMode = "Add";
       this.addMode = true;
       this.formtitle = 'Welcome please enter your company information';
-      this.addEventBridge();
+      this.addDefaultServices();
     } else {
-      // this.buttonMode = "Update";
       this.addMode = false;
       this.formtitle = 'Updating your organization';
 
-      sleep(250).then(() => {
-        this.organizationds.share.subscribe((data: any) => {
-          this.org = data;
-          this.companyFG.reset(this.org);
-          this.dataSource = new MatTableDataSource(this.org.services);
-          this.dataSource.sort = this.sort;
-        });
-      });
+      // load org
       this.organizationds.loadOrg(this.id);
+      this.organizationds.share.subscribe((data) => {
+        console.log('signup org: ', data);
+        this.org = data;
+        this.companyFG.reset(this.org);
+        this.dataSource = new MatTableDataSource(this.org.services);
+        this.dataSource.sort = this.sort;
+      });
     }
 
     this.dataSource = new MatTableDataSource(this.org.services);
@@ -126,20 +121,24 @@ export class SignupComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  addEventBridge() {
+  addDefaultServices() {
     // We don't know the configKey until the POST is complete
     this.customerds.createCustomer(this.eventbridgeConfig);
-    let t = new Date();
-    this.svc = {
-      name: 'Event orchestrator',
-      plan: 'basic',
-      configKey: '',
-      active: true,
-      updated: t,
-      created: t,
-    };
 
-    this.org.services.push(this.svc);
+    let t = new Date();
+    this.eoSvc = new SaaSService('EventOrchestrator', 'trial', true, 30, {
+      softLimitSources: 5,
+      hardLimitSources: 10,
+      softLimitTriggers: 5,
+      hardLimitTriggers: 10,
+    });
+    this.wasabiSvc = new SaaSService('Wasabi-S3', 'trial', true, 30, {
+      diskSpace: '1GB',
+    });
+    this.S3Svc = new SaaSService('AWS-S3', 'trial', true, 30, {});
+    this.org.services.push(this.eoSvc);
+    this.org.services.push(this.wasabiSvc);
+    this.org.services.push(this.S3Svc);
   }
 
   updateEventBridgeConfigKey() {
@@ -158,6 +157,13 @@ export class SignupComponent implements OnInit {
     return -1;
   }
 
+  isValid() {
+    if (this.eventbridgeConfig.customersuuid == '' || this.companyFG.invalid) {
+      return true;
+    }
+    return false;
+  }
+
   updateEventBridge() {
     this.org.name = this.companyFG.get('name').value;
     this.eventbridgeConfig.name = this.org.name;
@@ -165,6 +171,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    if (this.eventbridgeConfig.customersuuid == '') return;
     if (this.addMode) {
       this.org.name = this.companyFG.get('name').value;
       this.org.address = this.companyFG.get('address').value;
@@ -177,7 +184,8 @@ export class SignupComponent implements OnInit {
         // this will get set by auth0 in ~1 second but we need it right
         // away for configurations to load
         this.fullProfile.app_metadata.customer_id = this.org.organizationuuid;
-        this.fullProfile.app_metadata.eventbrid_config_id = this.svc.configKey;
+        this.fullProfile.app_metadata.eventbrid_config_id =
+          this.eoSvc.configKey;
         this.profileds.ctx.next(this.fullProfile);
 
         // Force AUTH0 reload
@@ -186,7 +194,7 @@ export class SignupComponent implements OnInit {
     } else {
       this.org = this.companyFG.value;
       if (this.org.services.length === 0) {
-        this.addEventBridge();
+        this.addDefaultServices();
       }
       this.organizationds.UpdateOrganization(this.org);
       this.companyFG.reset();

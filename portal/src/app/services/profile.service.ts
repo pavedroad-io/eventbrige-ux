@@ -16,7 +16,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
   profile: any = {};
-  fullProfile: any = {};
+  fullProfile: any;
   orgID: string;
   ebConf: string;
   newClient: boolean = false;
@@ -35,16 +35,8 @@ export class ProfileService {
       this.profile = profile;
       this.http
         .get(encodeURI(environment.Audience + 'users/' + profile.sub))
-        .subscribe((data) => {
+        .subscribe(data => {
           this.fullProfile = data;
-          if (this.fullProfile.app_metadata == undefined) {
-            this.fullProfile.app_metadata = new appMetadata();
-            // This is a new client get the org information so it can be saved
-            this.newClient = true;
-          } else {
-            this.newClient = false;
-          }
-	  // this.share?
           this.ctx.next(this.fullProfile);
         });
     });

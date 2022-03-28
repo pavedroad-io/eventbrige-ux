@@ -3,7 +3,7 @@ import { Injectable, ViewChild, ViewChildren } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders
+  HttpHeaders,
 } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
@@ -49,7 +49,8 @@ export class OrganizationService {
   }
 
   loadOrg(id: string) {
-    this.getOrganization(id).subscribe((data: any) => {
+    this.getOrganization(id).subscribe(data => {
+      //console.log("Org svc: ", data);
       this.organization = data;
       this.ctx.next(data);
     });
@@ -78,7 +79,7 @@ export class OrganizationService {
     sleep(1000).then(() => {
       this.profileSvc.share.subscribe((data: any) => {
         this.profile = data;
-	//console.log("ProfileInit: ", this.profile);
+        //console.log("ProfileInit: ", this.profile);
       });
     });
   }

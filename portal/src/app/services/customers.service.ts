@@ -15,11 +15,12 @@ import {
 } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
-
-//import { ProfileComponent } from '../core/components/profile/profile.component';
+import { ServiceConstants } from 'src/app/shared/consts/serviceConstants';
 import { Customers } from '../schemas/customers';
+import { SaaSService } from '../schemas/saas_service';
 import { Plogs } from '../schemas/plogs';
 import { ProcessedlogsService } from './processedlogs.service';
+import { ProfileService } from './profile.service';
 
 const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -44,8 +45,6 @@ export class CustomerService {
   private plogurl: string =
     environment.PlogBaseURL + environment.BasePath + environment.PlogEndPoint;
 
-//  @ViewChild(ProfileComponent) pf: ProfileComponent;
-
   id: string = '';
   plogConf: string = '';
   public customer: Customers;
@@ -66,22 +65,35 @@ export class CustomerService {
   }
 
   getdetails() {
+    //console.log('getdetails: ', this.id);
     return this.getCustomer(this.id);
   }
 
-  constructor(private http: HttpClient, private plogsds: ProcessedlogsService) {
+  constructor(
+    private http: HttpClient,
+    private plogsds: ProcessedlogsService,
+    public profileds: ProfileService
+  ) {
     this.customer = new Customers();
     this.plogs = new Plogs();
     this.ctx = new BehaviorSubject<any>(this.customer);
     this.share = this.ctx.asObservable();
+    this.profileds.share.subscribe((data) => {
+      if (data == undefined) {
+        return;
+      }
+      this.checkMetaData(data);
+    });
   }
 
-  IsReady(): any {
-    sleep(80).then(() => {
-      if (this.share !== undefined) {
-        return true;
-      }
-    });
+  checkMetaData(data) {
+    if (
+      (data.app_metadata.eventbrid_config_id == '' ||
+        data.app_metadata.eventbrid_config_id == undefined) &&
+      this.customer.customersuuid != ''
+    ) {
+      data.app_metadata.eventbrid_config_id = this.customer.customersuuid;
+    }
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -104,17 +116,22 @@ export class CustomerService {
   }
 
   getCustomer(id: string) {
+    if (id === '') {
+      console.log('Customer looked failed no id was provide');
+      return;
+    }
     this.http.get<Customers>(this.idurl + id).subscribe((data: any) => {
       this.customer = data;
       this.id = this.customer.customersuuid;
       if (this.customer.configuration.plogConfigID == '') {
-        this.http.post<Plogs>(this.plogurl, JSON.stringify(this.plogs)).subscribe((rdata: Plogs) => {
-          this.customer.configuration.plogConfigID = rdata.plogsuuid;
-	  this.UpdateCustomer(this.customer);
-        });
+        this.http
+          .post<Plogs>(this.plogurl, JSON.stringify(this.plogs))
+          .subscribe((rdata: Plogs) => {
+            this.customer.configuration.plogConfigID = rdata.plogsuuid;
+            this.UpdateCustomer(this.customer);
+          });
       }
       this.ctx.next(this.customer);
-      //console.log("Get customer: ", this.customer);
     });
   }
 
@@ -122,7 +139,7 @@ export class CustomerService {
     this.http
       .post<Customers>(this.url, JSON.stringify(post))
       .pipe(catchError(this.handleError))
-      .subscribe((data: any) => {
+      .subscribe((data) => {
         this.customer = data;
         this.id = this.customer.customersuuid;
         this.ctx.next(this.customer);
@@ -132,6 +149,11 @@ export class CustomerService {
   }
 
   updateCustomer(post: Customers) {
+    if (post.customersuuid == undefined || post.customersuuid == '') {
+      alert('Unable to update eb config ID not found');
+      return;
+    }
+
     this.httpResponse = this.httpResponse = this.http
       .put<Customers>(
         this.idurl + post.customersuuid,

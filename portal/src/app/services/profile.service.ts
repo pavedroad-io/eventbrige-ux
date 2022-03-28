@@ -1,6 +1,10 @@
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 import { AuthService } from '@auth0/auth0-angular';
@@ -16,7 +20,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
   profile: any = {};
-  fullProfile: any = {};
+  fullProfile: any;
   orgID: string;
   ebConf: string;
   newClient: boolean = false;
@@ -37,16 +41,15 @@ export class ProfileService {
         .get(encodeURI(environment.Audience + 'users/' + profile.sub))
         .subscribe((data) => {
           this.fullProfile = data;
-          if (this.fullProfile.app_metadata == undefined) {
-            this.fullProfile.app_metadata = new appMetadata();
-            // This is a new client get the org information so it can be saved
-            this.newClient = true;
-          } else {
-            this.newClient = false;
-          }
-	  // this.share?
           this.ctx.next(this.fullProfile);
         });
     });
+  }
+
+  updateMetadata(app_metadata): void {
+    if (this.fullProfile.app_metadata != undefined) {
+      this.fullProfile.app_metadata = app_metadata;
+      this.ctx.next(this.fullProfile);
+    }
   }
 }

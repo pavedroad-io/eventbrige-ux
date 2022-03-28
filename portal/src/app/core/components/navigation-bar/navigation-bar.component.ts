@@ -44,8 +44,8 @@ export class NavigationBarComponent implements OnInit {
 
   gotoOrg() {
     if (
-      this.profile.app_metadata.customer_id != undefined ||
-      this.profile.app_metadata.customer_id === ''
+      this.profile.app_metadata.customer_id != undefined &&
+      this.profile.app_metadata.customer_id != ''
     ) {
       let r = 'organization/' + this.profile.app_metadata.customer_id;
       this.router.navigate([r]);

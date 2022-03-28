@@ -15,4 +15,8 @@ export class Log {
     this.provider = '';
     this.pruneAfterProcessing = false;
   }
+
+  members() {
+
+  }
 }

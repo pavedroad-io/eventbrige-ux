@@ -3,13 +3,15 @@ import { Injectable, ViewChild, ViewChildren } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders
+  HttpHeaders,
 } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 
 import { Customers } from '../schemas/customers';
 import { Organization } from '../schemas/organization';
+import { SaaSService } from '../schemas/saas_service';
+import { AppMetadataComponent } from '../schemas/app-metadata/app-metadata.component';
 
 import { ProfileService } from './profile.service';
 
@@ -38,26 +40,24 @@ export class OrganizationService {
   public ctx;
   public share;
 
-  UpdateOrganization(data) {
+  UpdateOrganization(data, updateMetadata) {
     this.organization = data;
     this.ctx.next(data);
-    this.updateOrganization(data);
-  }
-
-  Save(data) {
-    return this.UpdateOrganization(data);
+    this.updateOrganization(data, updateMetadata);
   }
 
   loadOrg(id: string) {
-    this.getOrganization(id).subscribe((data: any) => {
+    this.getOrganization(id).subscribe(data => {
       this.organization = data;
       this.ctx.next(data);
     });
   }
 
   constructor(private http: HttpClient, private profileSvc: ProfileService) {
-    this.organization = new Organization();
-    this.organization.organizationuuid = this.id;
+    //this.organization = new Organization();
+    //this.organization.organizationuuid = this.id;
+    this.organization = undefined;
+    //this.organization.organizationuuid = this.id;
     this.ServiceInit();
     this.ProfileInit();
   }
@@ -78,7 +78,6 @@ export class OrganizationService {
     sleep(1000).then(() => {
       this.profileSvc.share.subscribe((data: any) => {
         this.profile = data;
-	//console.log("ProfileInit: ", this.profile);
       });
     });
   }
@@ -105,7 +104,6 @@ export class OrganizationService {
   getOrganization(id: string): Observable<Organization> {
     this.httpResponse = this.http.get<Organization>(this.idurl + id);
     return this.httpResponse;
-    //return this.http.get<Organization>(this.idurl+id);
   }
 
   createOrganization(post: Organization): Observable<any> {
@@ -113,10 +111,10 @@ export class OrganizationService {
     return this.http.post<Organization>(this.url, JSON.stringify(post));
   }
 
-  updateOrganization(post: Organization) {
+  updateOrganization(post: Organization, updateMetadata: boolean) {
     this.httpResponse = this.http
       .put<Organization>(
-        this.idurl + post.organizationuuid,
+        this.idurl + post.organizationuuid + '?update_metadata=' + updateMetadata,
         JSON.stringify(post),
         {
           headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

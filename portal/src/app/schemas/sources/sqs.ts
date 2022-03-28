@@ -1,4 +1,4 @@
-import { Metadata } '../k8s/metadata'
+import { Metadata } from '../k8s/metadata'
 
 export class SQSSource {
   metadata: Metadata

@@ -1,0 +1,105 @@
+<div class="container padded-container">
+  <mat-card>
+    <mat-card-title>SNS Source </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="snsForm" (ngSubmit)="onSubmit()" #uf="ngForm">
+        <mat-card>
+          <mat-card-title> SNS Configurations </mat-card-title>
+          <mat-card-content>
+            <div>
+              <mat-form-field>
+                <mat-label for="topicARN">topicARN</mat-label>
+                <input
+                  matInput
+                  formControlName="topicARN"
+                  class="form-control"
+                  placeholder="some value"
+                  required
+                />
+                <div *ngIf="submitted && fg.topicARN.errors" class="alert">
+                  <div *ngIf="fg.topicARN.errors.required">
+                    topicARN is required
+                  </div>
+                </div>
+              </mat-form-field>
+
+              <div>
+                <mat-form-field>
+                  <mat-label for="roleARN">roleARN</mat-label>
+                  <input
+                    matInput
+                    formControlName="roleARN"
+                    class="form-control"
+                    placeholder="some value"
+                    required
+                  />
+                  <div *ngIf="submitted && fg.roleARN.errors" class="alert">
+                    <div *ngIf="fg.roleARN.errors.required">
+                      roleARN is required
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field>
+                  <mat-label for="region">region</mat-label>
+                  <input
+                    matInput
+                    formControlName="region"
+                    class="form-control"
+                    placeholder="some value"
+                    required
+                  />
+                  <div *ngIf="submitted && fg.region.errors" class="alert">
+                    <div *ngIf="fg.region.errors.required">
+                      region is required
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field>
+                  <mat-label for="validateSignature"
+                    >validateSignature</mat-label
+                  >
+                  <input
+                    matInput
+                    formControlName="validateSignature"
+                    class="form-control"
+                    placeholder="some value"
+                    required
+                  />
+                  <div
+                    *ngIf="submitted && fg.validateSignature.errors"
+                    class="alert"
+                  >
+                    <div *ngIf="fg.validateSignature.errors.required">
+                      validateSignature is required
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- sns data goes here -->
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-title>AWS SNS Event Source</mat-card-title>
+          <mat-card-content>
+            <div>
+              <app-hook> </app-hook>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-title> AWS cred source </mat-card-title>
+          <mat-card-content> </mat-card-content>
+        </mat-card>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

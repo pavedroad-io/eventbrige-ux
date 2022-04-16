@@ -52,3 +52,14 @@ export class SNSSourceDisplay {
   webhook: string;
   methods: string;
 }
+
+export class SNSSourceDisplay {
+  name: string;
+  provider: string;
+  region: string;
+  role: string;
+  topic: string;
+  validateSignature: boolean;
+  webhook: string;
+  methods: string;
+}

@@ -39,7 +39,7 @@ export class ProfileService {
       this.profile = profile;
       this.http
         .get(encodeURI(environment.Audience + 'users/' + profile.sub))
-        .subscribe((data) => {
+        .subscribe(data => {
           this.fullProfile = data;
           this.ctx.next(this.fullProfile);
         });

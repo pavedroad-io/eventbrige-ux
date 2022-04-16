@@ -37,7 +37,6 @@ import { RatingSelectorComponent } from './components/filters/rating-selector/ra
     EolandingComponent,
     MetadataComponent,
     KvpairComponent,
-
     TreeSelectorComponent,
     MenuSelectorComponent,
     SearchSelectorComponent,

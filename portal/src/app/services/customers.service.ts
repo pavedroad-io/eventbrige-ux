@@ -123,6 +123,7 @@ export class CustomerService {
     this.http.get<Customers>(this.idurl + id).subscribe((data: any) => {
       this.customer = data;
       this.id = this.customer.customersuuid;
+      //console.log(this.customer);
       if (this.customer.configuration.plogConfigID == '') {
         this.http
           .post<Plogs>(this.plogurl, JSON.stringify(this.plogs))

@@ -12,7 +12,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { LoginComponent } from './login/login.component';
 
 
-// Angular modules
+// Material modules
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
@@ -20,11 +20,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 
+// Angular modules
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 // Http support
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -50,11 +54,18 @@ import { PrivacyComponent } from './pages/legal/privacy/privacy.component';
 import { TermsComponent } from './pages/legal/terms/terms.component';
 import { SignupComponent } from './pages/customer/signup/signup.component';
 import { UsermgtComponent } from './pages/users/usermgt/usermgt.component';
+import { HookComponent } from './core/components/events/hook/hook.component';
+import { SecretComponent } from './core/components/k8s/secret/secret.component';
+import { SharedModule } from './shared/shared.module';
+import { MatCustomTableModule } from 'src/app/shared/components/mat-custom-table/mat-custom-table.module';
 
 // Services
 import { CustomerService } from './services/customers.service';
 import { OrganizationService } from './services/organization.service';
 import { ProfileService } from './services/profile.service';
+import { PorttrackerService } from './services/porttracker.service';
+
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewserviceComponent } from './pages/services/newservice/newservice.component';
 import { SourceBreakdownComponent } from './charts/source-breakdown/source-breakdown.component';
@@ -66,6 +77,14 @@ import { DeplomentComponent } from './pages/deploy/deploment/deploment.component
 import { DeploymentStatusComponent } from './pages/deploy/status/status.component';
 import { DeleteDeploymentComponent } from './pages/deploy/delete/delete.component';
 import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettingstarted.component';
+import { MetadataComponent } from './pages/k8s/metadata/metadata.component';
+import { KvpairComponent } from './pages/k8s/kvpair/kvpair.component';
+import { KvpairListComponent } from './pages/k8s/kvpair-list/kvpair-list.component';
+import { SecretListComponent } from './pages/k8s/secret-list/secret-list.component';
+import { SnsComponent } from './pages/sources/sns/sns.component';
+import { SnslistComponent } from './pages/sources/snslist/snslist.component';
+import { AppMetadataComponent } from './schemas/app-metadata/app-metadata.component';
+import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-all-sources.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +103,8 @@ import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettin
     TermsComponent,
     SignupComponent,
     UsermgtComponent,
+    HookComponent,
+    SecretComponent,
     DashboardComponent,
     NewserviceComponent,
     SourceBreakdownComponent,
@@ -94,7 +115,15 @@ import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettin
     DeplomentComponent,
     DeploymentStatusComponent,
     DeleteDeploymentComponent,
-    GettingstartedComponent
+    GettingstartedComponent,
+    MetadataComponent,
+    KvpairComponent,
+    KvpairListComponent,
+    SecretListComponent,
+    SnsComponent,
+    SnslistComponent,
+    AppMetadataComponent,
+    ListAllSourcesComponent
   ],
   imports: [
     AppRoutingModule,
@@ -129,6 +158,7 @@ import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettin
     }),
     ChartsModule,
     CoreModule,
+    FlexLayoutModule,
     HttpClientModule,
     MatGridListModule,
     MatCardModule,
@@ -137,9 +167,11 @@ import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettin
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatStepperModule,
     LayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCustomTableModule
 
   ],
   providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill', floatLabel: true, hideRequiredMarker: true}},

@@ -1,0 +1,109 @@
+<div class="container padded-container">
+  <div class="container padded-container">
+    <mat-card>
+      <mat-card-title>SNS Source </mat-card-title>
+      <mat-card-content>
+        <div class="container padded-container">
+          <form
+            [formGroup]="snsForm"
+            (ngSubmit)="onSubmit(formRef)"
+            #formRef="ngForm"
+          >
+            <mat-card>
+              <mat-card-title> SNS Configurations </mat-card-title>
+              <mat-card-content>
+                <div>
+                  <mat-form-field>
+                    <mat-label for="topicARN">topicARN</mat-label>
+                    <input
+                      matInput
+                      formControlName="topicARN"
+                      class="form-control"
+                      placeholder="arn:aws:sns:us-east-2:123456789012:YourTopic"
+                      required
+                    />
+                    <div
+                      *ngIf="submitted && getFormGroup.topicARN.errors"
+                      class="alert"
+                    >
+                      <div *ngIf="getFormGroup.topicARN.errors.required">
+                        topicARN is required
+                      </div>
+                    </div>
+                  </mat-form-field>
+
+                  <div>
+                    <mat-form-field>
+                      <mat-label for="roleARN">roleARN</mat-label>
+                      <input
+                        matInput
+                        formControlName="roleARN"
+                        class="form-control"
+                        placeholder="arn:aws:iam::123456789012:#####"
+                        required
+                      />
+                      <div
+                        *ngIf="submitted && getFormGroup.roleARN.errors"
+                        class="alert"
+                      >
+                        <div *ngIf="getFormGroup.roleARN.errors.required">
+                          roleARN is required
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+
+                  <div>
+                    <mat-form-field>
+                      <mat-label for="region">region</mat-label>
+                      <input
+                        matInput
+                        formControlName="region"
+                        class="form-control"
+                        placeholder="us-west-2"
+                        required
+                      />
+                      <div
+                        *ngIf="submitted && getFormGroup.region.errors"
+                        class="alert"
+                      >
+                        <div *ngIf="getFormGroup.region.errors.required">
+                          region is required
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+
+                  <div>
+                    <mat-slide-toggle
+                      matInput
+                      formControlName="validateSignature"
+                      labelPosition="before"
+                    >
+                      Validate Signature
+                    </mat-slide-toggle>
+                  </div>
+                  <k8s-secret></k8s-secret>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </form>
+        </div>
+
+        <app-hook (parentEvent)="childMessage($event)"></app-hook>
+
+        <div class="container padded-container">
+          <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="onSubmit(formRef)"
+            [disabled]="allValid()"
+          >
+            {{ buttonText }}
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

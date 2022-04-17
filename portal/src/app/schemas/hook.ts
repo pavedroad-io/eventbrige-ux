@@ -1,10 +1,12 @@
 export class Hook {
   name: string;
-  host: string;
+  endpoint: string;
   port: string;
+  methods: string;
   constructor() {
     this.name = 'eventbridge';
-    this.host = 'localhost';
+    this.endpoint = '/';
     this.port = '12002';
+    this.methods = "POST";
   }
 }

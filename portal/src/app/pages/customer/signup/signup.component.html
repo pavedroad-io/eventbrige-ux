@@ -100,7 +100,7 @@
 
       <ng-container matColumnDef="configKey">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Config ID</th>
-        <td mat-cell *matCellDef="let element"> {{element.configKey}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.configkey}} </td>
       </ng-container>
 
       <ng-container matColumnDef="active">
@@ -121,7 +121,7 @@
 
     <div class="form-element">
       <button mat-raised-button color="primary" type="submit" class="button"
-        [disabled]="companyFG.invalid">Submit Form</button>
+        [disabled]="isValid()">Submit Form</button>
     </div>
 
   </form>

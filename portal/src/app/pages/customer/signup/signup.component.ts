@@ -26,15 +26,13 @@ import { Organization } from '../../../schemas/organization';
 import { User } from '../../../schemas/users';
 import { SaaSService } from '../../../schemas/saas_service';
 import { Billing } from '../../../schemas/billing';
+import { AppMetadataComponent } from '../../../schemas/app-metadata/app-metadata.component';
 import { Auth0User } from '../../../schemas/auth0user';
 
 import { CustomerService } from '../../../services/customers.service';
 import { OrganizationService } from '../../../services/organization.service';
 import { ProfileService } from '../../../services/profile.service';
-
-const sleep = (milliseconds) => {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-};
+import { ServiceConstants } from '../../../shared/consts/serviceConstants';
 
 @Component({
   selector: 'app-signup',
@@ -42,8 +40,10 @@ const sleep = (milliseconds) => {
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  org: Organization = new Organization();
-  svc: SaaSService = new SaaSService();
+  org: Organization = undefined;
+  eoSvc: SaaSService;
+  wasabiSvc: SaaSService;
+  S3Svc: SaaSService;
   fullProfile: Auth0User = new Auth0User();
 
   eventbridgeConfig: Customers = new Customers();
@@ -54,6 +54,7 @@ export class SignupComponent implements OnInit {
   formtitle: string = 'Update organization';
 
   addMode: boolean = true;
+  updateMetadata: boolean = false;
   submitted = false;
   id: string;
 
@@ -74,88 +75,165 @@ export class SignupComponent implements OnInit {
     private router: Router
   ) {
     this.companyFG = this.fb.group({
-      organizationuuid: [' ', Validators.required],
-      name: [' ', Validators.required],
-      address: [' ', Validators.required],
-      city: [' ', Validators.required],
-      state: [' ', Validators.required],
-      zip: [' ', Validators.required],
-      services: this.fb.array([]),
-      members: this.fb.array([]),
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zip: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    sleep(1000).then(() => {
-      this.customerds.share.subscribe((data: any) => {
-        this.eventbridgeConfig = data;
-        this.updateEventBridgeConfigKey();
-      });
+    this.profileds.share.subscribe((data) => {
+      if (data == undefined) {
+        return;
+      }
+      this.fullProfile = data;
+      this.checkMetaData();
     });
-    sleep(1000).then(() => {
-      this.profileds.share.subscribe((data: any) => {
-        this.fullProfile = data;
-      });
+
+    // load eb conf
+    this.customerds.share.subscribe((data) => {
+      this.eventbridgeConfig = data;
+      this.updateEventBridgeConfigKey();
     });
 
     this.id = this.route.snapshot.params['id'];
     if (!this.id) {
-      //  this.buttonMode = "Add";
       this.addMode = true;
       this.formtitle = 'Welcome please enter your company information';
-      this.addEventBridge();
+      this.addDefaultServices();
+      this.updateServices();
     } else {
-      // this.buttonMode = "Update";
       this.addMode = false;
       this.formtitle = 'Updating your organization';
 
-      sleep(250).then(() => {
-        this.organizationds.share.subscribe((data: any) => {
-          this.org = data;
-          this.companyFG.reset(this.org);
-          this.dataSource = new MatTableDataSource(this.org.services);
-          this.dataSource.sort = this.sort;
-        });
-      });
+      // load org
       this.organizationds.loadOrg(this.id);
+      this.organizationds.share.subscribe((data) => {
+        if (data == undefined) {
+          return;
+        }
+        this.org = data;
+        this.companyFG.reset(this.org);
+        this.verifyServiceConfigs();
+        this.updateServices();
+      });
     }
+  }
 
+  updateServices() {
+    if (this.org == undefined) {
+      return;
+    }
     this.dataSource = new MatTableDataSource(this.org.services);
     this.dataSource.sort = this.sort;
   }
 
   @ViewChild(MatSort) sort: MatSort;
 
-  addEventBridge() {
-    // We don't know the configKey until the POST is complete
-    this.customerds.createCustomer(this.eventbridgeConfig);
-    let t = new Date();
-    this.svc = {
-      name: 'Event orchestrator',
-      plan: 'basic',
-      configKey: '',
-      active: true,
-      updated: t,
-      created: t,
-    };
+  verifyServiceConfigs() {
+    if (this.org == undefined) {
+      return;
+    }
+    this.org.services.forEach((svc) => {
+      if (svc.name === String(ServiceConstants.EVENTORCHESTRATOR)) {
+        if (svc.configkey == '') {
+          console.log('Adding missing config for : ', svc.name);
+          this.customerds.createCustomer(this.eventbridgeConfig);
+        } else {
+          this.customerds.getCustomer(svc.configkey);
+        }
+        this.checkMetaData();
+      }
 
-    this.org.services.push(this.svc);
+      if (svc.name === String(ServiceConstants.AWSS3)) {
+        console.log('Service name: ', svc.name, ' missing config');
+      }
+
+      if (svc.name === String(ServiceConstants.WASABIS3)) {
+        console.log('Service name: ', svc.name, ' missing config');
+      }
+    });
   }
 
+  checkMetaData() {
+    if (
+      this.fullProfile.app_metadata.eventbrid_config_id == '' ||
+      this.fullProfile.app_metadata.eventbrid_config_id == undefined
+    ) {
+      let i = this.findSaaSService(ServiceConstants.EVENTORCHESTRATOR);
+      if (i != -1) {
+        this.fullProfile.app_metadata.eventbrid_config_id =
+          this.org.services[i].configkey;
+        this.updateMetadata = true;
+      }
+    }
+  }
+
+  addDefaultServices() {
+    // We don't know the configkey until the POST is complete
+    this.customerds.createCustomer(this.eventbridgeConfig);
+
+    let t = new Date();
+    this.eoSvc = new SaaSService(
+      ServiceConstants.EVENTORCHESTRATOR,
+      'trial',
+      true,
+      30,
+      {
+        softLimitSources: 5,
+        hardLimitSources: 10,
+        softLimitTriggers: 5,
+        hardLimitTriggers: 10,
+      }
+    );
+    this.wasabiSvc = new SaaSService(
+      ServiceConstants.WASABIS3,
+      'trial',
+      true,
+      30,
+      {
+        diskSpace: '1GB',
+      }
+    );
+    this.S3Svc = new SaaSService(ServiceConstants.AWSS3, 'trial', true, 30, {});
+    this.org.services.push(this.eoSvc);
+    this.org.services.push(this.wasabiSvc);
+    this.org.services.push(this.S3Svc);
+  }
+
+  // updateEventBridgeConfigKey in list of services
+  // after the configuration has been created
   updateEventBridgeConfigKey() {
-    let i = this.findSaaSService('Event orchestrator');
+    if (this.org?.services == undefined) {
+      return;
+    }
+    let i = this.findSaaSService(ServiceConstants.EVENTORCHESTRATOR);
     if (i != -1) {
-      this.org.services[i].configKey = this.eventbridgeConfig.customersuuid;
+      if (this.org.services[i].configkey == '') {
+        this.org.services[i].configkey = this.eventbridgeConfig.customersuuid;
+      }
     }
   }
 
   findSaaSService(name: string) {
+    if (this.org?.services == undefined) {
+      return;
+    }
     for (var i = 0; i < this.org.services.length; i++) {
       if (this.org.services[i].name === name) {
         return i;
       }
     }
     return -1;
+  }
+
+  isValid() {
+    if (this.eventbridgeConfig.customersuuid == '' || this.companyFG.invalid) {
+      return true;
+    }
+    return false;
   }
 
   updateEventBridge() {
@@ -165,6 +243,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    if (this.eventbridgeConfig.customersuuid == '') return;
     if (this.addMode) {
       this.org.name = this.companyFG.get('name').value;
       this.org.address = this.companyFG.get('address').value;
@@ -176,19 +255,27 @@ export class SignupComponent implements OnInit {
 
         // this will get set by auth0 in ~1 second but we need it right
         // away for configurations to load
+        if (this.fullProfile.app_metadata == undefined) {
+          this.fullProfile.app_metadata = new AppMetadataComponent();
+        }
         this.fullProfile.app_metadata.customer_id = this.org.organizationuuid;
-        this.fullProfile.app_metadata.eventbrid_config_id = this.svc.configKey;
+        this.fullProfile.app_metadata.eventbrid_config_id =
+          this.eoSvc.configkey;
         this.profileds.ctx.next(this.fullProfile);
 
         // Force AUTH0 reload
         this.profileds.ProfileLoad();
       });
     } else {
-      this.org = this.companyFG.value;
+      this.org.name = this.companyFG.get('name').value;
+      this.org.address = this.companyFG.get('address').value;
+      this.org.city = this.companyFG.get('city').value;
+      this.org.state = this.companyFG.get('state').value;
+      this.org.zip = this.companyFG.get('zip').value;
       if (this.org.services.length === 0) {
-        this.addEventBridge();
+        this.addDefaultServices();
       }
-      this.organizationds.UpdateOrganization(this.org);
+      this.organizationds.UpdateOrganization(this.org, this.updateMetadata);
       this.companyFG.reset();
     }
     this.router.navigate(['home']);

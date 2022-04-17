@@ -167,7 +167,7 @@ export class UsermgtComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   updateOrg() {
-    this.organizationds.UpdateOrganization(this.org);
+    this.organizationds.UpdateOrganization(this.org, false);
   }
 
   onSubmit() {

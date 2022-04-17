@@ -21,6 +21,9 @@ import { DeploymentStatusComponent} from './pages/deploy/status/status.component
 import { DeleteDeploymentComponent } from './pages/deploy/delete/delete.component';
 import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettingstarted.component';
 import { EolandingComponent } from './core/components/eolanding/eolanding.component';
+import { SnsComponent } from './pages/sources/sns/sns.component';
+import { SnslistComponent } from './pages/sources/snslist/snslist.component';
+import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-all-sources.component';
 
 const routes: Routes = [
   {
@@ -38,6 +41,12 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'sources',
+    component: ListAllSourcesComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
@@ -146,6 +155,18 @@ const routes: Routes = [
   {
     path: 'startwasabi',
     component: GettingstartedComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'snssource',
+    component: SnsComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'snslist',
+    component: SnslistComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },

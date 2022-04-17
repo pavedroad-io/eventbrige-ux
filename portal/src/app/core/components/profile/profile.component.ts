@@ -2,10 +2,15 @@ import { Component, OnInit, Directive, AfterViewInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { concatMap, tap, pluck } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { CustomerService } from '../../../services/customers.service';
 import { environment } from '../../../../environments/environment';
 import { NavigationEnd, Router } from '@angular/router';
+
 import { ProfileService } from '../../../services/profile.service';
+import { OrganizationService } from '../../../services/organization.service';
+import { CustomerService } from 'src/app/services/customers.service';
+
+import { SaaSService } from 'src/app/schemas/saas_service';
+import { ServiceConstants } from 'src/app/shared/consts/serviceConstants';
 
 const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -17,7 +22,6 @@ const sleep = (milliseconds) => {
   styles: [],
 })
 export class ProfileComponent implements OnInit {
-  profile: any = {};
   fullProfile: any = {};
   userdata: any = {};
   appdata: any = {};
@@ -25,7 +29,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private http: HttpClient,
-    private cs: CustomerService,
+    private organizationService: OrganizationService,
+    private customerService: CustomerService,
     private router: Router,
     private profileSvc: ProfileService
   ) {}
@@ -33,19 +38,55 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    sleep(2000).then(() => {
-      this.profileSvc.share.subscribe((data: any) => {
-        this.profile = data;
-        if (this.profile.app_metadata == undefined) {
-          // This is a new client get the org information so it can be saved
-          this.router.navigate(['organization']);
-        } else {
-          this.cs.getCustomer(this.profile.app_metadata.eventbrid_config_id);
-	  // TODO: Route to the last page they used or dashboard
-          let r = 'organization/' + this.profile.app_metadata.customer_id;
-//          this.router.navigate([r]);
-        }
-      });
+    this.profileSvc.share.subscribe((data: any) => {
+      this.fullProfile = this.profileSvc.fullProfile;
+      if (this.profileSvc.fullProfile == undefined) {
+        return;
+      }
+
+      // New company
+      if (this.profileSvc.fullProfile.app_metadata.customer_id == undefined) {
+        let r = 'organization/';
+        this.router.navigate([r]);
+      } else {
+        this.organizationService.loadOrg(
+          this.profileSvc.fullProfile.app_metadata.customer_id
+        );
+        this.organizationService.share.subscribe((data) => {
+          // If the org is not loaded or eb config is already defined
+          // just return
+          if (
+            data == undefined ||
+            this.profileSvc.fullProfile.app_metadata.eventbrid_config_id != ''
+          ) {
+            return;
+          }
+
+          const findSvc: SaaSService = new SaaSService(
+            'dummy',
+            'dummy',
+            true,
+            0,
+            {
+              softLimitSources: 0,
+              hardLimitSources: 0,
+              softLimitTriggers: 0,
+              hardLimitTriggers: 0,
+            }
+          );
+
+          const eb = findSvc.find(
+            data.services,
+            ServiceConstants.EVENTORCHESTRATOR
+          );
+
+          if (eb != undefined) {
+            this.profileSvc.fullProfile.app_metadata.eventbrid_config_id =
+              eb.configkey;
+            this.customerService.getCustomer(eb.configkey);
+          }
+        });
+      }
     });
   }
 

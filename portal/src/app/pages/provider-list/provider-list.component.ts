@@ -34,13 +34,13 @@ export class ProviderListComponent implements OnInit {
   constructor(private customerds: CustomerService, private router: Router) {}
 
   ngOnInit(): void {
-    this.customerds.IsReady();
-    sleep(500).then(() => {
-      this.customerds.share.subscribe((data: any) => {
-        this.customer = data;
-        this.dataSource = new MatTableDataSource(this.customer.providers);
-        this.dataSource.sort = this.sort;
-      });
+    this.customerds.share.subscribe((data) => {
+      if (data.customersuuid == '') {
+        return;
+      }
+      this.customer = data;
+      this.dataSource = new MatTableDataSource(this.customer.providers);
+      this.dataSource.sort = this.sort;
     });
   }
 

@@ -50,6 +50,10 @@ export class ProviderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.customerds.share.subscribe((data) => {
+      this.customer = data;
+    });
+
     this.id = this.route.snapshot.params['id'];
 
     if (!this.id) {
@@ -63,11 +67,6 @@ export class ProviderComponent implements OnInit {
     }
 
     this.provider = new Provider();
-    sleep(250).then(() => {
-      this.customerds.share.subscribe((data: any) => {
-        this.customer = data;
-      });
-    });
   }
 
   findProvider(name: string) {

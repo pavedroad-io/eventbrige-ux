@@ -1,0 +1,60 @@
+<mat-card>
+  <mat-card-title> Metadata </mat-card-title>
+  <mat-card-content>
+    <div class="form-group">
+
+      <mat-form-field>
+        <mat-label for="name">Name</mat-label>
+        <input
+          matInput
+          formControlName="name"
+          class="form-control"
+          placeholder="name"
+          required
+        />
+        <div *ngIf="submitted && f.name.errors" class="alert">
+        <div *ngIf="f.name.errors.required">Event name is required</div>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="source">Name</mat-label>
+        <input
+          matInput
+          formControlName="source"
+          class="form-control"
+          placeholder="event source"
+          required
+        />
+        <div *ngIf="submitted && f.source.errors" class="alert">
+        <div *ngIf="f.source.errors.required">Event source name is required</div>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="namespace">Namespace</mat-label>
+        <input
+          matInput
+          formControlName="namespace"
+          class="form-control"
+          placeholder="namespace"
+          required
+        />
+        <div *ngIf="submitted && f.namespace.errors" class="alert">
+        <div *ngIf="f.namespace.errors.required">A Namespace is required</div>
+        </div>
+      </mat-form-field>
+
+      <h2>Labels</h2>
+      <mat-list>
+      </mat-list>
+
+      <h2>Annotations</h2>
+      <mat-list>
+      </mat-list>
+
+
+
+    </div>
+  </mat-card-content>
+</mat-card>

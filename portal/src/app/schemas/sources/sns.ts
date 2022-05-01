@@ -40,6 +40,17 @@ export class SNSSource {
     rv.methods = this.snshook.methods;
     return rv;
   }
+
+  find(key: string, list: SNSSource[]) {
+    let rv: SNSSource;
+    list.forEach((item) => {
+      if (item.snsmetadata.name === key) {
+        rv = item;
+      }
+    });
+	      console.log(rv);
+    return rv;
+  }
 }
 
 export class SNSSourceDisplay {

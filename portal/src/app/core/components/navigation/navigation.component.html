@@ -9,84 +9,42 @@
     fixedTopGap="64"
     autoFocus="false"
   >
-    <!-- mat-sidenav #navigationSidenav class="sidenav"
-			fixedInViewport
-			mode="side"
-      role="navigation"
-      mode="over"
-      opened="true"
-			fixedTopGap="64"
-			autoFocus="false" -->
-
     <mat-nav-list style="margin-left: 5px">
-      <mat-list style="padding: 0px">
-        <mat-list-item
-          on-click="openComponent('newservice')"
-          style="justify-content: flex-start; padding: 0"
-        >
-          <mat-icon aria-hidden="false" aria-label="Create a resoruce"
-            >add</mat-icon
-          >
-          Create a resource
-        </mat-list-item>
-      </mat-list>
+      <app-chip-selector
+        [title]="'Source events'"
+        [prompt]="'add filter options'"
+        [navigate]="'/sources'"
+        [allChips]="allSources"
+        [selectedChips]="defaultsSources"
+      >
+      </app-chip-selector>
 
-      <h2 mat-list-item class="fivepix;" on-click="openComponent('dashboard')">
-        Dashboard
-      </h2>
+      <app-chip-selector
+        [title]="'Trigger events'"
+        [prompt]="'add filter options'"
+        [navigate]="'/triggers'"
+        [allChips]="allTriggers"
+        [selectedChips]="defaultsTriggers"
+      >
+      </app-chip-selector>
 
-      <h2 mat-list-item>Sources</h2>
+      <app-chip-selector
+        [title]="'Workflows'"
+        [prompt]="'add filter options'"
+        [navigate]="'/workflows'"
+        [allChips]="allWorkflows"
+        [selectedChips]="defaultsWorkflows"
+      >
+      </app-chip-selector>
 
-      <mat-list>
-        <ng-container *ngFor="let item of eventSourceMenueItems">
-          <mat-list-item
-            *ngIf="!item.disabled"
-            on-click="openComponent(item.route)"
-          >
-            <span>{{ item.title }}</span>
-          </mat-list-item>
-        </ng-container>
-      </mat-list>
-
-      <h2 mat-list-item>Triggers</h2>
-
-      <mat-list>
-        <ng-container *ngFor="let item of tirggerSourceMenuItems">
-          <mat-list-item
-            *ngIf="!item.disabled"
-            on-click="openComponent(item.route)"
-          >
-            <span>{{ item.title }}</span>
-          </mat-list-item>
-        </ng-container>
-      </mat-list>
-
-      <h2 mat-list-item>Configure</h2>
-
-      <mat-list style="margin-top: 0px">
-        <ng-container *ngFor="let item of configureMenuItems">
-          <mat-list-item
-            *ngIf="!item.disabled"
-            on-click="openComponent(item.route)"
-          >
-            <span>{{ item.title }}</span>
-          </mat-list-item>
-        </ng-container>
-      </mat-list>
-
-      <h2 mat-list-item>Deployment</h2>
-
-      <mat-list style="margin-top: 0px">
-        <ng-container *ngFor="let item of deployMenuItems">
-          <mat-list-item
-            *ngIf="!item.disabled"
-            on-click="openComponent(item.route)"
-          >
-            <span>{{ item.title }}</span>
-          </mat-list-item>
-        </ng-container>
-      </mat-list>
-
+      <app-chip-selector
+        [title]="'Functions'"
+        [prompt]="'add filter options'"
+        [navigate]="'/functions'"
+        [allChips]="allFunctions"
+        [selectedChips]="defaultsFunctions"
+      >
+      </app-chip-selector>
 
     </mat-nav-list>
   </mat-sidenav>

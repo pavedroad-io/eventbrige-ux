@@ -19,6 +19,7 @@ import { PulsarSource } from './sources/pulsar';
 import { RedisSource } from './sources/redis';
 import { ResourceSource } from './sources/resource';
 import { SlackSource } from './sources/slack';
+import { S3Source } from './sources/s3';
 import { SNSSource } from './sources/sns';
 import { SQSSource } from './sources/sqs';
 import { StorageGridSource } from './sources/storage-grid';
@@ -46,6 +47,7 @@ export class Sources {
   redis: Array<RedisSource>;
   resource: Array<ResourceSource>;
   slack: Array<SlackSource>;
+  s3: Array<S3Source>;
   sns: Array<SNSSource>;
   sqs: Array<SQSSource>;
   storageGrid: Array<StorageGridSource>;
@@ -74,6 +76,7 @@ export class Sources {
     this.redis = new Array(0);
     this.resource = new Array(0);
     this.slack = new Array(0);
+    this.s3 = new Array(0);
     this.sns = new Array(0);
     this.sqs = new Array(0);
     this.storageGrid = new Array(0);
@@ -103,6 +106,7 @@ export class Sources {
     if (instance.redis == undefined) instance.redis = new Array(0);
     if (instance.resource == undefined) instance.resource = new Array(0);
     if (instance.slack == undefined) instance.slack = new Array(0);
+    if (instance.s3 == undefined) instance.s3 = new Array(0);
     if (instance.sns == undefined) instance.sns = new Array(0);
     if (instance.sqs == undefined) instance.sqs = new Array(0);
     if (instance.storageGrid == undefined) instance.storageGrid = new Array(0);
@@ -188,7 +192,7 @@ export class Sources {
         instance.sns.length > 0) {
       instance.sns.forEach((item) => {
         let newItem: genericSourceEventTable = {
-          type: 'SNSSource',
+          type: 'SNS',
           name: item.snsmetadata.name,
           provider: item.awssecret.key,
           region: item.region,

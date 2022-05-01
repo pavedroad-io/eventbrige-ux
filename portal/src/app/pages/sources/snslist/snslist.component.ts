@@ -105,7 +105,7 @@ export class SnslistComponent implements OnInit {
   }
 
   public open(url) {
-    this.router.navigate(['snssource']);
+    this.router.navigate([url]);
   }
 
   public delete(event) {

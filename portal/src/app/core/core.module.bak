@@ -3,7 +3,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../shared/material.module';
 
-import { NgForm, FormsModule, FormBuilder, FormGroup, FormControl, Validators, FormArray, FormGroupDirective, } from '@angular/forms';
+import { ReactiveFormsModule, NgForm, FormsModule, FormBuilder, FormGroup, FormControl, Validators, FormArray, FormGroupDirective, } from '@angular/forms';
+
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+
 
 
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -49,8 +55,12 @@ import { RatingSelectorComponent } from './components/filters/rating-selector/ra
     FormsModule,
     CommonModule, 
     MaterialModule, 
+    ReactiveFormsModule,
     LayoutModule, 
-    RouterModule
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule
   ],
   exports: [MaterialModule, NavigationComponent, RouterModule],
   providers: [],

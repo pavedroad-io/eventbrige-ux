@@ -8,7 +8,6 @@ import {
 } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { CoreModule } from '../../../core/core.module';
 import { DeleteDialogComponent } from '../../../core/components/delete-dialog/delete-dialog.component';
 import { CustomerService } from '../../../services/customers.service';
 import { Customers } from '../../../schemas/customers';

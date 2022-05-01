@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CoreModule } from './core/core.module';
+//import { CoreModule } from './core/core.module';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { AppComponent } from './app.component';
 import { ProviderListComponent } from './pages/provider-list/provider-list.component';
@@ -160,6 +160,12 @@ const routes: Routes = [
   },
   {
     path: 'snssource',
+    component: SnsComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'snssource/:id',
     component: SnsComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],

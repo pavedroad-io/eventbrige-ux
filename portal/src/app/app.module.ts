@@ -11,24 +11,71 @@ import { environment } from '../environments/environment';
 import { AuthModule } from '@auth0/auth0-angular';
 import { LoginComponent } from './login/login.component';
 
-
 // Material modules
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+
+// Forms
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
+// Navigation
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+//
+// Layout
+//
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTreeModule } from '@angular/material/tree';
+
+//
+// Buttons & Indicators
+//
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+//
+// Popups & Modals
+//
+
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+
+//
+// Data Table
+//
+
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 // Angular modules
 import { LayoutModule } from '@angular/cdk/layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
 
 // Http support
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -40,7 +87,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ChartsModule } from 'ng2-charts';
 
 // PR modules
-import { CoreModule } from './core/core.module';
+//import { CoreModule } from './core/core.module';
 import { ProviderListComponent } from './pages/provider-list/provider-list.component';
 import { SchedulerConfigComponent } from './pages/scheduler-config/scheduler-config.component';
 import { ProviderComponent } from './pages/provider/provider.component';
@@ -58,13 +105,25 @@ import { HookComponent } from './core/components/events/hook/hook.component';
 import { SecretComponent } from './core/components/k8s/secret/secret.component';
 import { SharedModule } from './shared/shared.module';
 import { MatCustomTableModule } from 'src/app/shared/components/mat-custom-table/mat-custom-table.module';
+import { NavigationComponent } from './core/components/navigation/navigation.component';
+import { ProfileComponent } from './core/components/profile/profile.component';
+import { NavigationBarComponent } from './core/components/navigation-bar/navigation-bar.component';
+import { DeleteDialogComponent } from './core/components/delete-dialog/delete-dialog.component';
+import { EolandingComponent } from './core/components/eolanding/eolanding.component';
+import { BackoffConfigComponent } from './core/components/events/backoff-config/backoff-config.component';
+import { TreeSelectorComponent } from './core/components/filters/tree-selector/tree-selector.component';
+import { MenuSelectorComponent } from './core/components/filters/menu-selector/menu-selector.component';
+import { SearchSelectorComponent } from './core/components/filters/search-selector/search-selector.component';
+import { ToggleSelectorComponent } from './core/components/filters/toggle-selector/toggle-selector.component';
+import { ChipSelectorComponent } from './core/components/filters/chip-selector/chip-selector.component';
+import { RangeSelectorComponent } from './core/components/filters/range-selector/range-selector.component';
+import { RatingSelectorComponent } from './core/components/filters/rating-selector/rating-selector.component';
 
 // Services
 import { CustomerService } from './services/customers.service';
 import { OrganizationService } from './services/organization.service';
 import { ProfileService } from './services/profile.service';
 import { PorttrackerService } from './services/porttracker.service';
-
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewserviceComponent } from './pages/services/newservice/newservice.component';
@@ -123,7 +182,21 @@ import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-a
     SnsComponent,
     SnslistComponent,
     AppMetadataComponent,
-    ListAllSourcesComponent
+    ListAllSourcesComponent,
+    NavigationComponent,
+    NavigationBarComponent,
+    ProfileComponent,
+    DeleteDialogComponent,
+    EolandingComponent,
+    MetadataComponent,
+    KvpairComponent,
+    TreeSelectorComponent,
+    MenuSelectorComponent,
+    SearchSelectorComponent,
+    ToggleSelectorComponent,
+    ChipSelectorComponent,
+    RangeSelectorComponent,
+    RatingSelectorComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -143,39 +216,81 @@ import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-a
       // Specify configuration for the interceptor
       httpInterceptor: {
         allowedList: [
-        {
-          // Match any request that starts 'https://pavedroad.us.auth0.com/api/v2/' (note the asterisk)
-          uri: environment.Audience+'*',
-          tokenOptions: {
-            // The attached token should target this audience
-            audience: environment.Audience,
+          {
+            // Match any request that starts 'https://pavedroad.us.auth0.com/api/v2/' (note the asterisk)
+            uri: environment.Audience + '*',
+            tokenOptions: {
+              // The attached token should target this audience
+              audience: environment.Audience,
 
-            // The attached token should have these scopes
-            scope: environment.Scope
-          }
-        }]
-      }
+              // The attached token should have these scopes
+              scope: environment.Scope,
+            },
+          },
+        ],
+      },
     }),
     ChartsModule,
-    CoreModule,
     FlexLayoutModule,
     HttpClientModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatStepperModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCustomTableModule
+    MatCustomTableModule,
 
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+
+    MatAutocompleteModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+
+    MatCardModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatListModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatTreeModule,
+
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+
+    MatBottomSheetModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatTooltipModule,
+
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
   ],
-  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill', floatLabel: true, hideRequiredMarker: true}},
-   { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+  exports: [],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        appearance: 'fill',
+        floatLabel: true,
+        hideRequiredMarker: true,
+      },
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+  ],
+  entryComponents: [DeleteDialogComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

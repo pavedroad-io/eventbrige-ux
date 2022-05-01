@@ -1,5 +1,4 @@
 <mat-toolbar color="primary" class="navigation-bar">
-
   <mat-toolbar-row>
     <button mat-icon-button (click)="toggleSideNav()">
       <mat-icon>menu</mat-icon>
@@ -7,40 +6,43 @@
 
     <span class="toolbar-title"> {{ APP_TOOLBAR_TITLE }} </span>
 
-		<span class="toolbar-right-align">
+    <span class="toolbar-right-align">
+      <button mat-icon-button [matMenuTriggerFor]="settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <mat-menu #settings="matMenu">
+        <button mat-menu-item on-click="gotoOrg()">Organization</button>
+        <button mat-menu-item on-click="gotoUsers()">Users</button>
+        <button mat-menu-item [routerLink]="'providerList'">Providers</button>
+        <button mat-menu-item [routerLink]="'schedulerConfig'">Schedules</button>
+        <button mat-menu-item [matMenuTriggerFor]="deployment">Deploy</button>
+      </mat-menu>
 
-          <button mat-icon-button [matMenuTriggerFor]="settings">
-            <mat-icon>settings</mat-icon>
-          </button>
-          <mat-menu #settings="matMenu">
-            <button mat-menu-item on-click="gotoOrg()">Organization</button>
-            <button mat-menu-item on-click="gotoUsers()">Users</button>
-          </mat-menu>
+      <mat-menu #deployment="matMenu">
+        <button mat-menu-item [routerLink]="'deploy'">Deploy orchestrations</button>
+        <button mat-menu-item [routerLink]="'deploystatus'">Orchestrations status</button>
+        <button mat-menu-item [routerLink]="'deletedeployment'">Teardown Orchestrations</button>
+      </mat-menu>
 
-          <button mat-icon-button>
-            <mat-icon>help_outline</mat-icon>
-          </button>
+      <button mat-icon-button>
+        <mat-icon>help_outline</mat-icon>
+      </button>
 
-          <button mat-icon-button [matMenuTriggerFor]="auth">
-            <mat-icon>person_outline</mat-icon>
-          </button>
+      <button mat-icon-button [matMenuTriggerFor]="auth">
+        <mat-icon>person_outline</mat-icon>
+      </button>
 
-          <mat-menu #auth="matMenu">
+      <mat-menu #auth="matMenu">
+        <mat-divider></mat-divider>
+        <user-profile> </user-profile>
 
-            <mat-divider></mat-divider>
-              <user-profile>
-              </user-profile>
+        <mat-divider></mat-divider>
 
-            <mat-divider></mat-divider>
-
-            <button mat-menu-item (click)="logout()">
-              <mat-icon>exit_to_app</mat-icon>
-              <span>Sign out</span>
-            </button>
-
-          </mat-menu>
-		</span>
-
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sign out</span>
+        </button>
+      </mat-menu>
+    </span>
   </mat-toolbar-row>
-
 </mat-toolbar>

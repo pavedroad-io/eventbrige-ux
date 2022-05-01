@@ -68,8 +68,8 @@ export class ListAllSourcesComponent implements OnInit, AfterViewInit {
       case 'edit':
         const editRoute = this.angularRoute + '/' + event.value.name;
         this.open(editRoute);
-        this.table.reload();
-        location.reload();
+        //this.table.reload();
+        //location.reload();
         break;
       case 'view':
         const viewRoute = this.angularRoute + '/' + event.value.name;
@@ -86,7 +86,7 @@ export class ListAllSourcesComponent implements OnInit, AfterViewInit {
   }
 
   public open(url) {
-    this.router.navigate(['snssource']);
+    this.router.navigate([url]);
   }
 
   public delete(event) {

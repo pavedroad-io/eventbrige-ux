@@ -43,11 +43,6 @@ import { ProfileService } from '../../../services/profile.service';
 import { Customers } from '../../../schemas/customers';
 import { Sources } from '../../../schemas/sources';
 
-// PR Functions
-const sleep = (milliseconds) => {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-};
-
 @Component({
   selector: 'app-sns',
   templateUrl: './sns.component.html',
@@ -82,14 +77,25 @@ export class SnsComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.customerds.share.subscribe((data) => (this.customer = data));
     this.id = this.route.snapshot.params['id'];
-
-    if (this.id) {
-      this.buttonText = 'Update';
-      this.addMode = false;
-      // this load SNS item
-    }
+    this.customerds.share.subscribe((data) => {
+      this.customer = data;
+      if (this.id) {
+        this.buttonText = 'Update';
+        this.addMode = false;
+        if (this.customer.configuration.sources.sns.length == 0) {
+          return;
+        }
+        const result = this.source.find(
+          this.id,
+          this.customer.configuration.sources.sns
+        );
+        if (result != undefined) {
+          this.source = result;
+          this.display();
+        }
+      }
+    });
   }
 
   ngAfterViewInit() {}
@@ -124,7 +130,8 @@ export class SnsComponent implements OnInit, AfterViewInit {
       var newSrc: Sources = new Sources();
       this.customer.configuration.sources = newSrc;
     }
-    this.source.awssecret.key = providerData.key;
+
+    this.source.awssecret.key = providerData.name;
     this.source.awssecret.value = providerData.credentials;
     this.source.region = formData.region;
     this.source.roleARN = formData.roleARN;
@@ -132,17 +139,36 @@ export class SnsComponent implements OnInit, AfterViewInit {
     this.source.validateSignature = formData.validateSignature;
     this.source.snshook = this.hook.hookForm.getRawValue();
     this.source.snsmetadata.name = this.source.snshook.name;
-    this.customer.configuration.sources.sns.push(this.source);
+
+    if (this.addMode) {
+      this.customer.configuration.sources.sns.push(this.source);
+    }
     this.customerds.UpdateCustomer(this.customer);
 
     this.resetForm();
-    this.router.navigate(['snslist']);
+    this.router.navigate(['sources']);
   }
 
   resetForm() {
     this.hook.hookForm.reset();
     this.snsForm.reset();
     this.snsForm.controls['validateSignature'].setValue(true);
-    this.secret.providerSelected = "";
+    this.secret.providerSelected = '';
+  }
+
+  display() {
+    this.resetForm();
+    this.secret.providerSelected = this.source.awssecret.key;
+    this.snsForm.controls['region'].setValue(this.source.region);
+    this.snsForm.controls['roleARN'].setValue(this.source.roleARN);
+    this.snsForm.controls['topicARN'].setValue(this.source.topicARN);
+    this.snsForm.controls['validateSignature'].setValue(
+      this.source.validateSignature
+    );
+    this.hook.hookForm.controls['name'].setValue(this.source.snshook.name);
+    this.hook.hookForm.controls['port'].setValue(this.source.snshook.port);
+    this.hook.hookForm.controls['methods'].setValue(
+      this.source.snshook.methods
+    );
   }
 }

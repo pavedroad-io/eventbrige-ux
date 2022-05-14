@@ -1,1 +1,30 @@
-<p>menu-selector works!</p>
+<mat-card class="menu-filter">
+  <mat-card-title [routerLink]="navigate">
+    <mat-icon>filter_alt</mat-icon> {{title}}
+  </mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item
+        *ngFor="let item of items | slice:0:maxDisplay;"
+        (click)="onSelect(item)"
+      >
+        <span> {{item.name}} </span>
+        <span
+          style="margin-left: 12px"
+          matBadge="{{item.count}}"
+          matBadgePosition="false"
+        ></span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <div>
+    <a class="bottom" *ngIf="unDisplay>0" (click)="displayToggle()">
+      {{unDisplayText}}</a
+    >
+    <span class="reset">
+      <a color="warn" (click)="onReset()">
+        <mat-icon>restart_alt</mat-icon>
+      </a>
+    </span>
+  </div>
+</mat-card>

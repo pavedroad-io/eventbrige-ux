@@ -144,6 +144,9 @@ import { SnsComponent } from './pages/sources/sns/sns.component';
 import { SnslistComponent } from './pages/sources/snslist/snslist.component';
 import { AppMetadataComponent } from './schemas/app-metadata/app-metadata.component';
 import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-all-sources.component';
+import { ListAllTriggersComponent } from './pages/triggers/list-all-triggers/list-all-triggers.component';
+import { ListAllWorkflowsComponent } from './pages/workflow/list-all-workflows/list-all-workflows.component';
+import { ListAllCodeComponent } from './pages/code/list-all-code/list-all-code.component';
 
 @NgModule({
   declarations: [
@@ -197,6 +200,9 @@ import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-a
     ChipSelectorComponent,
     RangeSelectorComponent,
     RatingSelectorComponent,
+    ListAllTriggersComponent,
+    ListAllWorkflowsComponent,
+    ListAllCodeComponent,
   ],
   imports: [
     AppRoutingModule,

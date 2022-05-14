@@ -24,6 +24,9 @@ import { EolandingComponent } from './core/components/eolanding/eolanding.compon
 import { SnsComponent } from './pages/sources/sns/sns.component';
 import { SnslistComponent } from './pages/sources/snslist/snslist.component';
 import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-all-sources.component';
+import { ListAllWorkflowsComponent } from './pages/workflows/list-all-workflows/list-all-workflows.component';
+import { ListAllCodeComponent } from './pages/code/list-all-code/list-all-code.component';
+import { EditWorkflowComponent } from './pages/workflows/edit.workflow/edit.workflow.component';
 
 const routes: Routes = [
   {
@@ -179,6 +182,24 @@ const routes: Routes = [
   {
     path: 'home',
     component: EolandingComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'code',
+    component: ListAllCodeComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'workflow',
+    component: ListAllWorkflowsComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'editWorkflow',
+    component: EditWorkflowComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },

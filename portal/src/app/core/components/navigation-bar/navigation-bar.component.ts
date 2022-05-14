@@ -21,11 +21,11 @@ export class NavigationBarComponent implements OnInit {
   private returnUrl = '/';
   private rightSidenav: boolean = true;
   public profile;
-  public APP_TOOLBAR_TITLE = 'PavedRoad.io';
+  public APP_TOOLBAR_TITLE = 'Event Orchestrator';
 
   constructor(
     private router: Router,
-    public rightNav: NavigationComponent,
+    public leftNav: NavigationComponent,
     public auth: AuthService,
     private profileSvc: ProfileService
   ) {
@@ -40,6 +40,38 @@ export class NavigationBarComponent implements OnInit {
     this.profileSvc.share.subscribe((data: any) => {
       this.profile = data;
     });
+  }
+
+  toggleView(viewName) {
+    this.disableAll();
+    switch (viewName.toLowerCase()) {
+      case 'sources':
+        this.canViewSources();
+        break;
+      case 'triggers':
+        this.canViewTriggers();
+        break;
+      case 'workflow':
+        this.canViewWorkflow();
+        break;
+      case 'code':
+        this.canViewCode();
+        break;
+      case 'market':
+        this.canViewMarket();
+        break;
+      default:
+        console.log('Unknown view name ', viewName);
+    }
+  }
+
+  disableAll() {
+    this.leftNav.canViewMarket =
+      this.leftNav.canViewCode =
+      this.leftNav.canViewWorkflows =
+      this.leftNav.canViewTriggers =
+      this.leftNav.canViewSources =
+        false;
   }
 
   gotoOrg() {
@@ -63,7 +95,32 @@ export class NavigationBarComponent implements OnInit {
   }
 
   toggleSideNav() {
-    this.rightNav.toggle();
+    this.leftNav.toggle();
+  }
+
+  canViewSources() {
+    this.leftNav.canViewSources = true;
+    this.router.navigate(['/sources']);
+  }
+
+  canViewTriggers() {
+    this.leftNav.canViewTriggers = true;
+    this.router.navigate(['lambdalist']);
+  }
+
+  canViewMarket() {
+    this.leftNav.canViewMarket = true;
+    this.router.navigate(['newservice']);
+  }
+
+  canViewWorkflow() {
+    this.leftNav.canViewWorkflows = true;
+    this.router.navigate(['workflow']);
+  }
+
+  canViewCode() {
+    this.leftNav.canViewCode = true;
+    this.router.navigate(['code']);
   }
 
   ngOnInit(): void {}

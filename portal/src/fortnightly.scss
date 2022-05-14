@@ -1,0 +1,156 @@
+@import "~@angular/material/theming";
+@include mat-core();
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+/**
+ * Global colors.
+ */
+
+$fortnigthly-primary: #ffffff;
+$fortnigthly-secondary: #6C38GB;
+$fortnigthly-warn: #383f42;
+$fortnigthly-text-primary: #000000;
+$fortnigthly-text-secondary: #ffffff;
+
+$fortnigthly-default-hue: #ffffff;
+$fortnigthly-lighter-hue: #ffffff;
+$fortnigthly-darker-hue: #ffffff;
+$fortnigthly-text-hue: #ffffff;
+
+$fortnigthly-light-palette: (
+  50: #fffff,
+  100: #fafafa,
+  200: #f5f5f5,
+  300: #fofofo,
+  400: #dedede,
+  500: #c2c2c2,
+  600: #979797,
+  700: #818181,
+  800: #606060,
+  900: #3c3c3c,
+  A100: $fortnigthly-default-hue,
+  A200: $fortnigthly-lighter-hue,
+  A400: $fortnigthly-darker-hue,
+  A700: $fortnigthly-text-hue,
+  contrast: (
+    50: $fortnigthly-text-primary,
+    100: $fortnigthly-text-primary,
+    200: $fortnigthly-text-primary,
+    300: $fortnigthly-text-primary,
+    400: $fortnigthly-text-primary,
+    500: $fortnigthly-text-primary,
+    600: $fortnigthly-text-primary,
+    700: $fortnigthly-text-primary,
+    800: $fortnigthly-text-primary,
+    900: $fortnigthly-text-primary,
+    A100: $fortnigthly-text-secondary,
+    A200: $fortnigthly-text-secondary,
+    A400: $fortnigthly-text-secondary,
+    A700: $fortnigthly-text-secondary,
+  ),
+);
+
+$owl-background: #6B38FB;
+$owl-foreground: #FFFFFF;
+$owl-text: #90A7B2;
+$owl-selection-backgroud: #d3e8f8;
+$owl-selection-foregroud: #403f53;
+$owl-buttons:  #d9d9d9;
+$owl-second-background: #FBFBFB;
+$owl-disabled: #93A1A1;
+$owl-contrast: #f0f0f0;
+$owl-active: #d3e8f8;
+$owl-border: #d9d9d9;
+$owl-highlight: #CCCCCC;
+$owl-tree: #d3e8f87c;
+$owl-notification: #F0F0F0;
+$owl-accent-color: #2AA298;
+$owl-excluded-color: #E0E7EA;
+
+$fortnigthly-primary: mat-palette($fortnigthly-light-palette);
+$fortnigthly-accent: mat-palette($mat-pink, A200, A100, A400);
+$fortnigthly-warn: mat-palette($mat-red);
+
+$pr-font-family: "'Montserrat', sans-serif";
+$typography: mat-typography-config(
+  $display-4: mat-typography-level(112px, $font-family: $pr-font-family),
+  $display-3: mat-typography-level(56px, $font-family: $pr-font-family),
+  $display-2: mat-typography-level(45px, $font-family: $pr-font-family),
+  $display-1: mat-typography-level(34px, $font-family: $pr-font-family),
+  $headline: mat-typography-level(24px, $font-family: $pr-font-family),
+  $title: mat-typography-level(20px, $font-family: $pr-font-family),
+);
+
+@include angular-material-typography($typography);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$fortnigthly-theme: mat-dark-theme($fortnigthly-primary, $fortnigthly-accent, $fortnigthly-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($fortnigthly-theme);
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin-top: 75px;
+  font-family: Montserrat, "Helvetica Neue", sans-serif;
+}
+
+.mat-app-background {
+  background: $fortnigthly-primary;
+}
+
+.mat-form-field-wrapper {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 90%;
+}
+
+.padded-container {
+  margin: 10px;
+}
+
+.mat-button-wrapper {
+  margin-top: 155px;
+}
+
+.mat-card {
+  background:  #000000;
+}
+
+.prtitle {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+}
+
+.pr-green-snackbar {
+  background: $fortnigthly-primary;
+}
+
+.pr-rose-snackbar {
+  background: $fortnigthly-primary;
+}
+
+.pr-rust-snackbar {
+  background: $fortnigthly-primary;
+}
+
+.pr-zinc-snackbar {
+  background: $fortnigthly-primary;
+}
+
+.pr-yellow-snackbar {
+  background: $fortnigthly-primary;
+}
+
+a {
+  color: $fortnigthly-default-hue;
+}

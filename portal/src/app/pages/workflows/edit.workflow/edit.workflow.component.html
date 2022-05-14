@@ -1,0 +1,43 @@
+<div class="container padded-container">
+    <mat-grid-list cols="2">
+        <mat-grid-tile>
+
+
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{cardTitle}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <form [formGroup]="workflowFG" (ngSubmit)="onSubmit(formRef)" #formRef="ngForm">
+                        <div>
+                            <div>
+                                <mat-form-field>
+                                    <mat-label for="name">name</mat-label>
+                                    <input matInput formControlName="name" class="form-control" placeholder="Name for this workflow" required />
+                                    <div *ngIf="submitted && getFormGroup.name.errors" class="alert">
+                                        <div *ngIf="getFormGroup.name.errors.required">
+                                            name is required
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field floatLabel="always" class="ng-valid">
+                                <mat-label for="type">type</mat-label>
+                                <mat-select (ngModelChange)="typeChanged($event)" matNativeControl [(ngModel)]="typeSelected" name="type" [formControl]="workflowFG.get('type')" required>
+                                    <mat-option *ngFor="let s of workflowTypes" [value]="s">
+                                        {{s}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <app-environments> </app-environments>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            2
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

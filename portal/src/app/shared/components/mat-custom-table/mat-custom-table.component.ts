@@ -15,8 +15,8 @@ import { TableColumn } from 'src/app/shared/models/tableColumn';
 export class MatCustomTableComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @Output() action: EventEmitter<TableButtonAction> = new EventEmitter<TableButtonAction>()
-  @Output() tableAction: EventEmitter<string> = new EventEmitter<string>()
+  @Output() action: EventEmitter<TableButtonAction> = new EventEmitter<TableButtonAction>();
+  @Output() tableAction: EventEmitter<string> = new EventEmitter<string>();
   @Input() columns: Array<TableColumn>;
   @Input() dataset: Array<any> = [];
   @ViewChild(MatSort, { static: true }) sort: MatSort;

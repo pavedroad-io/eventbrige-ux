@@ -27,8 +27,15 @@
 }
 */
 
+
+.sidenav-container {
+  position: relative;
+  top: 60px;
+  z-index: 988;
+}
+
 .sidenav {
-	width: 25%;
+  width: 25%;
 }
 
 .fivepix {

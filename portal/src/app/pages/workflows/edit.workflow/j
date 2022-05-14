@@ -1,0 +1,4 @@
+mv edit.workflow.component.html editWorkflow.component.html
+mv edit.workflow.component.scss editWorkflow.component.scss
+mv edit.workflow.component.spec.ts editWorkflow.component.spec.ts
+mv edit.workflow.component.ts editWorkflow.component.ts

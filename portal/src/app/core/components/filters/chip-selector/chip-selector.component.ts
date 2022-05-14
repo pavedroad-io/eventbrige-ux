@@ -1,9 +1,17 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, OnInit, ElementRef, ViewChild, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  Input,
+  Output,
+} from '@angular/core';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import {
   MatAutocompleteSelectedEvent,
@@ -27,6 +35,7 @@ export class ChipSelectorComponent implements OnInit {
   @Input() title: string = 'Chip list';
   @Input() prompt: string = 'Filter items';
   @Input() navigate: string = '/sources';
+  @Output() chipsEvent: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   filteredChips: Observable<string[]>;
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -42,27 +51,20 @@ export class ChipSelectorComponent implements OnInit {
     private route: ActivatedRoute,
     private eventSourceService: EventSourcesService
   ) {
-    /*
-       const data: any[] = this.eventSourceService.getServices();
-    data.forEach((source) => {
-      if (source.type === 'source_event') {
-        this.allChips.push(source.service);
-      }
-    });
-   */
-
     this.filteredChips = this.chipCtrl.valueChanges.pipe(
       startWith(null),
       map((chip: string | null) =>
         chip ? this._filter(chip) : this.allChips.slice()
       )
     );
+    this.chipsEvent.emit(this.selectedChips);
   }
 
   ngOnInit(): void {}
 
+  /*
   add(event: MatChipInputEvent): void {
-	  // TODO: Don't allow dups
+    // TODO: Don't allow dups
     const input = event.input;
     const value = event.value;
 
@@ -76,7 +78,9 @@ export class ChipSelectorComponent implements OnInit {
     }
 
     this.chipCtrl.setValue(null);
+    this.chipsEvent.emit(this.selectedChips);
   }
+ */
 
   remove(chip: string): void {
     const index = this.selectedChips.indexOf(chip);
@@ -84,12 +88,14 @@ export class ChipSelectorComponent implements OnInit {
     if (index >= 0) {
       this.selectedChips.splice(index, 1);
     }
+    this.chipsEvent.emit(this.selectedChips);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.selectedChips.push(event.option.viewValue);
     this.chipInput.nativeElement.value = '';
     this.chipCtrl.setValue(null);
+    this.chipsEvent.emit(this.selectedChips);
   }
 
   private _filter(value: string): string[] {

@@ -1,10 +1,50 @@
 <mat-toolbar color="primary" class="navigation-bar">
   <mat-toolbar-row>
+    <img width="150px;"
+      src="../../../../assets/logo/pavedroad_white_230x36.png"
+      alt="PavedRoad"
+    />
+    <span class="toolbar-right-align"> {{ APP_TOOLBAR_TITLE }} </span>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
     <button mat-icon-button (click)="toggleSideNav()">
-      <mat-icon>menu</mat-icon>
+      <mat-icon matTooltip="Toogle side navigation menu">menu</mat-icon>
+    </button>
+    <button
+      mat-raised-button
+      class="menu-button active_route"
+      (click)="toggleView('market')"
+    >
+      <mat-icon>store</mat-icon>
     </button>
 
-    <span class="toolbar-title"> {{ APP_TOOLBAR_TITLE }} </span>
+    <button
+      mat-raised-button
+      class="menu-button"
+      (click)="toggleView('sources')"
+    >
+      Sources
+    </button>
+
+    <button
+      mat-raised-button
+      class="menu-button"
+      (click)="toggleView('triggers')"
+    >
+      Triggers
+    </button>
+
+    <button
+      mat-raised-button
+      class="menu-button"
+      (click)="toggleView('workflow')"
+    >
+      Workflow
+    </button>
+
+    <button mat-raised-button class="menu-button" (click)="toggleView('code')">
+      Code
+    </button>
 
     <span class="toolbar-right-align">
       <button mat-icon-button [matMenuTriggerFor]="settings">
@@ -14,14 +54,22 @@
         <button mat-menu-item on-click="gotoOrg()">Organization</button>
         <button mat-menu-item on-click="gotoUsers()">Users</button>
         <button mat-menu-item [routerLink]="'providerList'">Providers</button>
-        <button mat-menu-item [routerLink]="'schedulerConfig'">Schedules</button>
+        <button mat-menu-item [routerLink]="'schedulerConfig'">
+          Schedules
+        </button>
         <button mat-menu-item [matMenuTriggerFor]="deployment">Deploy</button>
       </mat-menu>
 
       <mat-menu #deployment="matMenu">
-        <button mat-menu-item [routerLink]="'deploy'">Deploy orchestrations</button>
-        <button mat-menu-item [routerLink]="'deploystatus'">Orchestrations status</button>
-        <button mat-menu-item [routerLink]="'deletedeployment'">Teardown Orchestrations</button>
+        <button mat-menu-item [routerLink]="'deploy'">
+          Deploy orchestrations
+        </button>
+        <button mat-menu-item [routerLink]="'deploystatus'">
+          Orchestrations status
+        </button>
+        <button mat-menu-item [routerLink]="'deletedeployment'">
+          Teardown Orchestrations
+        </button>
       </mat-menu>
 
       <button mat-icon-button>

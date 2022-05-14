@@ -1,4 +1,4 @@
-<app-navigation-bar></app-navigation-bar>
+<app-navigation-bar> </app-navigation-bar>
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #navigationSidenav
@@ -6,46 +6,61 @@
     fixedInViewport
     mode="side"
     role="navigation"
-    fixedTopGap="64"
-    autoFocus="false"
+    fixedTopGap="128"
+    autoFocus="true"
   >
     <mat-nav-list style="margin-left: 5px">
-      <app-chip-selector
-        [title]="'Source events'"
-        [prompt]="'add filter options'"
-        [navigate]="'/sources'"
-        [allChips]="allSources"
-        [selectedChips]="defaultsSources"
-      >
-      </app-chip-selector>
+      <div *ngIf="canViewSources">
+        <app-menu-selector
+          [title]="'Filter providers'"
+          [navigate]="'/sources'"
+          [items]="filteredProviderList"
+          (menuAction)="providerSelected($event)"
+        >
+        </app-menu-selector>
+        <app-chip-selector
+          [title]=" 'Source events' "
+          [prompt]=" 'add filter options' "
+          [navigate]=" '/sources' "
+          [allChips]="allSources "
+          [selectedChips]="defaultsSources "
+          (chipsEvent)="updateTableData($event)"
+        >
+        </app-chip-selector>
+      </div>
 
-      <app-chip-selector
-        [title]="'Trigger events'"
-        [prompt]="'add filter options'"
-        [navigate]="'/triggers'"
-        [allChips]="allTriggers"
-        [selectedChips]="defaultsTriggers"
-      >
-      </app-chip-selector>
+      <div *ngIf="canViewTriggers ">
+        <app-chip-selector
+          [title]=" 'Trigger events' "
+          [prompt]=" 'add filter options' "
+          [navigate]=" '/triggers' "
+          [allChips]="allTriggers "
+          [selectedChips]="defaultsTriggers "
+        >
+        </app-chip-selector>
+      </div>
 
-      <app-chip-selector
-        [title]="'Workflows'"
-        [prompt]="'add filter options'"
-        [navigate]="'/workflows'"
-        [allChips]="allWorkflows"
-        [selectedChips]="defaultsWorkflows"
-      >
-      </app-chip-selector>
+      <div *ngIf="canViewWorkflows ">
+        <app-chip-selector
+          [title]=" 'Workflows' "
+          [prompt]=" 'add filter options' "
+          [navigate]=" '/workflows' "
+          [allChips]="allWorkflows "
+          [selectedChips]="defaultsWorkflows "
+        >
+        </app-chip-selector>
+      </div>
 
-      <app-chip-selector
-        [title]="'Functions'"
-        [prompt]="'add filter options'"
-        [navigate]="'/functions'"
-        [allChips]="allFunctions"
-        [selectedChips]="defaultsFunctions"
-      >
-      </app-chip-selector>
-
+      <div *ngIf="canViewCode ">
+        <app-chip-selector
+          [title]=" 'Functions' "
+          [prompt]=" 'add filter options' "
+          [navigate]=" '/functions' "
+          [allChips]="allFunctions "
+          [selectedChips]="defaultsFunctions "
+        >
+        </app-chip-selector>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
   <router-outlet></router-outlet>

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { MatCustomTableModule } from '../../../shared/components/mat-custom-table/mat-custom-table.module';
+//import { MatCustomTableModule } from '../../../shared/components/mat-custom-table/mat-custom-table.module';
 import { MatCustomTableComponent } from '../../../shared/components/mat-custom-table/mat-custom-table.component';
 
 import { CustomerService } from '../../../services/customers.service';

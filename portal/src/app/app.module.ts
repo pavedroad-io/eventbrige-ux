@@ -11,6 +11,10 @@ import { environment } from '../environments/environment';
 import { AuthModule } from '@auth0/auth0-angular';
 import { LoginComponent } from './login/login.component';
 
+
+// Monaco Editor
+
+
 // Material modules
 
 // Forms
@@ -111,6 +115,8 @@ import { NavigationBarComponent } from './core/components/navigation-bar/navigat
 import { DeleteDialogComponent } from './core/components/delete-dialog/delete-dialog.component';
 import { EolandingComponent } from './core/components/eolanding/eolanding.component';
 import { BackoffConfigComponent } from './core/components/events/backoff-config/backoff-config.component';
+
+// Filters
 import { TreeSelectorComponent } from './core/components/filters/tree-selector/tree-selector.component';
 import { MenuSelectorComponent } from './core/components/filters/menu-selector/menu-selector.component';
 import { SearchSelectorComponent } from './core/components/filters/search-selector/search-selector.component';
@@ -118,6 +124,11 @@ import { ToggleSelectorComponent } from './core/components/filters/toggle-select
 import { ChipSelectorComponent } from './core/components/filters/chip-selector/chip-selector.component';
 import { RangeSelectorComponent } from './core/components/filters/range-selector/range-selector.component';
 import { RatingSelectorComponent } from './core/components/filters/rating-selector/rating-selector.component';
+
+
+// Shared componentes from core
+import { EnvironmentsComponent } from './core/components/environments/environments.component';
+import { KvpairComponent } from './core/components/widgets/kvpair/kvpair.component';
 
 // Services
 import { CustomerService } from './services/customers.service';
@@ -137,13 +148,18 @@ import { DeploymentStatusComponent } from './pages/deploy/status/status.componen
 import { DeleteDeploymentComponent } from './pages/deploy/delete/delete.component';
 import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettingstarted.component';
 import { MetadataComponent } from './pages/k8s/metadata/metadata.component';
-import { KvpairComponent } from './pages/k8s/kvpair/kvpair.component';
-import { KvpairListComponent } from './pages/k8s/kvpair-list/kvpair-list.component';
 import { SecretListComponent } from './pages/k8s/secret-list/secret-list.component';
 import { SnsComponent } from './pages/sources/sns/sns.component';
 import { SnslistComponent } from './pages/sources/snslist/snslist.component';
 import { AppMetadataComponent } from './schemas/app-metadata/app-metadata.component';
 import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-all-sources.component';
+import { ListAllTriggersComponent } from './pages/triggers/list-all-triggers/list-all-triggers.component';
+
+import { ListAllWorkflowsComponent } from './pages/workflows/list-all-workflows/list-all-workflows.component';
+
+import { ListAllCodeComponent } from './pages/code/list-all-code/list-all-code.component';
+
+import { EditWorkflowComponent } from './pages/workflows/edit.workflow/edit.workflow.component';
 
 @NgModule({
   declarations: [
@@ -176,8 +192,6 @@ import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-a
     DeleteDeploymentComponent,
     GettingstartedComponent,
     MetadataComponent,
-    KvpairComponent,
-    KvpairListComponent,
     SecretListComponent,
     SnsComponent,
     SnslistComponent,
@@ -189,7 +203,6 @@ import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-a
     DeleteDialogComponent,
     EolandingComponent,
     MetadataComponent,
-    KvpairComponent,
     TreeSelectorComponent,
     MenuSelectorComponent,
     SearchSelectorComponent,
@@ -197,6 +210,12 @@ import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-a
     ChipSelectorComponent,
     RangeSelectorComponent,
     RatingSelectorComponent,
+    ListAllTriggersComponent,
+    ListAllWorkflowsComponent,
+    ListAllCodeComponent,
+    EditWorkflowComponent,
+    EnvironmentsComponent,
+    KvpairComponent,
   ],
   imports: [
     AppRoutingModule,

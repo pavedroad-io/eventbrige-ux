@@ -8,7 +8,7 @@ export class EventSourcesService {
     {
       title: 'Knative function',
       type: 'function',
-      provider: 'k8s',
+      provider: 'CNCF',
       service: 'knative',
       icon: 'build',
       logo: 'https://avatars.githubusercontent.com/u/35583233?s=200&v=4',
@@ -19,7 +19,7 @@ export class EventSourcesService {
     {
       title: 'OpenFaaS function',
       type: 'function',
-      provider: 'openfaas',
+      provider: 'OpenFaas',
       service: 'openFaaS',
       icon: 'build',
       logo: 'https://www.openfaas.com/images/openfaas/whale.png',
@@ -74,7 +74,7 @@ export class EventSourcesService {
     {
       title: 'Calendar Source',
       type: 'source_event',
-      provider: 'Calendar',
+      provider: 'OSS',
       service: 'Calendar',
       icon: 'build',
       logo: '../../../../assets/icons/weekly-calendar-outline-event-interface-symbol_icon-icons.com_73108.png',
@@ -228,7 +228,7 @@ export class EventSourcesService {
     {
       title: 'Kubernetes resource Source',
       type: 'source_event',
-      provider: 'k8s',
+      provider: 'CNCF',
       service: 'k8s',
       icon: 'build',
       logo: '../../../../assets/icons/kubernetes_logo_icon_168359.png',
@@ -250,7 +250,7 @@ export class EventSourcesService {
     {
       title: 'Storage Grid Source',
       type: 'source_event',
-      provider: 'Storage Grid',
+      provider: 'StorageGrid',
       service: 'Storage Grid',
       icon: 'build',
       logo: '../../../../assets/icons/grid_icon_176420.png',
@@ -261,8 +261,8 @@ export class EventSourcesService {
     {
       title: 'Go worker pool microservice',
       type: 'microservice',
-      provider: '',
-      service: '',
+      provider: 'PavedRoad',
+      service: 'workerpool',
       icon: 'build',
       logo: 'https://dalmarcogd.github.io/gwp/golang-worker.png',
       route: '',
@@ -272,8 +272,8 @@ export class EventSourcesService {
     {
       title: 'Stripe Source',
       type: 'source_event',
-      provider: 'stripe',
-      service: 'Stripe',
+      provider: 'Stripe',
+      service: 'stripe',
       icon: 'build',
       logo: '../../../../assets/icons/stripe_icon_146092.png',
       route: '',
@@ -283,8 +283,8 @@ export class EventSourcesService {
     {
       title: 'Go data manager microservice',
       type: 'microservice',
-      provider: '',
-      service: '',
+      provider: 'PavedRoad',
+      service: 'datamgr',
       icon: 'build',
       logo: 'https://3.bp.blogspot.com/-UsQwhhKUlME/Wr8nD7zEnXI/AAAAAAAASLU/zSIRkmmIArQP4xl18anTg6FUP93FK23igCLcBGAs/s1600/Model%2BView%2BController%2B-%2BMVC.png',
       route: '',
@@ -294,8 +294,8 @@ export class EventSourcesService {
     {
       title: 'Go tri-lateral microservice',
       type: 'microservice',
-      provider: '',
-      service: '',
+      provider: 'PavedRoad',
+      service: 'tri-lateral',
       icon: 'build',
       logo: 'https://static.packt-cdn.com/products/9781838643317/graphics/7289ebef-6d03-47b0-a4a5-f7c497ef2720.png',
       route: '',
@@ -305,8 +305,8 @@ export class EventSourcesService {
     {
       title: 'Slack source',
       type: 'source_event',
-      provider: 'slack',
-      service: 'Slack',
+      provider: 'Slack',
+      service: 'slack',
       icon: 'build',
       logo: 'https://cdn.mos.cms.futurecdn.net/SDDw7CnuoUGax6x9mTo7dd.jpg',
       route: '',
@@ -339,7 +339,7 @@ export class EventSourcesService {
       title: 'Argo workflow',
       type: 'workflow',
       provider: 'Argo',
-      service: 'argo',
+      service: 'argo-workflow',
       icon: 'build',
       logo: 'https://cdn.mos.cms.futurecdn.net/SDDw7CnuoUGax6x9mTo7dd.jpg',
       route: '',

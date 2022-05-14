@@ -136,6 +136,7 @@ export class Sources {
           events: '',
           methods: '',
         };
+        dataTableSource.push(newItem);
       });
     }
 
@@ -168,6 +169,7 @@ export class Sources {
           events: item.events.toString(),
           methods: '',
         };
+        dataTableSource.push(newItem);
       });
     }
 
@@ -184,6 +186,7 @@ export class Sources {
           events: item.interval,
           methods: item.scheduler,
         };
+        dataTableSource.push(newItem);
       });
     }
 

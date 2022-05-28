@@ -2,18 +2,16 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { MatCustomTableComponent } from '../../../shared/components/mat-custom-table/mat-custom-table.component';
 
-import { Customers } from '../../../schemas/customers';
-import { Workflows } from '../../../schemas/workflow/workflows';
-
-
 import { CustomerService } from '../../../services/customers.service';
+import { Customers } from '../../../schemas/customers';
+//import { Sources } from '../../../schemas/sources';
 
 @Component({
-  selector: 'app-list-all-code',
-  templateUrl: './list-all-code.component.html',
-  styleUrls: ['./list-all-code.component.scss']
+  selector: 'app-list-all-workflows',
+  templateUrl: './list-all-workflows.component.html',
+  styleUrls: ['./list-all-workflows.component.scss']
 })
-export class ListAllCodeComponent implements OnInit {
+export class ListAllWorkflowsComponent implements OnInit {
   data: any[] = Array(0);
   angularRoute: string = 'snssource';
   columns: any[] = Array(0);
@@ -24,7 +22,9 @@ export class ListAllCodeComponent implements OnInit {
 	  private customerds: CustomerService, 
 	  private router: Router) {}
 
-  ngOnInit(): void {
+
+  ngOnInit() {
+  //    this.columns = this.source.getColumns();
   }
 
   ngAfterViewInit() {

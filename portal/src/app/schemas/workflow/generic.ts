@@ -19,5 +19,4 @@ export class GenericWorkflow {
 
   // Deployment history
   history: string[] = Array(0);
-
 }

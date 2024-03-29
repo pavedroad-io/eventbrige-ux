@@ -20,7 +20,7 @@ import { AuthService } from '@auth0/auth0-angular';
 export class NavigationBarComponent implements OnInit {
   private returnUrl = '/';
   private rightSidenav: boolean = true;
-  public profile;
+  public profile: any = {};
   public APP_TOOLBAR_TITLE = 'Event Orchestrator';
 
   constructor(
@@ -42,7 +42,7 @@ export class NavigationBarComponent implements OnInit {
     });
   }
 
-  toggleView(viewName) {
+  toggleView(viewName: string) {
     this.disableAll();
     switch (viewName.toLowerCase()) {
       case 'sources':

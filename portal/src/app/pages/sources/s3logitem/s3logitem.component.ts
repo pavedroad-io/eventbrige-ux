@@ -11,7 +11,7 @@ import { Customers } from '../../../schemas/customers';
 // Services
 import { CustomerService } from '../../../services/customers.service';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -21,21 +21,21 @@ const sleep = (milliseconds) => {
   styleUrls: ['./s3logitem.component.scss'],
 })
 export class S3logitemComponent implements OnInit {
-  logitem: Log; // A log line
-  customer: Customers; // A customer with log arrary
-  logItemIdx: number; // offset of a log line in the array
-  providerSelected: any;
-  formatSelected: string;
+  logitem: Log = new Log(); // A log line
+  customer: Customers = new Customers(); // A customer with log arrary
+  logItemIdx: number = 0; // offset of a log line in the array
+  providerSelected: string = '';
+  formatSelected: string = 's3';
   submitted: boolean = false;
   methods: string = '';
   types: string = '';
   api: string = '';
 
   // Query parameter when in edit mode
-  id: string;
+  id: string = '';
 
-  buttonMode: string;
-  isAddMode: boolean;
+  buttonMode: string = '';
+  isAddMode: boolean = true;
 
   providerControl = new FormControl('', Validators.required);
 
@@ -43,7 +43,9 @@ export class S3logitemComponent implements OnInit {
     public customerds: CustomerService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.id = this.route.snapshot.params['id'];
+  }
 
   onSubmit(form: NgForm) {
     if (this.isAddMode) {
@@ -61,11 +63,6 @@ export class S3logitemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.providerSelected = '';
-    this.formatSelected = 's3';
-    this.id = this.route.snapshot.params['id'];
-    this.customer = new Customers();
-    this.logitem = new Log();
 
     if (!this.id) {
       this.buttonMode = 'Add';

@@ -4,22 +4,15 @@ import { Metadata } from '../k8s/metadata';
 import { K8SSecret } from '../k8s/secret';
 
 export class BitbucketSource {
-  metadata: Metadata;
-  services: Services;
-  webhooks: WebHookList;
-  events: Array<string>;
-  accessToken: K8SSecret;
-  webhookSecret: K8SSecret;
+  metadata: Metadata = new Metadata();
+  services: Services = new Services();
+  webhooks: WebHookList = new WebHookList();
+  events: Array<string> = new Array(0);
+  accessToken: K8SSecret = new K8SSecret();
+  webhookSecret: K8SSecret = new K8SSecret();
   deleteHookOnFinish: boolean = true;
   bitbucketServerBaseURL: string = ""
 
   constructor() {
-    this.metadata = new Metadata();
-    this.services = new Services();
-    this.webhooks = new WebHookList();
-    this.events = new Array();
-    this.accessToken = new K8SSecret();
-    this.webhookSecret = new K8SSecret;
-
   }
 }

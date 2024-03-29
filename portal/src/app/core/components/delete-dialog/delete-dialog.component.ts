@@ -25,9 +25,9 @@ export interface IDeleteDialogData {
   styleUrls: ['./delete-dialog.component.scss'],
 })
 export class DeleteDialogComponent implements OnInit {
-  form: FormGroup;
+  form: FormGroup = new FormGroup({});
   description: string;
-  confirmed: boolean;
+  confirmed: boolean = false;;
 
   constructor(
     private dialogRef: MatDialogRef<DeleteDialogComponent>,

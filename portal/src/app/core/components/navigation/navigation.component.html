@@ -1,15 +1,8 @@
-<app-navigation-bar> </app-navigation-bar>
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #navigationSidenav
-    class="sidenav"
-    fixedInViewport
-    mode="side"
-    role="navigation"
-    fixedTopGap="128"
-    autoFocus="true"
-  >
-    <mat-nav-list style="margin-left: 5px">
+<div class="layout">
+<app-navigation-bar class="sidenav"> </app-navigation-bar>
+<mat-drawer-container>
+  <mat-drawer #navigationSidenav autoFocus="true" mode="push">
+    <mat-nav-list class="sidenav">
       <div *ngIf="canViewSources">
         <app-menu-selector
           [title]="'Filter providers'"
@@ -62,6 +55,7 @@
         </app-chip-selector>
       </div>
     </mat-nav-list>
-  </mat-sidenav>
+  </mat-drawer>
   <router-outlet></router-outlet>
-</mat-sidenav-container>
+</mat-drawer-container>
+</div>

@@ -40,33 +40,48 @@ import {
   styleUrls: ['./edit.workflow.component.scss'],
 })
 export class EditWorkflowComponent implements OnInit, OnChanges {
-  workflowFG: FormGroup;
+  workflowFG!: FormGroup;
   workflows: Workflows = new Workflows();
   genericWorkflow: GenericWorkflow = new GenericWorkflow();
   cardTitle: string = 'Workflow';
-  cardSubTitle: string;
-  workflowTypes = Object.values(WorkflowTypes);
+  cardSubTitle: string = '';
+  workflowTypes: string[] = Object.values(WorkflowTypes);
   @Input() typeSelected: string = '';
   addMode: boolean = true;
   buttonText: string = 'Add';
   submitted: boolean = false;
-  id: string;
+  id: string = '';
   customer: Customers = new Customers(); // Really a config object
+  type: FormControl;
 
   constructor(
-    private fb: FormBuilder //    public organizationds: OrganizationService,
-  ) //    private route: ActivatedRoute,
+    private fb: FormBuilder 
+  ) 
+  //    public organizationds: OrganizationService,
+  //    private route: ActivatedRoute,
   //    private router: Router,
   //    private deleteDialog: MatDialog
   {
-    this.workflowFG = this.createworkflow();
+     this.type = new FormControl();
+    this.workflowFG = this.fb.group({
+      name: ['', Validators.required],
+    });
   }
 
-  createworkflow(): FormGroup {
-    return this.fb.group({
-      name: ['', Validators.required],
-      type: ['', Validators.required],
-    });
+
+  isValidControl(name: string) {
+    const ctrl = this.workflowFG.get(name);
+    if(ctrl) return ctrl.valid;
+    return false;
+  }
+
+  getControl(name: string) {
+    const fc = this.workflowFG.get(name)
+    if(fc != null){
+	    return fc
+    }
+
+    return new FormControl('', []);
   }
 
   get getFormGroup() {
@@ -81,7 +96,10 @@ export class EditWorkflowComponent implements OnInit, OnChanges {
     console.log(this.typeSelected);
   }
 
-  onSubmit(f) {}
+  onSubmit(f: any) {
+  
+	  console.log(f);
+  }
 
   ngOnInit(): void {}
 }

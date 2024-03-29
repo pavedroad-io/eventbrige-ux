@@ -9,7 +9,7 @@ export class MinioSource {
   insecure: boolean = true;
   accessKey:  K8SSecret = new K8SSecret();
   secretKey:  K8SSecret = new K8SSecret();
-  filter: Array<KeyValuePair>;
+  filter: Array<KeyValuePair> = new Array(0);
 
   constructor() {}
 }

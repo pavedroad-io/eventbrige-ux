@@ -9,7 +9,7 @@ import { Customers } from '../../../schemas/customers';
 // Services
 import { CustomerService } from '../../../services/customers.service';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -19,17 +19,17 @@ const sleep = (milliseconds) => {
   styleUrls: ['./lambda.component.scss'],
 })
 export class LambdaComponent implements OnInit {
-  lambdaitem: Lambda; // A lamda configuratione
-  customer: Customers; // A customer with functions
-  funcItemIdx: number; // offset of a log line in the array
+  lambdaitem: Lambda = new Lambda(); // A lamda configuratione
+  customer: Customers = new Customers(); // A customer with functions
+  funcItemIdx: number = 0; // offset of a log line in the array
   providerSelected: string = '';
   submitted: boolean = false;
 
   // Query parameter when in edit mode
-  id: string;
+  id: string = "";
 
-  buttonMode: string;
-  isAddMode: boolean;
+  buttonMode: string = '';
+  isAddMode: boolean = false;
 
   //lambdaControl = new FormControl('', Validators.required);
 

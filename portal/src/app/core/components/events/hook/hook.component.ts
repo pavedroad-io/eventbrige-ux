@@ -36,7 +36,7 @@ import { DeleteDialogComponent } from '../../../components/delete-dialog/delete-
 import { ProfileService } from '../../../../services/profile.service';
 import { PorttrackerService } from '../../../../services/porttracker.service';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -58,7 +58,7 @@ export class HookComponent implements OnInit, AfterViewInit {
     ],
     methods: [this.hook.methods, Validators.required],
   });
-  fullProfile;
+  fullProfile: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -89,13 +89,13 @@ export class HookComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges) {
   }
 
-  onSubmit(formRef) {
+  onSubmit(formRef: any) {
   //  console.log(this.hookForm.getRawValue());
-    this.hookForm.get('port').setValue(this.portds.nextPort());
+    this.hookForm.get('port')?.setValue(this.portds.nextPort());
   }
 
   onValueChanges(): void {
-    this.hookForm.get('name').valueChanges.subscribe((val) => {
+    this.hookForm.get('name')?.valueChanges.subscribe((val) => {
       let prefix = '';
       if (
         this.fullProfile != '' &&
@@ -105,7 +105,7 @@ export class HookComponent implements OnInit, AfterViewInit {
         prefix = this.fullProfile.app_metadata.customer_id.split('-');
       }
 
-      this.hookForm.get('endpoint').setValue('/' + val + '-' + prefix[0]);
+      this.hookForm.get('endpoint')?.setValue('/' + val + '-' + prefix[0]);
     });
 
     this.hookForm.valueChanges.subscribe((change) => {

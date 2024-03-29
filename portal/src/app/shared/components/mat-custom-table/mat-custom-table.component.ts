@@ -3,9 +3,10 @@ import { Component, EventEmitter, Input, OnInit, AfterViewInit, Output, ViewChil
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
 
-import { TableButtonAction } from 'src/app/shared/models/tableButtonAction';
-import { TableColumn } from 'src/app/shared/models/tableColumn';
+import { TableColumn } from '../../models/tableColumn';
+import { TableButtonAction } from '../../models/tableButtonAction';
 
 @Component({
   selector: 'app-mat-custom-table',
@@ -14,16 +15,16 @@ import { TableColumn } from 'src/app/shared/models/tableColumn';
 })
 export class MatCustomTableComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @Output() action: EventEmitter<TableButtonAction> = new EventEmitter<TableButtonAction>();
   @Output() tableAction: EventEmitter<string> = new EventEmitter<string>();
-  @Input() columns: Array<TableColumn>;
-  @Input() dataset: Array<any> = [];
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  dataSource: MatTableDataSource<any>;
+  @Input() columns!: Array<TableColumn>;
+  @Input() dataset!: Array<any>;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  dataSource!: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);
-  displayedColumns: string[] = [];
-  value: string;
+  displayedColumns!: string[];
+  value: string = '';
   constructor() { }
 
 

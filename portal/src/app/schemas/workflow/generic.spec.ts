@@ -1,7 +1,7 @@
-import { Generic } from './generic';
+import { GenericWorkflow } from './generic';
 
-describe('Generic', () => {
+describe('Generic Workflow', () => {
   it('should create an instance', () => {
-    expect(new Generic()).toBeTruthy();
+    expect(new GenericWorkflow()).toBeTruthy();
   });
 });

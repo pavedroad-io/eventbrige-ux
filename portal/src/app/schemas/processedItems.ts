@@ -6,7 +6,7 @@ export class processedItems {
   bucket: string = '';
   name: string = '';
   fileName: string = '';
-  pruned: boolean;
+  pruned: boolean = true;
 
   constructor() {
   }

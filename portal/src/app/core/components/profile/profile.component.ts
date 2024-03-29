@@ -2,9 +2,10 @@ import { Component, OnInit, Directive, AfterViewInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { concatMap, tap, pluck } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 import { NavigationEnd, Router } from '@angular/router';
 
+// PR Services
+import { environment } from '../../../../environments/environment';
 import { ProfileService } from '../../../services/profile.service';
 import { OrganizationService } from '../../../services/organization.service';
 import { CustomerService } from 'src/app/services/customers.service';
@@ -12,7 +13,7 @@ import { CustomerService } from 'src/app/services/customers.service';
 import { SaaSService } from 'src/app/schemas/saas_service';
 import { ServiceConstants } from 'src/app/shared/consts/serviceConstants';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -45,14 +46,14 @@ export class ProfileComponent implements OnInit {
       }
 
       // New company
-      if (this.profileSvc.fullProfile.app_metadata.customer_id == undefined) {
+      if (this.profileSvc.fullProfile?.app_metadata?.customer_id == undefined) {
         let r = 'organization/';
         this.router.navigate([r]);
       } else {
         this.organizationService.loadOrg(
           this.profileSvc.fullProfile.app_metadata.customer_id
         );
-        this.organizationService.share.subscribe((data) => {
+        this.organizationService.share.subscribe((data: any) => {
           // If the org is not loaded or eb config is already defined
           // just return
           if (

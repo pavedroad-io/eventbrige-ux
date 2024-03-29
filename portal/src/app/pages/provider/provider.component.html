@@ -64,7 +64,7 @@
             name="key"
             #key="ngModel"
           />
-          <div *ngIf="key.invalid && (name.key || name.key)" class="alert">
+          <div *ngIf="key.invalid && (key.dirty || key.touched)" class="alert">
             Key is required
           </div>
         </mat-form-field>
@@ -84,7 +84,7 @@
             #region="ngModel"
           />
           <div
-            *ngIf="region.invalid && (name.region || name.region)"
+            *ngIf="region.invalid && (region.touched || region.dirty)"
             class="alert"
           >
             Region is required
@@ -98,15 +98,15 @@
           <input
             matInput
             type="text"
-            class="form-control"
             id="endpoint"
+            name="endpoint"
+            class="form-control"
             required
             [(ngModel)]="provider.endpoint"
-            name="endpoint"
             #endpoint="ngModel"
           />
           <div
-            *ngIf="endpoint.invalid && (name.endpoint || name.endpoint)"
+            *ngIf="endpoint.invalid && (endpoint.dirty || endpoint.touched)"
             class="alert"
           >
             Endpoint is required

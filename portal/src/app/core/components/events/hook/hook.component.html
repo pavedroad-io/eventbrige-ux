@@ -13,8 +13,8 @@
               placeholder="A name for this webhook"
               required
             />
-            <div *ngIf="submitted && fg.name.errors" class="alert">
-              <span *ngIf="fg.name.errors.required">name is required</span>
+            <div *ngIf="submitted && fg['name'].valid" class="alert">
+              <span *ngIf="fg['name'].valid">name is required</span>
             </div>
           </mat-form-field>
         </div>
@@ -54,8 +54,8 @@
               placeholder="some value"
               required
             />
-            <div *ngIf="submitted && fg.methods.errors" class="alert">
-              <div *ngIf="fg.methods.errors.required">methods is required</div>
+            <div *ngIf="submitted && fg['methods'].valid" class="alert">
+              <div *ngIf="fg['methods'].valid">methods is required</div>
             </div>
           </mat-form-field>
         </div>

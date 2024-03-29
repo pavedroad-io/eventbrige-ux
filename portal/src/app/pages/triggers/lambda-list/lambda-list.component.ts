@@ -13,7 +13,7 @@ import { CustomerService } from '../../../services/customers.service';
 import { Customers } from '../../../schemas/customers';
 import { Lambda } from '../../../schemas/lambda';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds:number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -24,7 +24,8 @@ const sleep = (milliseconds) => {
 })
 export class LambdaListComponent implements OnInit {
   customer = new Customers();
-  dataSource;
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatSort) sort!: MatSort;
 
   public displayedColumns: string[] = [
     'checked',
@@ -41,7 +42,7 @@ export class LambdaListComponent implements OnInit {
     private deleteDialog: MatDialog
   ) {}
 
-  openDeleteDialog(event) {
+  openDeleteDialog(event: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -79,13 +80,12 @@ export class LambdaListComponent implements OnInit {
     });
   }
 
-  @ViewChild(MatSort) sort: MatSort;
 
   public newLambda() {
     this.router.navigate(['lambdaitem']);
   }
 
-  public deleteFunction(event) {
+  public deleteFunction(event: any) {
     // Add alert box
     this.customer.configuration.triggers.lambda.forEach((item, index) => {
       if (item.name == event.name)

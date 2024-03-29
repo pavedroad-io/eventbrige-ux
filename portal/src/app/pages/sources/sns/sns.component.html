@@ -23,10 +23,10 @@
                       required
                     />
                     <div
-                      *ngIf="submitted && getFormGroup.topicARN.errors"
+                      *ngIf="submitted && getFormGroupValid('topicARN')"
                       class="alert"
                     >
-                      <div *ngIf="getFormGroup.topicARN.errors.required">
+                      <div *ngIf="getFormGroupValid('.topicARN')">
                         topicARN is required
                       </div>
                     </div>
@@ -43,10 +43,10 @@
                         required
                       />
                       <div
-                        *ngIf="submitted && getFormGroup.roleARN.errors"
+                        *ngIf="submitted && getFormGroupValid('roleARN')"
                         class="alert"
                       >
-                        <div *ngIf="getFormGroup.roleARN.errors.required">
+                        <div *ngIf="getFormGroupValid('roleARN')">
                           roleARN is required
                         </div>
                       </div>
@@ -64,10 +64,10 @@
                         required
                       />
                       <div
-                        *ngIf="submitted && getFormGroup.region.errors"
+                        *ngIf="submitted && getFormGroupValid('region')"
                         class="alert"
                       >
-                        <div *ngIf="getFormGroup.region.errors.required">
+                        <div *ngIf="getFormGroupValid('region')">
                           region is required
                         </div>
                       </div>

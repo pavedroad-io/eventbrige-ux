@@ -4,11 +4,9 @@ import { CalendarConfigMap } from './calendar-configmap';
 
 
 export class CalendarPresistence {
-  catchup: CalendarCatchup;
-  config: CalendarConfigMap;
+  catchup: CalendarCatchup = new CalendarCatchup();
+  config: CalendarConfigMap = new CalendarConfigMap();
 
   constructor() {
-    this.catchup = new (CalendarCatchup);
-    this.config = new (CalendarConfigMap);
   }
 }

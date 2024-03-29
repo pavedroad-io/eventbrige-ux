@@ -2,19 +2,19 @@ import { GenericFunction } from './function/generic';
 
 export class Code {
   genericFunction: Array<GenericFunction> = new Array(0);
-  columns: genericFunctionColumns;
+  columns: genericFunctionColumns = new genericFunctionColumns();
 
-  addMissing(instance) {
+  addMissing(instance: any) {
     if (instance.genericFunction == undefined) instance.genericFunction = new Array(0);
   }
 
-  tableView(instance) {
+  tableView(instance: any) {
     let dataTableSource: Array<any> = [];
 
     /** GenericFunction */
     if (instance.genericFunction != undefined &&
         instance.genericFunction.length > 0) {
-      instance.genericFunction.forEach((item) => {
+      instance.genericFunction.forEach((item: any) => {
         let newItem: genericFunctionTable = {
           type: item.type,
           name: item.name,

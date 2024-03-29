@@ -20,5 +20,4 @@ export const environment = {
 
   // Kuberentes
   Kubectx: "john.scharber@eo-stagging.us-west-1.eksctl.io"
-
 };

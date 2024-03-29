@@ -6,9 +6,9 @@ import { K8SSecret } from '../k8s/secret';
 
 
 export class WebhookSource {
-  metadata: Metadata
-  services: Services
-  webhook: WebHookList;
+  metadata: Metadata = new Metadata();
+  services: Services = new Services();
+  webhook: WebHookList = new WebHookList();
 
   constructor() {
   }

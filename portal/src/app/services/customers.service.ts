@@ -22,7 +22,7 @@ import { Plogs } from '../schemas/plogs';
 import { ProcessedlogsService } from './processedlogs.service';
 import { ProfileService } from './profile.service';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -54,13 +54,13 @@ export class CustomerService {
   public ctx;
   public share;
 
-  UpdateCustomer(data) {
+  UpdateCustomer(data: any) {
     this.customer = data;
     this.ctx.next(data);
     this.updateCustomer(data);
   }
 
-  Save(data) {
+  Save(data: any) {
     return this.updateCustomer(data);
   }
 
@@ -86,10 +86,10 @@ export class CustomerService {
     });
   }
 
-  checkMetaData(data) {
+  checkMetaData(data: any) {
     if (
-      (data.app_metadata.eventbrid_config_id == '' ||
-        data.app_metadata.eventbrid_config_id == undefined) &&
+      (data?.app_metadata?.eventbrid_config_id == '' ||
+        data?.app_metadata?.eventbrid_config_id == undefined) &&
       this.customer.customersuuid != ''
     ) {
       data.app_metadata.eventbrid_config_id = this.customer.customersuuid;

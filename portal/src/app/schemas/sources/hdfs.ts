@@ -2,7 +2,7 @@ import { Metadata } from '../k8s/metadata';
 import { K8SSecret } from '../k8s/secret';
 
 export class HDFSSource {
-  metadata: Metadata;
+  metadata: Metadata = new Metadata();
 
   directory: string = '';
   type: string = '';

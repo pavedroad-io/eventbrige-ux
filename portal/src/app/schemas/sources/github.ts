@@ -7,10 +7,10 @@ import { K8SSecret } from '../k8s/secret';
 
 export class GithubSource {
   name: string = "";
-  metadata: Metadata;
-  services: Services;
+  metadata: Metadata = new Metadata();
+  services: Services = new Services();
   repository: GithubRepostory = new GithubRepostory();
-  webhooks: WebHookList;
+  webhooks: WebHookList = new WebHookList();
   events: Array<string> = new Array(0);
   apiToken: K8SSecret = new K8SSecret();
   webhookSecret: K8SSecret = new  K8SSecret();

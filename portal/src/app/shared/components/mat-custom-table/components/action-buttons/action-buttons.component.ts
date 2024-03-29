@@ -12,7 +12,7 @@ export class ActionButtonsComponent implements OnInit {
 
   ngOnInit() {}
 
-  @Input() value: string;
+  @Input() value: string = '';
   @Output() buttonAction: EventEmitter<TableButtonAction> =
     new EventEmitter<TableButtonAction>();
 

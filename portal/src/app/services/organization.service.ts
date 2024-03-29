@@ -15,7 +15,7 @@ import { AppMetadataComponent } from '../schemas/app-metadata/app-metadata.compo
 
 import { ProfileService } from './profile.service';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: any) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -31,16 +31,16 @@ export class OrganizationService {
   private url: string =
     environment.OrgBaseURL + environment.BasePath + environment.OrgEndPoint;
   private idurl: string = this.url + '/';
-  private profile;
+  private profile: any;
 
   id: string = '';
   public organization: Organization;
 
   httpResponse: any;
-  public ctx;
-  public share;
+  public ctx: any;
+  public share: any;
 
-  UpdateOrganization(data, updateMetadata) {
+  UpdateOrganization(data:Organization, updateMetadata:any) {
     this.organization = data;
     this.ctx.next(data);
     this.updateOrganization(data, updateMetadata);
@@ -54,10 +54,11 @@ export class OrganizationService {
   }
 
   constructor(private http: HttpClient, private profileSvc: ProfileService) {
-    //this.organization = new Organization();
+    this.organization = new Organization();
     //this.organization.organizationuuid = this.id;
-    this.organization = undefined;
-    //this.organization.organizationuuid = this.id;
+
+    // TODO fix this it needs to be undefined
+    //this.organization = undefined;
     this.ServiceInit();
     this.ProfileInit();
   }

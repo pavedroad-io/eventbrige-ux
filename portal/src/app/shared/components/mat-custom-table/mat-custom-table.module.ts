@@ -12,11 +12,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
-  declarations: [MatCustomTableComponent, TableActionDirective, ActionButtonsComponent],
+  declarations: [
+    MatCustomTableComponent, 
+    TableActionDirective, 
+    ActionButtonsComponent,
+  ],
   imports: [
     CommonModule,
     MatTableModule,
@@ -29,8 +33,8 @@ import { MatTableModule } from '@angular/material/table';
     MatToolbarModule,
     MatInputModule,
     FormsModule,
-    MatSortModule
+    MatSortModule,
   ],
-  exports: [MatCustomTableComponent]
+  exports: [MatCustomTableComponent, TableActionDirective, ActionButtonsComponent]
 })
 export class MatCustomTableModule { }

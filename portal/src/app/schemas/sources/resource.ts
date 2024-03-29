@@ -2,7 +2,7 @@ import { Metadata } from '../k8s/metadata';
 import { FileOpt } from './fileopts';
 
 export class ResourceSource {
-  metadata: Metadata;
+  metadata: Metadata = new Metadata();;
   serviceAccount: string = "";
 
   group: string = "";

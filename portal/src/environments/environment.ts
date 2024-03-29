@@ -5,11 +5,13 @@ export const environment = {
   OrgBaseURL: "http://localhost:8082",
   ManifestBaseURL: "http://localhost:8083",
   PlogBaseURL: "http://localhost:8084",
+  WebKubeBaseURL: "http://localhost:9001",
   BasePath: "/api/v1/namespace/pavedroad/",
   OrgEndPoint: "organization" ,
   EBConfigEndPoint: "customers" ,
   ManifestEndPoint: "EoManifestMgr",
   PlogEndPoint: "plogs",
+  WebKubeEndPoint: "Webkubectl",
   
   // Auth0
   Domain: "pavedroad.us.auth0.com",

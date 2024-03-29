@@ -20,9 +20,9 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
   profile: any = {};
-  fullProfile: any;
-  orgID: string;
-  ebConf: string;
+  fullProfile: any = {};
+  orgID: string = '';
+  ebConf: string = '';
   newClient: boolean = false;
 
   public ctx;
@@ -35,19 +35,19 @@ export class ProfileService {
   }
 
   ProfileLoad(): void {
-    this.auth.user$.subscribe((profile) => {
+    this.auth.user$.subscribe((profile: any) => {
       this.profile = profile;
       this.http
         .get(encodeURI(environment.Audience + 'users/' + profile.sub))
-        .subscribe(data => {
+        .subscribe((data) => {
           this.fullProfile = data;
           this.ctx.next(this.fullProfile);
         });
     });
   }
 
-  updateMetadata(app_metadata): void {
-    if (this.fullProfile.app_metadata != undefined) {
+  updateMetadata(app_metadata: any): void {
+    if (this.fullProfile?.app_metadata != undefined) {
       this.fullProfile.app_metadata = app_metadata;
       this.ctx.next(this.fullProfile);
     }

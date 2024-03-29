@@ -44,7 +44,7 @@ export class ChipSelectorComponent implements OnInit {
   selectable = true;
   removable = true;
 
-  @ViewChild('chipInput') chipInput: ElementRef<HTMLInputElement>;
+  @ViewChild('chipInput') chipInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private router: Router,

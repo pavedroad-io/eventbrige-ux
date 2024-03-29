@@ -9,7 +9,7 @@ export class GitlabSource {
   services: Services = new Services();
   project: string = "";
   projects: Array<string> = new Array(0);
-  webhooks: WebHookList;
+  webhooks: WebHookList = new WebHookList();
   events: Array<string> = new Array(0);
   accessToken: K8SSecret = new K8SSecret();
   secretToken: K8SSecret = new  K8SSecret();

@@ -12,7 +12,6 @@ export class KvpairComponent implements OnInit {
   @Input() title: string = 'Key value pairs';
   @Input() subTitle: string = '';
   @Output() @Input() list: KeyValuePair[] = Array(0);
-  pairForm: FormGroup;
   form: FormGroup;
   kvList: {
     key: string;

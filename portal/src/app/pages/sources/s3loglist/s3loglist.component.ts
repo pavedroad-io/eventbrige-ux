@@ -6,7 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { CustomerService } from '../../../services/customers.service';
 import { Customers } from '../../../schemas/customers';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -17,7 +17,8 @@ const sleep = (milliseconds) => {
 })
 export class S3loglistComponent implements OnInit {
   customer = new Customers();
-  dataSource;
+  dataSource!: MatTableDataSource<any> ;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   public displayedColumns: string[] = [
     'checked',
@@ -41,13 +42,12 @@ export class S3loglistComponent implements OnInit {
     });
   }
 
-  @ViewChild(MatSort) sort: MatSort;
 
   public openS3LogItem() {
     this.router.navigate(['logitem']);
   }
 
-  public deleteLogItem(event) {
+  public deleteLogItem(event: any) {
     // Add alert box
     this.customer.logs.forEach((item, index) => {
       if (item.name == event.name) this.customer.logs.splice(index, 1);

@@ -16,6 +16,8 @@ import {
 } from '@angular/forms';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatCard } from '@angular/material/card';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -40,10 +42,10 @@ import { ServiceConstants } from '../../../shared/consts/serviceConstants';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  org: Organization = undefined;
-  eoSvc: SaaSService;
-  wasabiSvc: SaaSService;
-  S3Svc: SaaSService;
+  org: Organization = new Organization();
+  eoSvc: SaaSService | undefined = undefined;
+  wasabiSvc: SaaSService | undefined = undefined;
+  S3Svc: SaaSService | undefined = undefined;
   fullProfile: Auth0User = new Auth0User();
 
   eventbridgeConfig: Customers = new Customers();
@@ -55,8 +57,8 @@ export class SignupComponent implements OnInit {
 
   addMode: boolean = true;
   updateMetadata: boolean = false;
-  submitted = false;
-  id: string;
+  submitted: boolean = false;
+  id: string = '';
 
   public displayedColumns: string[] = [
     'name',
@@ -100,6 +102,7 @@ export class SignupComponent implements OnInit {
 
     this.id = this.route.snapshot.params['id'];
     if (!this.id) {
+      this.org = new Organization();
       this.addMode = true;
       this.formtitle = 'Welcome please enter your company information';
       this.addDefaultServices();
@@ -110,7 +113,7 @@ export class SignupComponent implements OnInit {
 
       // load org
       this.organizationds.loadOrg(this.id);
-      this.organizationds.share.subscribe((data) => {
+      this.organizationds.share.subscribe((data: Organization) => {
         if (data == undefined) {
           return;
         }
@@ -130,7 +133,7 @@ export class SignupComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
 
   verifyServiceConfigs() {
     if (this.org == undefined) {
@@ -162,10 +165,10 @@ export class SignupComponent implements OnInit {
       this.fullProfile.app_metadata.eventbrid_config_id == '' ||
       this.fullProfile.app_metadata.eventbrid_config_id == undefined
     ) {
-      let i = this.findSaaSService(ServiceConstants.EVENTORCHESTRATOR);
-      if (i != -1) {
+      let index = this.findSaaSService(ServiceConstants.EVENTORCHESTRATOR);
+      if (index != undefined) {
         this.fullProfile.app_metadata.eventbrid_config_id =
-          this.org.services[i].configkey;
+          this.org.services[index].configkey;
         this.updateMetadata = true;
       }
     }
@@ -209,10 +212,10 @@ export class SignupComponent implements OnInit {
     if (this.org?.services == undefined) {
       return;
     }
-    let i = this.findSaaSService(ServiceConstants.EVENTORCHESTRATOR);
-    if (i != -1) {
-      if (this.org.services[i].configkey == '') {
-        this.org.services[i].configkey = this.eventbridgeConfig.customersuuid;
+    const index = this.findSaaSService(ServiceConstants.EVENTORCHESTRATOR);
+    if (index != undefined) {
+      if (this.org.services[index].configkey == '') {
+        this.org.services[index].configkey = this.eventbridgeConfig.customersuuid;
       }
     }
   }
@@ -245,6 +248,9 @@ export class SignupComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (this.eventbridgeConfig.customersuuid == '') return;
     if (this.addMode) {
+      if (this.org == undefined) {
+        this.org = new Organization();
+      }
       this.org.name = this.companyFG.get('name').value;
       this.org.address = this.companyFG.get('address').value;
       this.org.city = this.companyFG.get('city').value;
@@ -259,14 +265,21 @@ export class SignupComponent implements OnInit {
           this.fullProfile.app_metadata = new AppMetadataComponent();
         }
         this.fullProfile.app_metadata.customer_id = this.org.organizationuuid;
-        this.fullProfile.app_metadata.eventbrid_config_id =
-          this.eoSvc.configkey;
+
+	if (this.eoSvc?.configkey) {
+           this.fullProfile.app_metadata.eventbrid_config_id = this.eoSvc.configkey;
+	}
+
         this.profileds.ctx.next(this.fullProfile);
 
         // Force AUTH0 reload
         this.profileds.ProfileLoad();
       });
     } else {
+      if(this.org == undefined) {
+        alert('organization object not found');
+	return;
+      }
       this.org.name = this.companyFG.get('name').value;
       this.org.address = this.companyFG.get('address').value;
       this.org.city = this.companyFG.get('city').value;

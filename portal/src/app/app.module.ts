@@ -1,18 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
+// Angular modules
 import { NgModule } from '@angular/core';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 
-// Import the module from the SDK
+import { LayoutModule } from '@angular/cdk/layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+
+// Http support
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RouterModule} from '@angular/router';
+
+// Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthModule } from '@auth0/auth0-angular';
-import { LoginComponent } from './login/login.component';
-
-
-// Monaco Editor
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 
 // Material modules
@@ -76,186 +82,73 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
-// Angular modules
-import { LayoutModule } from '@angular/cdk/layout';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
-// Http support
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-// Import the HTTP interceptor from the Auth0 Angular SDK
-import { AuthHttpInterceptor } from '@auth0/auth0-angular';
-
-// Charting modules
-import { ChartsModule } from 'ng2-charts';
-
-// PR modules
-//import { CoreModule } from './core/core.module';
-import { ProviderListComponent } from './pages/provider-list/provider-list.component';
-import { SchedulerConfigComponent } from './pages/scheduler-config/scheduler-config.component';
-import { ProviderComponent } from './pages/provider/provider.component';
-import { S3loglistComponent } from './pages/sources/s3loglist/s3loglist.component';
-import { LambdaComponent } from './pages/triggers/lambda/lambda.component';
-import { WorkerpoolComponent } from './pages/config/workerpool/workerpool.component';
-import { WebhookComponent } from './pages/config/webhook/webhook.component';
-import { S3logitemComponent } from './pages/sources/s3logitem/s3logitem.component';
-import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.component';
-import { PrivacyComponent } from './pages/legal/privacy/privacy.component';
-import { TermsComponent } from './pages/legal/terms/terms.component';
-import { SignupComponent } from './pages/customer/signup/signup.component';
-import { UsermgtComponent } from './pages/users/usermgt/usermgt.component';
-import { HookComponent } from './core/components/events/hook/hook.component';
-import { SecretComponent } from './core/components/k8s/secret/secret.component';
-import { SharedModule } from './shared/shared.module';
-import { MatCustomTableModule } from 'src/app/shared/components/mat-custom-table/mat-custom-table.module';
-import { NavigationComponent } from './core/components/navigation/navigation.component';
-import { ProfileComponent } from './core/components/profile/profile.component';
-import { NavigationBarComponent } from './core/components/navigation-bar/navigation-bar.component';
-import { DeleteDialogComponent } from './core/components/delete-dialog/delete-dialog.component';
-import { EolandingComponent } from './core/components/eolanding/eolanding.component';
-import { BackoffConfigComponent } from './core/components/events/backoff-config/backoff-config.component';
-
-// Filters
-import { TreeSelectorComponent } from './core/components/filters/tree-selector/tree-selector.component';
-import { MenuSelectorComponent } from './core/components/filters/menu-selector/menu-selector.component';
-import { SearchSelectorComponent } from './core/components/filters/search-selector/search-selector.component';
-import { ToggleSelectorComponent } from './core/components/filters/toggle-selector/toggle-selector.component';
-import { ChipSelectorComponent } from './core/components/filters/chip-selector/chip-selector.component';
-import { RangeSelectorComponent } from './core/components/filters/range-selector/range-selector.component';
-import { RatingSelectorComponent } from './core/components/filters/rating-selector/rating-selector.component';
+// PR Common
+import { environment } from '../environments/environment';
+import { CoreModule } from './core/core.module';
+import { MatCustomTableModule } from './shared/components/mat-custom-table/mat-custom-table.module';
 
 
-// Shared componentes from core
-import { EnvironmentsComponent } from './core/components/environments/environments.component';
-import { KvpairComponent } from './core/components/widgets/kvpair/kvpair.component';
-
-// Services
-import { CustomerService } from './services/customers.service';
-import { OrganizationService } from './services/organization.service';
-import { ProfileService } from './services/profile.service';
-import { PorttrackerService } from './services/porttracker.service';
-
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { NewserviceComponent } from './pages/services/newservice/newservice.component';
-import { SourceBreakdownComponent } from './charts/source-breakdown/source-breakdown.component';
-import { SourcesComponent } from './charts/sources/sources.component';
-import { EventsGenerateComponent } from './charts/events-generate/events-generate.component';
-import { TriggersGeneratedComponent } from './charts/triggers-generated/triggers-generated.component';
-import { ResourcesConsummedComponent } from './charts/resources-consummed/resources-consummed.component';
-import { DeplomentComponent } from './pages/deploy/deploment/deploment.component';
-import { DeploymentStatusComponent } from './pages/deploy/status/status.component';
+//import { DashboardComponent } from './dashboard/dashboard.component';
+import { DeplomentComponent} from './pages/deploy/deploment/deploment.component';
 import { DeleteDeploymentComponent } from './pages/deploy/delete/delete.component';
+import { DeploymentStatusComponent} from './pages/deploy/status/status.component';
+import { EditWorkflowComponent } from './pages/workflows/edit.workflow/edit.workflow.component';
 import { GettingstartedComponent } from './partners/wasabi/gettingstarted/gettingstarted.component';
-import { MetadataComponent } from './pages/k8s/metadata/metadata.component';
-import { SecretListComponent } from './pages/k8s/secret-list/secret-list.component';
-import { SnsComponent } from './pages/sources/sns/sns.component';
-import { SnslistComponent } from './pages/sources/snslist/snslist.component';
-import { AppMetadataComponent } from './schemas/app-metadata/app-metadata.component';
-import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-all-sources.component';
-import { ListAllTriggersComponent } from './pages/triggers/list-all-triggers/list-all-triggers.component';
 
-import { ListAllWorkflowsComponent } from './pages/workflows/list-all-workflows/list-all-workflows.component';
+import { LambdaComponent } from './pages/triggers/lambda/lambda.component';
+import { LambdaListComponent } from './pages/triggers/lambda-list/lambda-list.component';
+import { NewserviceComponent } from './pages/services/newservice/newservice.component';
+import { ProviderComponent } from './pages/provider/provider.component';
+import { ProviderListComponent } from './pages/provider-list/provider-list.component';
+import { S3logitemComponent } from './pages/sources/s3logitem/s3logitem.component';
+import { S3loglistComponent } from './pages/sources/s3loglist/s3loglist.component';
+import { SchedulerConfigComponent } from './pages/scheduler-config/scheduler-config.component';
+import { SignupComponent  } from './pages/customer/signup/signup.component';
+import { SnslistComponent } from './pages/sources/snslist/snslist.component';
+import { SnsComponent } from './pages/sources/sns/sns.component';
+import { UsermgtComponent } from './pages/users/usermgt/usermgt.component';
+import { ListAllSourcesComponent } from './pages/sources/list-all-sources/list-all-sources.component';
 
 import { ListAllCodeComponent } from './pages/code/list-all-code/list-all-code.component';
-
-import { EditWorkflowComponent } from './pages/workflows/edit.workflow/edit.workflow.component';
+import { ListAllWorkflowsComponent } from './pages/workflows/list-all-workflows/list-all-workflows.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ProviderListComponent,
-    SchedulerConfigComponent,
-    ProviderComponent,
-    S3loglistComponent,
-    LambdaComponent,
-    WorkerpoolComponent,
-    WebhookComponent,
-    S3logitemComponent,
-    LambdaListComponent,
-    PrivacyComponent,
-    TermsComponent,
-    SignupComponent,
-    UsermgtComponent,
-    HookComponent,
-    SecretComponent,
-    DashboardComponent,
-    NewserviceComponent,
-    SourceBreakdownComponent,
-    SourcesComponent,
-    EventsGenerateComponent,
-    TriggersGeneratedComponent,
-    ResourcesConsummedComponent,
+//    DashboardComponent,
     DeplomentComponent,
-    DeploymentStatusComponent,
     DeleteDeploymentComponent,
+    DeploymentStatusComponent,
+    EditWorkflowComponent,
     GettingstartedComponent,
-    MetadataComponent,
-    SecretListComponent,
+    LambdaComponent,
+    LambdaListComponent,
+    NewserviceComponent,
+    ProviderComponent,
+    ProviderListComponent,
+    S3logitemComponent,
+    S3loglistComponent,
+    SchedulerConfigComponent,
+    SignupComponent,
     SnsComponent,
     SnslistComponent,
-    AppMetadataComponent,
-    ListAllSourcesComponent,
-    NavigationComponent,
-    NavigationBarComponent,
-    ProfileComponent,
-    DeleteDialogComponent,
-    EolandingComponent,
-    MetadataComponent,
-    TreeSelectorComponent,
-    MenuSelectorComponent,
-    SearchSelectorComponent,
-    ToggleSelectorComponent,
-    ChipSelectorComponent,
-    RangeSelectorComponent,
-    RatingSelectorComponent,
-    ListAllTriggersComponent,
-    ListAllWorkflowsComponent,
+    UsermgtComponent,
     ListAllCodeComponent,
-    EditWorkflowComponent,
-    EnvironmentsComponent,
-    KvpairComponent,
+    ListAllSourcesComponent,
+    ListAllWorkflowsComponent
   ],
   imports: [
+    CoreModule,
+    MatCustomTableModule,
     AppRoutingModule,
-    BrowserModule,
     BrowserAnimationsModule,
-    // Import the module into the application, with configuration
-    AuthModule.forRoot({
-      domain: environment.Domain,
-      clientId: environment.ClientID,
-
-      // Request this audience at user authentication time
-      audience: environment.Audience,
-
-      // Request this scope at user authentication time
-      scope: environment.Scope,
-
-      // Specify configuration for the interceptor
-      httpInterceptor: {
-        allowedList: [
-          {
-            // Match any request that starts 'https://pavedroad.us.auth0.com/api/v2/' (note the asterisk)
-            uri: environment.Audience + '*',
-            tokenOptions: {
-              // The attached token should target this audience
-              audience: environment.Audience,
-
-              // The attached token should have these scopes
-              scope: environment.Scope,
-            },
-          },
-        ],
-      },
-    }),
-    ChartsModule,
+    BrowserModule,
     FlexLayoutModule,
-    HttpClientModule,
-    LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCustomTableModule,
+    RouterModule,
+    HttpClientModule,
 
     MatMenuModule,
     MatSidenavModule,
@@ -296,8 +189,37 @@ import { EditWorkflowComponent } from './pages/workflows/edit.workflow/edit.work
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+
+    // PR shared components
+
+    AuthModule.forRoot({
+      domain: environment.Domain,
+      clientId: environment.ClientID,
+
+      // Request this audience at user authentication time
+      audience: environment.Audience,
+
+      // Request this scope at user authentication time
+      scope: environment.Scope,
+
+      // Specify configuration for the interceptor
+      httpInterceptor: {
+        allowedList: [
+          {
+            // Match any request that starts 'https://pavedroad.us.auth0.com/api/v2/' (note the asterisk)
+            uri: environment.Audience + '*',
+            tokenOptions: {
+              // The attached token should target this audience
+              audience: environment.Audience,
+
+              // The attached token should have these scopes
+              scope: environment.Scope,
+            },
+          },
+        ],
+      },
+    }),
   ],
-  exports: [],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -309,7 +231,6 @@ import { EditWorkflowComponent } from './pages/workflows/edit.workflow/edit.work
     },
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
   ],
-  entryComponents: [DeleteDialogComponent],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

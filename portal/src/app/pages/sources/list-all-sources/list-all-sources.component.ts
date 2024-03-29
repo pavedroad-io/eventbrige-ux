@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-//import { MatCustomTableModule } from '../../../shared/components/mat-custom-table/mat-custom-table.module';
 import { MatCustomTableComponent } from '../../../shared/components/mat-custom-table/mat-custom-table.component';
 
 import { CustomerService } from '../../../services/customers.service';
@@ -19,7 +18,7 @@ export class ListAllSourcesComponent implements OnInit, AfterViewInit {
   data: any[] = Array(0);
   angularRoute: string = 'snssource';
   columns: any[] = Array(0);
-  @ViewChild(MatCustomTableComponent) table: MatCustomTableComponent;
+  @ViewChild(MatCustomTableComponent) table!: MatCustomTableComponent;
 
   constructor(private customerds: CustomerService, private router: Router) {}
 
@@ -42,7 +41,7 @@ export class ListAllSourcesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onToolbarAction(event) {
+  onToolbarAction(event:any) {
     switch (event) {
       case 'create': {
         this.router.navigate(['newservice']);
@@ -59,7 +58,7 @@ export class ListAllSourcesComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onTableAction(event) {
+  onTableAction(event:any) {
     if (event.value.name == '' || event.value.name == undefined) {
       alert('SNS event has no name');
     }
@@ -85,11 +84,11 @@ export class ListAllSourcesComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public open(url) {
+  public open(url: string) {
     this.router.navigate([url]);
   }
 
-  public delete(event) {
+  public delete(event: any) {
     this.customer.configuration.sources.sns.forEach((sns, index) => {
       if (sns.snsmetadata.name == event.value.name)
         this.customer.configuration.sources.sns.splice(index, 1);

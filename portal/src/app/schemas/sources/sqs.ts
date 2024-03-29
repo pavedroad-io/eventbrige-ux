@@ -1,7 +1,7 @@
 import { Metadata } from '../k8s/metadata'
 
 export class SQSSource {
-  metadata: Metadata
+  metadata: Metadata = new Metadata();
   accessKey: string // AccessKey refers K8s secret containing aws access key
   secretKey: string // SecretKey refers K8s secret containing aws secret key
   region: string    // AWS region

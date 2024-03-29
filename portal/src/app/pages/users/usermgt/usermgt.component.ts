@@ -39,14 +39,16 @@ import { User } from '../../../schemas/users';
 export class UsermgtComponent implements OnInit {
   userFG: FormGroup;
   user = new User();
-  dataSource: any;
+  dataSource: any = [];
   org: Organization = new Organization();
-  id: string;
-  editIdx: any;
+  id: string = '';
+  editIdx: any = 0;
   submitted = false;
   editMode = false;
   modeLabel = 'Add a new user';
   modeButton = 'Add user';
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   public displayedColumns: string[] = [
     'name',
@@ -69,8 +71,12 @@ export class UsermgtComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  get f() {
-    return this.userFG.controls;
+  controlValid(name: string): boolean {
+    let test = this.userFG.get(name)?.valid;
+    if(test != null) {
+	    return test
+    }
+    return false;
   }
 
   createUser(): FormGroup {
@@ -116,7 +122,7 @@ export class UsermgtComponent implements OnInit {
     }
   }
 
-  public editUser(event) {
+  public editUser(event: any) {
     this.org.members.forEach((item, index) => {
       if (item.name == event.name) {
         this.submitted = false;
@@ -130,7 +136,7 @@ export class UsermgtComponent implements OnInit {
     });
   }
 
-  public deleteUser(event) {
+  public deleteUser(event: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -164,7 +170,6 @@ export class UsermgtComponent implements OnInit {
     this.organizationds.loadOrg(this.id);
   }
 
-  @ViewChild(MatSort) sort: MatSort;
 
   updateOrg() {
     this.organizationds.UpdateOrganization(this.org, false);

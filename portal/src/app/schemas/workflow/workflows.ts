@@ -4,20 +4,20 @@ import { GenericWorkflow } from './generic';
 */
 export class Workflows {
   genericWorkflows: Array<GenericWorkflow> = new Array(0);
-  columns: genericWorkflowColumns;
+  columns: genericWorkflowColumns = new genericWorkflowColumns();
 
 
-  addMissing(instance) {
+  addMissing(instance:any ) {
     if (instance.genericWorkflows == undefined) instance.genericWorkflows = new Array(0);
   }
 
-  tableView(instance) {
+  tableView(instance:any ) {
     let dataTableSource: Array<any> = [];
 
     /** GenericWorkflow */
     if (instance.genericWorkflows != undefined &&
         instance.genericWorkflows.length > 0) {
-      instance.genericWorkflows.forEach((item) => {
+      instance.genericWorkflows.forEach((item: any) => {
         let newItem: genericWorkflowTable = {
           type: item.type,
           name: item.name,

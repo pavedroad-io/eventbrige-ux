@@ -11,7 +11,7 @@ import { Customers } from '../../../schemas/customers';
 import { CustomerService } from '../../../services/customers.service';
 import { DeploymentService } from '../../../services/deployment.service';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -22,11 +22,11 @@ const sleep = (milliseconds) => {
 })
 export class DeleteDeploymentComponent implements OnInit {
   activeSpinner: boolean = false;
-  panelOpenState = true;
-  activeConfig;
-  string = '';
+  panelOpenState: boolean = true;
+  activeConfig: any = {};
+  string:string = '';
 
-  status: string;
+  status: string = '';
   cardstatus: string = 'delete pending confirmation';
   results: string = '';
 

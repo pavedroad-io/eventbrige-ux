@@ -1,6 +1,7 @@
 <app-mat-custom-table
  (action)="onTableAction($event)"
  (tableAction)="onToolbarAction($event)"
+  [columns]="columns"
   [dataset]="data" 
-  [columns]="columns">
+  >
 </app-mat-custom-table>

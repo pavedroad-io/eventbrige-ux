@@ -16,9 +16,9 @@ import { CustomerService } from '../../../services/customers.service';
 export class ListAllCodeComponent implements OnInit {
   data: any[] = Array(0);
   angularRoute: string = 'snssource';
-  columns: any[] = Array(0);
+  columns: any[] = [];
   customer = new Customers();
-  @ViewChild(MatCustomTableComponent) table: MatCustomTableComponent;
+  @ViewChild(MatCustomTableComponent) table!: MatCustomTableComponent;
 
   constructor(
 	  private customerds: CustomerService, 
@@ -42,7 +42,7 @@ export class ListAllCodeComponent implements OnInit {
     });
   }
 
-  onToolbarAction(event) {
+  onToolbarAction(event: any) {
     switch (event) {
       case 'create': {
         this.router.navigate(['newservice']);
@@ -59,7 +59,7 @@ export class ListAllCodeComponent implements OnInit {
     }
   }
 
-  onTableAction(event) {
+  onTableAction(event: any) {
     if (event.value.name == '' || event.value.name == undefined) {
       alert('SNS event has no name');
     }
@@ -83,11 +83,11 @@ export class ListAllCodeComponent implements OnInit {
     }
   }
 
-  public open(url) {
+  public open(url: string) {
     this.router.navigate([url]);
   }
 
-  public delete(event) {
+  public delete(event: any) {
 	  /*
     this.customer.configuration.sources.sns.forEach((sns, index) => {
       if (sns.snsmetadata.name == event.value.name)

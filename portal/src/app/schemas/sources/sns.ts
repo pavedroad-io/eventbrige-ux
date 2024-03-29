@@ -42,7 +42,7 @@ export class SNSSource {
   }
 
   find(key: string, list: SNSSource[]) {
-    let rv: SNSSource;
+    let rv: SNSSource = new SNSSource({});
     list.forEach((item) => {
       if (item.snsmetadata.name === key) {
         rv = item;
@@ -54,12 +54,12 @@ export class SNSSource {
 }
 
 export class SNSSourceDisplay {
-  name: string;
-  provider: string;
-  region: string;
-  role: string;
-  topic: string;
-  validateSignature: boolean;
-  webhook: string;
-  methods: string;
+  name: string = "";
+  provider: string = "";
+  region: string = "";
+  role: string = "";
+  topic: string = "";
+  validateSignature: boolean = true;
+  webhook: string = "";
+  methods: string = "";
 }

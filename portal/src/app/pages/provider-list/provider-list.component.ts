@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationEnd, Router } from '@angular/router';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds:number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -18,8 +18,9 @@ const sleep = (milliseconds) => {
 })
 export class ProviderListComponent implements OnInit {
   customer = new Customers();
+  dataSource!: any;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  dataSource;
 
   public displayedColumns: string[] = [
     'checked',
@@ -44,17 +45,15 @@ export class ProviderListComponent implements OnInit {
     });
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-
   public openProvider() {
     this.router.navigate(['provider']);
   }
 
-  public editProvider(event) {
+  public editProvider(event: any) {
     //    console.log(event);
   }
 
-  public deleteProvider(event) {
+  public deleteProvider(event: any) {
     // Add alert box
     this.customer.providers.forEach((item, index) => {
       if (item.name == event.name) this.customer.providers.splice(index, 1);

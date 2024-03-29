@@ -30,9 +30,10 @@ import { CustomerService } from '../../../../services/customers.service';
 
 // PR Schemas
 import { Customers } from '../../../../schemas/customers';
+import { Provider } from '../../../../schemas/provider';
 
 // PR Functions
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -42,8 +43,8 @@ const sleep = (milliseconds) => {
   styleUrls: ['./secret.component.scss'],
 })
 export class SecretComponent implements OnInit {
-  customer: Customers; // A customer an array of providers
-  providerSelected: any;
+  customer: Customers = new Customers(); // A customer an array of providers
+  providerSelected: string = '';
 
   constructor(public customerds: CustomerService) {}
 
@@ -53,11 +54,13 @@ export class SecretComponent implements OnInit {
     this.customerds.share.subscribe((data) => (this.customer = data));
   }
 
-  lookup(name: string) {
+  lookup(name: string): Provider {
+    let result = new Provider();
     for (const provider of this.customer.providers) {
       if (name === provider.name) {
         return provider;
       }
     }
+    return result;
   }
 }

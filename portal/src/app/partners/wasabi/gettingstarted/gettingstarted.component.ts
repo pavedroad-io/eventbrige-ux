@@ -63,8 +63,8 @@ def lambda_handler(event, context):
 export class GettingstartedComponent implements OnInit {
   code: string = samplecode;
   isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit() {

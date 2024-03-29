@@ -5,7 +5,7 @@ import { Customers } from '../../schemas/customers';
 import { CustomerService } from '../../services/customers.service';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -15,13 +15,13 @@ const sleep = (milliseconds) => {
   styleUrls: ['./provider.component.scss'],
 })
 export class ProviderComponent implements OnInit {
-  submitted = false;
-  isAddMode: boolean;
-  id: string;
+  submitted: boolean = false;
+  isAddMode: boolean = false;
+  id: string = "";
   customer = new Customers();
-  provider: Provider;
-  providerIndex: number;
-  buttonMode: string;
+  public provider: Provider = new Provider();
+  providerIndex: number = 0;
+  buttonMode: string = "Add";
 
   onSubmit(form: NgForm) {
     if (this.isAddMode) {
@@ -87,13 +87,14 @@ export class ProviderComponent implements OnInit {
 
   newProvider() {}
 
-  IsReady(): any {
+  IsReady(): boolean {
     sleep(80).then(() => {
       if (this.customerds.share === undefined) {
-        this.IsReady();
+        return this.IsReady();
       } else {
         return true;
       }
     });
+    return false;
   }
 }

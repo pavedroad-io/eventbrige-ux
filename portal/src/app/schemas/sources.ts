@@ -85,7 +85,7 @@ export class Sources {
     this.columns = new genericSourceColumns();
   }
 
-  addMissing(instance) {
+  addMissing(instance:Sources) {
     if (instance.amqp == undefined) instance.amqp = new Array(0);
     if (instance.bitbucket == undefined) instance.bitbucket = new Array(0);
     if (instance.calendar == undefined) instance.calendar = new Array(0);
@@ -120,13 +120,13 @@ export class Sources {
      @param instance: an instance of sources
   
   */
-  tableView(instance) {
+  tableView(instance:Sources) {
     let dataTableSource: Array<any> = [];
 
     /** AMQP sources */
     if (instance.amqp != undefined &&
         instance.amqp.length > 0) {
-      instance.amqp.forEach((item) => {
+      instance.amqp.forEach((item:AMQPSource) => {
         let newItem: genericSourceEventTable = {
           type: 'amqp',
           name: item.metadata.name,
@@ -159,7 +159,7 @@ export class Sources {
     /** BitbucketSource sources */
     if (instance.bitbucket != undefined &&
         instance.bitbucket.length > 0) {
-      instance.bitbucket.forEach((item) => {
+      instance.bitbucket.forEach((item: BitbucketSource) => {
         let newItem: genericSourceEventTable = {
           type: 'Bitbucket',
           name: item.metadata.name,
@@ -176,7 +176,7 @@ export class Sources {
     /** CalendarSource */
     if (instance.calendar != undefined &&
         instance.calendar.length > 0) {
-      instance.calendar.forEach((item) => {
+      instance.calendar.forEach((item: CalendarSource) => {
         let newItem: genericSourceEventTable = {
           type: 'Calendar',
           name: item.metadata.name,
@@ -193,7 +193,7 @@ export class Sources {
     /** SNSSource */
     if (instance.sns != undefined &&
         instance.sns.length > 0) {
-      instance.sns.forEach((item) => {
+      instance.sns.forEach((item: SNSSource) => {
         let newItem: genericSourceEventTable = {
           type: 'SNS',
           name: item.snsmetadata.name,
@@ -218,13 +218,13 @@ export class Sources {
 }
 
 export class genericSourceEventTable {
-  type: string;
-  name: string;
-  provider: string;
-  region: string;
-  webhook: string;
-  events: string;
-  methods: string;
+  type: string = '';
+  name: string = '';
+  provider: string = '';
+  region: string = '';
+  webhook: string = '';
+  events: string = '';
+  methods: string = '';
 
   constructor(data: Partial<genericSourceEventTable>) {
     Object.assign(this, data);
@@ -232,7 +232,7 @@ export class genericSourceEventTable {
 }
 
 export class genericSourceColumns {
-  columns:Array<any>;
+  columns:Array<any> = new Array(0);
 
   constructor() {
     this.columns = [

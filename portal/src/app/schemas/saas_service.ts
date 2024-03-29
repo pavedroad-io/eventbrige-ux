@@ -30,13 +30,13 @@ export class SaaSService {
     }
   }
 
-  find(list: SaaSService[], key: string): SaaSService {
+  find(list: SaaSService[], key: string): SaaSService | undefined{
     for (var i = 0; i < list.length; i++) {
       if (list[i].name === key) {
         return list[i];
       }
     }
 
-    return undefined
+    return undefined;
   }
 }

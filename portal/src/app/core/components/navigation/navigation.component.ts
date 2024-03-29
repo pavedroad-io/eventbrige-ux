@@ -41,7 +41,7 @@ export class NavigationComponent {
   // Use the name of the variable created in the template
   // Rename this right and left side nav
   @ViewChild('navigationSidenav', { static: true })
-  public sidenav: MatSidenav;
+  public sidenav!: MatSidenav;
 
   constructor(
     private router: Router,

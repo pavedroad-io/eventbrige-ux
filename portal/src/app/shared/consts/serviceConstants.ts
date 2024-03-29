@@ -8,11 +8,11 @@ export const ServiceConstants = {
     { key: 'AWS-S3', displayName: 'AWS S3 storage' },
   ],
   displayName(key: string): string {
-    this.services.forEach((item) => {
+    for(const item of this.services) {
       if (item.key === key) {
         return item.displayName;
       }
-    });
-    return undefined
-  },
+    };
+    return 'not found';
+  }
 };

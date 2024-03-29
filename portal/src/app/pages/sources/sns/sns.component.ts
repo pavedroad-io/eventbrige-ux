@@ -53,13 +53,13 @@ export class SnsComponent implements OnInit, AfterViewInit {
   @ViewChild(SecretComponent) secret!: SecretComponent;
 
   source: SNSSource = new SNSSource({});
-  labels: string;
+  labels: string = '';
   customer: Customers = new Customers(); // Really a config object
   providerSelected: string = '';
   addMode: boolean = true;
   buttonText: string = 'Add';
   submitted: boolean = false;
-  id: string;
+  id: string = '';
 
   snsForm = this.fb.group({
     region: ['', Validators.required],
@@ -100,7 +100,7 @@ export class SnsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
 
-  childMessage($event) {
+  childMessage($event: any) {
     console.log('message: ', $event);
   }
 
@@ -114,11 +114,15 @@ export class SnsComponent implements OnInit, AfterViewInit {
     } else return !this.snsForm.valid;
   }
 
-  get getFormGroup() {
-    return this.snsForm.controls;
+  getFormGroupValid(name: string) {
+    const result = this.snsForm.get(name)?.valid;
+    if (result != undefined) {
+      return true;
+    }
+    return false;
   }
 
-  onSubmit(formReference) {
+  onSubmit(formReference: any) {
     var formData = this.snsForm.getRawValue();
     var providerData = this.secret.lookup(this.secret.providerSelected);
 

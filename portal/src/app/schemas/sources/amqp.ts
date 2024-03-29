@@ -8,7 +8,7 @@ import { Queue } from './queue';
 
 
 export class AMQPSource {
-  metadata: Metadata;
+  metadata: Metadata = new Metadata();
   url: string = "";
   jsonBody: boolean = true;
   exchangeName: string = "";

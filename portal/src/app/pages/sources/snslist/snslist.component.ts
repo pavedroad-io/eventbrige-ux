@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { MatCustomTableModule } from '../../../shared/components/mat-custom-table/mat-custom-table.module';
 import { MatCustomTableComponent } from '../../../shared/components/mat-custom-table/mat-custom-table.component';
 
 import { CustomerService } from '../../../services/customers.service';
@@ -13,11 +12,11 @@ import { SNSSource } from '../../../schemas/sources/sns';
   templateUrl: './snslist.component.html',
   styleUrls: ['./snslist.component.scss'],
 })
-export class SnslistComponent implements OnInit {
+export class SnslistComponent implements OnInit, AfterViewInit {
   customer = new Customers();
   data: any[] = Array(0);
   angularRoute: string = 'snssource';
-  @ViewChild(MatCustomTableComponent) table: MatCustomTableComponent;
+  @ViewChild(MatCustomTableComponent) table!: MatCustomTableComponent;
 
   columns = [
     { columnDef: 'name', header: 'Name' },
@@ -31,6 +30,9 @@ export class SnslistComponent implements OnInit {
   constructor(private customerds: CustomerService, private router: Router) {}
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
     // get data from API
     this.customerds.share.subscribe((data) => {
       if (data == undefined || data.configuration.sources.sns.length == 0) {
@@ -41,9 +43,9 @@ export class SnslistComponent implements OnInit {
       this.table.dataset = this.data;
       this.table.reload();
     });
+  
+  
   }
-
-  ngAfterViewInit() {}
 
   flattenSNSSource() {
     if (
@@ -61,7 +63,7 @@ export class SnslistComponent implements OnInit {
     this.data = build;
   }
 
-  onToolbarAction(event) {
+  onToolbarAction(event: any) {
     switch (event) {
       case 'create': {
         this.router.navigate(['snssource']);
@@ -78,7 +80,7 @@ export class SnslistComponent implements OnInit {
     }
   }
 
-  onTableAction(event) {
+  onTableAction(event: any) {
     if (event.value.name == '' || event.value.name == undefined) {
       alert('SNS event has no name');
     }
@@ -104,11 +106,11 @@ export class SnslistComponent implements OnInit {
     }
   }
 
-  public open(url) {
+  public open(url: string) {
     this.router.navigate([url]);
   }
 
-  public delete(event) {
+  public delete(event: any) {
     this.customer.configuration.sources.sns.forEach((sns, index) => {
       if (sns.snsmetadata.name == event.value.name)
         this.customer.configuration.sources.sns.splice(index, 1);

@@ -25,16 +25,11 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, map, tap, retry } from 'rxjs/operators';
-import { Injectable, ViewChild, ViewChildren } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 import { Customers } from '../schemas/customers';
 import { ProfileService } from './profile.service';
-
-const sleep = (milliseconds) => {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-};
 
 const USER_PARAMETER = 'userid';
 const ORG_PARAMETER = 'orgid';
@@ -53,7 +48,7 @@ export class DeploymentService {
     environment.ManifestBaseURL +
     environment.BasePath +
     environment.ManifestEndPoint;
-  private profile;
+  private profile: any;
   ebconfig: Customers = new Customers();
 
   id: string = '';

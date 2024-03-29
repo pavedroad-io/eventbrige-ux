@@ -5,7 +5,7 @@ import { Customers } from '../../../schemas/customers';
 import { CustomerService } from '../../../services/customers.service';
 import { DeploymentService } from '../../../services/deployment.service';
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -16,9 +16,9 @@ const sleep = (milliseconds) => {
 })
 export class DeploymentStatusComponent implements OnInit {
   activeSpinner: boolean = true;
-  panelOpenState = true;
+  panelOpenState: boolean = true;
 
-  status: string;
+  status: string = "";
   eventbridgeConfig: Customers = new Customers();
   customerInit: boolean = false;
   activeConfig: string = '';

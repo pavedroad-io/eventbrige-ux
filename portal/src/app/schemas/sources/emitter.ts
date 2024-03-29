@@ -13,8 +13,8 @@ export class EmitterSource {
   username: K8SSecret = new K8SSecret();
   password: K8SSecret = new K8SSecret();
   caCertSecret: K8SSecret = new K8SSecret();
-  clientCertSecret;
-  clientKeySecret;
+  clientCertSecret: K8SSecret = new K8SSecret();
+  clientKeySecret: K8SSecret = new K8SSecret();
 
   constructor() {
   }
